@@ -6,6 +6,7 @@ import glob
 import os
 
 import datasheetparser
+import biographyparser
 
 FILEPATH = '../Datasheets'
 
@@ -18,4 +19,7 @@ files = glob.glob(path)
 for file in files:
     # parse sections from datasheet
     datasheet = datasheetparser.parse_file(file)
-    print(datasheet['FULLNAME'])
+
+    # main part. parse biography
+    bio = biographyparser.parse(datasheet['BIOGRAPHY'])
+    print(bio)
