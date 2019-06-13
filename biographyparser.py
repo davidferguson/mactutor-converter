@@ -4,6 +4,8 @@
 
 import re
 
+import symbolreplace
+
 TAGS = [
     'FILENAME',
     'SHORTNAME',
@@ -168,6 +170,12 @@ def parse(bio):
     # convert ¬subscript
     regex = re.compile(r'¬(\S+)', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[sub]\1[/sub]', bio)
+
+    # convert symbols
+    bio = symbolreplace.symbols_to_unicode(bio)
+
+    # and convert custom symbol tags too
+    bio = symbolreplace.tags_to_unicode(bio)
 
     # things not mentioned in the sheet are below:
 
