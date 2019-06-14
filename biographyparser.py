@@ -35,9 +35,6 @@ def parse(bio):
     # check we've got a string here
     assert type(bio) == str
 
-    # strip whitespace
-    bio = bio.strip()
-
     # convert <a href="..">...</a>
     regex = re.compile(r'<a href=[\'"](.+?)[\'"].*?>(.*?)<\/a>')
     bio = re.sub(regex, r'[\1](\2)', bio)
@@ -132,15 +129,15 @@ def parse(bio):
     bio = re.sub(regex, r'[bgcolor=cyan]\1[/bgcolor]', bio)
 
     # convert <m>...</m> and <m name>...</m>
-    regex = re.compile(r'<m\s*(?: \s*(?P<name>\w+)\s*)?>(?P<text>.*?)\<\/m\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<m(?:\s+(?P<name>\w+))?\s*>(?P<text>.*?)\<\/m\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, mreplace, bio)
 
     # convert <w>...</w> and <w name>...</w>
-    regex = re.compile(r'<w\s*(?: \s*(?P<name>\w+)\s*)?>(?P<text>.*?)\<\/w\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<w(?:\s+(?P<name>\w+))?\s*>(?P<text>.*?)\<\/w\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, mreplace, bio)
 
     # convert <g glossary>...</g>
-    regex = re.compile(r'<g\s*(\w+)\s*>(.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<g\s+(\w+)\s*>(.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[gl=\1]\2[/gl]', bio)
 
     # convert <E num>
@@ -152,7 +149,7 @@ def parse(bio):
     bio = re.sub(regex, r'[t=\1]', bio)
 
     # convert <ac academy>...</g>
-    regex = re.compile(r'<ac\s*(\w+)\s*>(.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<ac\s+(\w+)\s*>(.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
 
     # convert [ref]
