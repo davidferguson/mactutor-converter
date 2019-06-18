@@ -6,31 +6,6 @@ import re
 
 import symbolreplace
 
-TAGS = [
-    'FILENAME',
-    'SHORTNAME',
-    'FULLNAME',
-    'BIRTHDATE',
-    'DEATHDATE',
-    'BIRTHYEAR',
-    'DEATHYEAR',
-    'BIRTHPLACE',
-    'DEATHPLACE',
-    'MAPINFO',
-    'COUNTRY',
-    'NUMPICTS',
-    'REFERENCES',
-    'XREFS',
-    'ADDITIONAL',
-    'HONOURS',
-    'SUMMARY',
-    'QUOTATIONSNUMBER',
-    'TRANSLATION',
-    'OTHERWEB',
-    'BIOGRAPHY',
-    'AUTHORS'
-]
-
 def parse(bio):
     # check we've got a string here
     assert type(bio) == str
