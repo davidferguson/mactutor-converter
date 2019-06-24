@@ -5,6 +5,7 @@
 import glob
 import os
 import json
+import re
 
 import lektor.metaformat
 
@@ -18,25 +19,63 @@ FILEPATH = '../Datasheets'
 def convert(datasheet):
     data = {}
 
-    # main part. parse biography
-    bio = biographyparser.parse(datasheet['BIOGRAPHY'])
-    data['biography'] = bio
+    # metadata, the template and model
+    data['_model'] = 'biography'
+    data['_template'] = 'biography.html'
+
+    # filename for this
+    data['filename'] = datasheet['FILENAME']
+
+    # name and shortname
+    data['shortname'] = datasheet['SHORTNAME']
+    data['fullname'] = datasheet['FULLNAME']
+
+    # authors
+    data['authors'] = datasheet['AUTHORS']
+
+    data['summary'] = datasheet['SUMMARY']
+
+    # dates are tricky. for now leave them as they are
+    data['birthdate'] = datasheet['BIRTHDATE']
+    data['birthyear'] = datasheet['BIRTHYEAR']
+    data['deathdate'] = datasheet['DEATHDATE']
+    data['deathyear'] = datasheet['DEATHYEAR']
+
+    # birthplace and mapinfo
+    data['birthplace'] = datasheet['BIRTHPLACE']
+    data['birthlatlong'] = re.sub(r'\d+,.+?,(-?[\d.]+),(-?[\d.]+)', r'\1,\2', datasheet['MAPINFO'])
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'])
     data['references'] = references
 
-    # parse cross references
-    xrefs = referenceparser.parse_cross_references(datasheet['XREFS'])
-    data['xrefs'] = xrefs
+    # parse translations (use the same format as references)
+    # don't add them to data, as we're combining them with bio
+    translations = referenceparser.parse_references(datasheet['TRANSLATION'])
 
-    # parse additional links
+    # parse cross references
+    #xrefs = referenceparser.parse_cross_references(datasheet['XREFS'])
+    #data['xrefs'] = xrefs
+
+    # parse additional links (they use the same format as cross references)
+    # don't add them to data, as we're combining them with bio
     additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'])
     data['additional'] = additional
 
-    # parse honours links
-    honours = referenceparser.parse_cross_references(datasheet['ADDITIONAL'])
+    # parse otherweb links (they use the same format as cross references)
+    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'])
+    data['otherweb'] = otherweb
+
+    # parse honours links (they use the same format as cross references)
+    honours = referenceparser.parse_cross_references(datasheet['HONOURS'])
     data['honours'] = honours
+
+    # parse biography, and add in extras and translations
+    bio = biographyparser.parse(datasheet['BIOGRAPHY'],
+                                translations=json.loads(translations)['data'],
+                                extras=json.loads(additional)['data'],
+                                paragraphs=True)
+    data['biography'] = bio.replace('\\', '')
 
     return data
 
@@ -46,12 +85,18 @@ def save(data, fs_path):
     items = list(data.items())
     lektordata = lektor.metaformat.serialize(items)
 
-    for chunk in lektor.metaformat.serialize(items, encoding='utf-8'):
-        print(chunk)
+    #for chunk in lektor.metaformat.serialize(items, encoding='utf-8'):
+    #    print(chunk.decode('utf-8'))
 
-    #with open(fs_path, 'wb') as f:
-    #        for chunk in lektor.metaformat.serialize(items, encoding='utf-8'):
-    #            f.write(chunk)
+    # make the directory if it doesn't already exist
+    if not os.path.exists(fs_path):
+        os.mkdir(fs_path)
+
+    contents_file = os.path.join(fs_path, 'contents.lr')
+    #print(fs_path, contents_file)
+    with open(contents_file, 'wb') as f:
+            for chunk in lektor.metaformat.serialize(items, encoding='utf-8'):
+                f.write(chunk)
 
 
 
@@ -62,6 +107,9 @@ if __name__ == '__main__':
 
     # process all the files
     for file in files:
+        #if file != '../Datasheets/Euclid':
+        #    continue
+
         # parse sections from datasheet
         datasheet = datasheetparser.parse_file(file)
 
@@ -69,4 +117,8 @@ if __name__ == '__main__':
         data = convert(datasheet)
 
         # save the dictionary in lektor
-        save(data, filepath)
+        basepath = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/'
+        biographydir = 'content/biographies'
+        filename = os.path.join(basepath, biographydir, datasheet['FILENAME'])
+        save(data, filename)
+        print('processed', datasheet['FILENAME'])

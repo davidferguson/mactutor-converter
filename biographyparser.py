@@ -7,7 +7,7 @@ import regex as re
 
 import symbolreplace
 
-def parse(bio):
+def parse(bio, extras=[], translations=[], paragraphs=False):
     # check we've got a string here
     assert type(bio) == str
 
@@ -40,9 +40,11 @@ def parse(bio):
     #    it essentially does the same thing as the lookbehind, but matching IF:
     #       - its the end of the document: \Z
     #       - there is a newline peceeded by an opening block tag
-    expr = r'(?<=(?<=</Q>|</ol>|</h\d>|</k>|</ind>|</cp>|</cpb>|\n)\n|\A)^(.*?)$(?=(?=\Z|\n(?=\n|<Q>|<ol>|<h\d>|<k>|<ind>|<cp>|<cpb>)))'
-    regex = re.compile(expr, re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[p]\1[/p]', bio)
+    if paragraphs:
+        expr = r'(?<=(?<=</Q>|</ol>|</h\d>|</k>|</ind>|</cp>|</cpb>|\n)\n|\A)^(.*?)$(?=(?=\Z|\n(?=\n|<Q>|<ol>|<h\d>|<k>|<ind>|<cp>|<cpb>)))'
+        regex = re.compile(expr, re.MULTILINE | re.DOTALL)
+        bio = re.sub(regex, r'[p]\1[/p]', bio)
+        bio = bio.replace('<n>', '')
     # convert <cp>...</cp>
     regex = re.compile(r'<cp>(.*?)</cp>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[p=gray]\1[/p]', bio)
@@ -78,10 +80,10 @@ def parse(bio):
     bio = re.sub(regex, r'[quote]\1[/quote]', bio)
 
     # convert <ol>...</ol>
-    regex = re.compile(r'(<ol>(.*?)</ol>)', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<ol>(.*?)</ol>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[list]\1[/list]', bio)
     # convert <li>...</li>
-    regex = re.compile(r'(<li>(.*?)</li>)', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<li(?: \d)?>(.*?)(?:</li>)?$', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[item]\1[/item]', bio)
 
     # convert <k>...</k>
@@ -117,20 +119,21 @@ def parse(bio):
     bio = re.sub(regex, r'[sub]\1[/sub]', bio)
 
     # convert <m>...</m> and <m name>...</m>
-    regex = re.compile(r'<m(?:\s+(?P<name>\S+))?\s*>(?P<text>.*?)\<\/m\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<m(?:\s+(?P<name>.+?))?>(?P<text>.*?)\<\/m\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, mreplace, bio)
     # convert <w>...</w> and <w name>...</w>
-    regex = re.compile(r'<w(?:\s+(?P<name>\S+))?\s*>(?P<text>.*?)\<\/w\>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, mreplace, bio)
+    regex = re.compile(r'<w(?:\s+(?P<name>.+?))?>(?P<text>.*?)\<\/w\>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, wreplace, bio)
     # convert <g glossary>...</g>
-    regex = re.compile(r'<g\s+(\S+)\s*>(.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<g\s+(.+?)>(.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[gl=\1]\2[/gl]', bio)
     # convert <ac academy>...</g>
-    regex = re.compile(r'<ac\s+(\S+)\s*>(.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<ac\s+(.+?)>(.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
     # convert <E num>
-    regex = re.compile(r'<E (\d+)>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[e=\1]THIS LINK[/e]', bio)
+    regex = re.compile(r'<E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
+    #bio = re.sub(regex, r'[e=\1]THIS LINK[/e]', bio)
+    bio = re.sub(regex, lambda match: ereplace(match, extras), bio)
 
     # convert <r>...</r>
     regex = re.compile(r'<r>(.*?)</r>', re.MULTILINE | re.DOTALL)
@@ -168,16 +171,18 @@ def parse(bio):
 
 
     # convert <d>...</d>
-    regex = re.compile(r'(<d (\S+).*?>)', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<d (.+?).*?>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[img]\1[/img]', bio)
 
     # convert [refnum]
     regex = re.compile(r'\[(\d+)\]', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ref]\1[/ref]', bio)
+    bio = bio.replace('<!>', '') # John's reference hack
 
     # convert <T num>
-    regex = re.compile(r'<T (\d+)>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[t]\1[/t]', bio)
+    regex = re.compile(r'<T (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
+    #bio = re.sub(regex, r'[t]\1[/t]', bio)
+    bio = re.sub(regex, lambda match: treplace(match, translations), bio)
 
     # convert \formulae\\
     regex = re.compile(r'\\(.+?)\\\\', re.MULTILINE | re.DOTALL)
@@ -199,6 +204,18 @@ def parse(bio):
     bio = bio.replace("”", "'")
 
     # not done yet: clear, clearl, proofend
+    bio = bio.replace('<clear>', '\\n')
+
+    # check we haven't left any tags behind
+    open_croc = re.compile(r'<(?!\s)', re.MULTILINE | re.DOTALL)
+    close_croc = re.compile(r'(?<!\s)>', re.MULTILINE | re.DOTALL)
+    match = open_croc.search(bio) or close_croc.search(bio)
+    if match:
+        print('found opening/closing croc')
+        print()
+        print(bio)
+        assert False
+
 
     return bio
 
@@ -228,3 +245,29 @@ def wreplace(match):
     if name == None:
         return r'[w]%s[/w]' % text
     return r'[w=%s]%s[/w]' % (name, text)
+
+# helper function for converting extras links to normal links
+def ereplace(match, extras):
+    number = match.group('number')
+    extra = list(filter(lambda extra: extra['number'] == number, extras))
+    assert len(extra) != 0
+    extra = extra[0]
+
+    text = extra['text'].strip()
+    url = extra['link'].strip()
+    res = r'[url=%s]%s[/url]' % (url, text)
+    return res
+
+# helper function for converting translation links to inline links
+def treplace(match, translations):
+    number = match.group('number')
+    translation = list(filter(lambda tran: tran['number'] == number, translations))
+    #assert len(translation) != 0
+    if len(translation) == 0:
+        print('can\'t find reference ', number)
+        assert False
+    translation = translation[0]
+
+    text = translation['reference'].strip()
+    res = r'[t]%s[/t]' % text
+    return res
