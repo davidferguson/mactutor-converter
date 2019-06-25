@@ -119,7 +119,7 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
 
 
     # convert <a href="..">...</a>
-    regex = re.compile(r'<a href=[\'"]?(.+?)[\'"]?>(.*?)<\/a>')
+    regex = re.compile(r'<a href ?= ?[\'"]?(.+?)[\'"]?>(.*?)<\/a>')
     bio = re.sub(regex, r'[url=\1]\2[/url]', bio)
 
     # convert <b>...</b>
