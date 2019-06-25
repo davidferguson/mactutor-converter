@@ -94,6 +94,13 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     bio = re.sub(regex, r'[ind]\1[/ind]', bio)
 
 
+    # OUT OF PLACE - do math NOW as it's affected by marks
+    # convert \formulae\\
+    # we do double the amount of slashes becuase we doubled them at the start
+    regex = re.compile(r'\\\\(?P<math>.+?)\\\\\\\\', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, mathreplace, bio)
+
+
     # ========= MARKS =========
 
 
@@ -185,8 +192,8 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     bio = re.sub(regex, lambda match: treplace(match, translations), bio)
 
     # convert \formulae\\
-    regex = re.compile(r'\\(.+?)\\\\', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[math]\1[/math]', bio)
+    # this is now done straight after blocks, as otherwise it is affected when
+    # we convert superscript/subscript/symbols/etc.
 
 
     # ========= OTHER =========
@@ -271,3 +278,10 @@ def treplace(match, translations):
     text = translation['reference'].strip()
     res = r'[t]%s[/t]' % text
     return res
+
+# helper function for dealing with \...\\
+# this needs improving so it converts symbols to KaTeX/LaTeX's format
+def mathreplace(match):
+    entire = match.group(0)
+    math = match.group('math')
+    return '[math]%s[/math]' % math
