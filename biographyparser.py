@@ -21,6 +21,9 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     regex = re.compile(r'(?<!\[\d+)\]', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, '\\]', bio)
 
+    # fix lists
+    bio = bio.replace('\n\n<li', '\n<li')
+
 
     # ========= BLOCKS =========
 
@@ -41,7 +44,7 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     #       - its the end of the document: \Z
     #       - there is a newline peceeded by an opening block tag
     if paragraphs:
-        expr = r'(?<=(?<=</Q>|</ol>|</h\d>|</k>|</ind>|</cp>|</cpb>|\n)\n|\A)^(.*?)$(?=(?=\Z|\n(?=\n|<Q>|<ol>|<h\d>|<k>|<ind>|<cp>|<cpb>)))'
+        expr = r'(?<=(?<=</Q>|</ol>|</h\d>|</k>|</ind>|</cp>|</cpb>|\n)\n|\A)^(.*?)$(?=(?=\Z|\n(?=\n|<Q>|<ol.*?>|<h\d>|<k>|<ind>|<cp>|<cpb>)))'
         regex = re.compile(expr, re.MULTILINE | re.DOTALL)
         bio = re.sub(regex, r'[p]\1[/p]', bio)
         bio = bio.replace('<n>', '')
@@ -80,10 +83,10 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     bio = re.sub(regex, r'[quote]\1[/quote]', bio)
 
     # convert <ol>...</ol>
-    regex = re.compile(r'<ol>(.*?)</ol>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<ol.*?>(.*?)</ol>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[list]\1[/list]', bio)
     # convert <li>...</li>
-    regex = re.compile(r'<li(?: \d)?>(.*?)(?:</li>)?$', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<li.*?>(.*?)(?:</li>)?$', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[item]\1[/item]', bio)
 
     # convert <k>...</k>
