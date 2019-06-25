@@ -49,8 +49,11 @@ def tags_to_unicode(text):
     other_tags = ['<scomma>','<tcomma>','<Tcomma>','<acup>','<L/>','<l/>','<o//>','<O/>','<o/>','<Zdot>','<zdot>','<ao>','<Ccup>','<z/>','<s/>','<n/>','<Scup>','<edot>','<scup>','<ccup>','<ecedil>','<ehook>','<S/>','<laplacian>','<Ao>','<dot>','<curlytheta>','<angle>','<ahook>','<scedil>','<Acup>','<atilde>','<c/>','<gcup>','<Zcup>','<zcup>','<ubar>','<u//>','<ss>','<uhook>','<ecup>','<rcup>','<uring>','<d/>']
     other_unicode = ['ș','ț','Ț','ă','Ł','ł','ő','Ø','ø','Ż','ż','å','Č','ź','ś','ń','Š','ė','š','č','ȩ','ę','Ś','∇','Å','·','ϑ','∠','ą','ş','Ǎ','ã','ć','ğ','Ž','ž','ū','ű','ß','ų','ě','ř','ů','ð']
 
-    all_tags = greek_tags + math_tags + other_tags
-    all_unicode = greek_unicode + math_unicode + other_unicode
+    math_codes = ['==>','<==','<=>','|->','<-->','-->']
+    math_codes_unicode = ['⇒','⇐','⇔','↦','⟷','→']
+
+    all_tags = greek_tags + math_tags + other_tags + math_codes
+    all_unicode = greek_unicode + math_unicode + other_unicode + math_codes_unicode
 
     for tag, unicode in zip(all_tags, all_unicode):
         text = text.replace(tag, unicode)
