@@ -23,8 +23,8 @@ def symbols_to_unicode(text):
     # as these are specialist symbols not found anywhere else. For these, fall
     # back to pictures, but proper pictures done by Lektor attachments
 
-    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral']
-    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫']
+    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral','sigman1inf']
+    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫','[math]\\sum_{n=1}^\\infty[/math]']
 
     # format all the symbol tags the same way
     regex = re.compile(r'<s (\S+).*?>', re.MULTILINE | re.DOTALL)
