@@ -159,13 +159,13 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     bio = re.sub(regex, r'[color=brown]\1[/brown]', bio)
 
     # convert <f+>...</f+>
-    regex = re.compile(r'<f\+>(.*?)</f\+>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<f\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[big]\1[/big]', bio)
     # convert <f++>...</f++>
-    regex = re.compile(r'<f\+\+>(.*?)</f\+\+>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<f\+\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[big][big]\1[/big][/big]', bio)
     # convert <f->...</f->
-    regex = re.compile(r'<f->(.*?)</f->', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<f->(.*?)</f>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[small]\1[/small]', bio)
 
     # convert <c>...</c>
