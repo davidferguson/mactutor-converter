@@ -2,7 +2,7 @@
 
 # converts symbols to unicode
 
-import re
+import regex as re
 
 
 def symbols_to_unicode(text):
@@ -23,8 +23,12 @@ def symbols_to_unicode(text):
     # as these are specialist symbols not found anywhere else. For these, fall
     # back to pictures, but proper pictures done by Lektor attachments
 
-    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt']
-    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)']
+    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral']
+    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫']
+
+    # format all the symbol tags the same way
+    regex = re.compile(r'<s (\S+).*?>', re.MULTILINE | re.DOTALL)
+    text = re.sub(regex, r'<s \1>', text)
 
     for symbol, translation in zip(symbols, translation):
         text = text.replace('<s %s>' % symbol, translation)
