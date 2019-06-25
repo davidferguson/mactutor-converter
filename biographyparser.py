@@ -11,6 +11,12 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     # check we've got a string here
     assert type(bio) == str
 
+    # special case for the common issue
+    if bio == "Papers in the Proceedings of the EMS</i>":
+        return "Papers in the Proceedings of the EMS"
+    if bio == "Papers in the Proceedings and Notes of the EMS</i>":
+        return "Papers in the Proceedings and Notes of the EMS"
+
     # escape backslashes (because we are adding them)
     #regex = re.compile('\\', re.MULTILINE | re.DOTALL)
     #bio = re.sub(regex, '\\\\', bio)
@@ -83,8 +89,9 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     bio = re.sub(regex, r'[quote]\1[/quote]', bio)
 
     # convert <ol>...</ol>
-    regex = re.compile(r'<ol.*?>(.*?)</ol>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[list]\1[/list]', bio)
+    regex = re.compile(r'<ol.*?>(?P<list>.*?)</ol>', re.MULTILINE | re.DOTALL)
+    #bio = re.sub(regex, r'[list]\1[/list]', bio)
+    bio = re.sub(regex, listreplace, bio)
     # convert <li>...</li>
     regex = re.compile(r'<li.*?>(.*?)(?:</li>)?$', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[item]\1[/item]', bio)
@@ -95,6 +102,10 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     # convert <ind>...</ind>
     regex = re.compile(r'<ind>(.*?)</ind>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ind]\1[/ind]', bio)
+
+    # convert <pre>...</pre>
+    regex = re.compile(r'<pre>(.*?)</pre>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'[pre]\1[/pre]', bio)
 
 
     # OUT OF PLACE - do math NOW as it's affected by marks
@@ -124,8 +135,12 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     # convert ^superscript
     regex = re.compile(r'\^(\S+)', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[sup]\1[/sup]', bio)
+    regex = re.compile(r'<sup>(.*?)</sup>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'[sup]\1[/sup]', bio)
     # convert ¬subscript
     regex = re.compile(r'¬(\S+)', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'[sub]\1[/sub]', bio)
+    regex = re.compile(r'<sub>(.*?)</sub>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[sub]\1[/sub]', bio)
 
     # convert <m>...</m> and <m name>...</m>
@@ -288,3 +303,10 @@ def mathreplace(match):
     entire = match.group(0)
     math = match.group('math')
     return '[math]%s[/math]' % math
+
+# helper function for dealing with lists
+# this needs improving so it converts symbols to KaTeX/LaTeX's format
+def listreplace(match):
+    contents = match.group('list')
+    contents = contents.strip()
+    return '[list]\n%s\n[/list]' % contents
