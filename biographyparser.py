@@ -178,7 +178,7 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
 
 
     # convert <d>...</d>
-    regex = re.compile(r'<d (.+?).*?>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<d (\S+?)(?:\s.+?)?>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[img]\1[/img]', bio)
 
     # convert [refnum]
