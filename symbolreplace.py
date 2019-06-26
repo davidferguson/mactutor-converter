@@ -27,7 +27,7 @@ def symbols_to_unicode(text):
     translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫','[math]\\sum_{n=1}^\\infty[/math]']
 
     # format all the symbol tags the same way
-    regex = re.compile(r'<s (\S+).*?>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'<s (\S+)( center| middle| top)?>', re.MULTILINE | re.DOTALL)
     text = re.sub(regex, r'<s \1>', text)
 
     for symbol, translation in zip(symbols, translation):
