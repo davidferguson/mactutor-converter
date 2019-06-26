@@ -6,16 +6,14 @@
 import regex as re
 
 import symbolreplace
+import cleaning
 
-def parse(bio, extras=[], translations=[], paragraphs=False):
+def parse(bio, name, extras=[], translations=[], paragraphs=False):
     # check we've got a string here
     assert type(bio) == str
 
-    # special case for the common issue
-    if bio == "Papers in the Proceedings of the EMS</i>":
-        return "Papers in the Proceedings of the EMS"
-    if bio == "Papers in the Proceedings and Notes of the EMS</i>":
-        return "Papers in the Proceedings and Notes of the EMS"
+    # clean the data
+    bio = cleaning.clean(bio, name)
 
     # escape backslashes (because we are adding them)
     #regex = re.compile('\\', re.MULTILINE | re.DOTALL)
@@ -26,9 +24,6 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     bio = re.sub(regex, '\\[', bio)
     regex = re.compile(r'(?<!\[\d+)\]', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, '\\]', bio)
-
-    # fix lists
-    bio = bio.replace('\n\n<li', '\n<li')
 
 
     # ========= BLOCKS =========
@@ -236,7 +231,7 @@ def parse(bio, extras=[], translations=[], paragraphs=False):
     close_croc = re.compile(r'(?<!\s)>', re.MULTILINE | re.DOTALL)
     match = open_croc.search(bio) or close_croc.search(bio)
     if match:
-        print('found opening/closing croc')
+        print('found opening/closing croc in', name)
         print()
         print(bio)
         assert False

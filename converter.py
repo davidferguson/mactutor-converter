@@ -46,32 +46,33 @@ def convert(datasheet):
     data['birthlatlong'] = re.sub(r'\d+,.+?,(-?[\d.]+),(-?[\d.]+)', r'\1,\2', datasheet['MAPINFO'])
 
     # parse references
-    references = referenceparser.parse_references(datasheet['REFERENCES'])
+    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
     data['references'] = references
 
     # parse translations (use the same format as references)
     # don't add them to data, as we're combining them with bio
-    translations = referenceparser.parse_references(datasheet['TRANSLATION'])
+    translations = referenceparser.parse_references(datasheet['TRANSLATION'], datasheet['FILENAME'])
 
     # parse cross references
-    #xrefs = referenceparser.parse_cross_references(datasheet['XREFS'])
+    #xrefs = referenceparser.parse_cross_references(datasheet['XREFS'], datasheet['FILENAME'])
     #data['xrefs'] = xrefs
 
     # parse additional links (they use the same format as cross references)
     # don't add them to data, as we're combining them with bio
-    additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'])
+    additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'])
     data['additional'] = additional
 
     # parse otherweb links (they use the same format as cross references)
-    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'])
+    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'])
     data['otherweb'] = otherweb
 
     # parse honours links (they use the same format as cross references)
-    honours = referenceparser.parse_cross_references(datasheet['HONOURS'])
+    honours = referenceparser.parse_cross_references(datasheet['HONOURS'], datasheet['FILENAME'])
     data['honours'] = honours
 
     # parse biography, and add in extras and translations
     bio = biographyparser.parse(datasheet['BIOGRAPHY'],
+                                datasheet['FILENAME'],
                                 translations=json.loads(translations)['data'],
                                 extras=json.loads(additional)['data'],
                                 paragraphs=True)
@@ -107,8 +108,9 @@ if __name__ == '__main__':
 
     # process all the files
     for file in files:
-        #if file != '../Datasheets/Euclid':
-        #    continue
+        # skip these becuase they have tables
+        if file == '../Datasheets/Bhaskara_I' or file == '../Datasheets/Franklin_Benjamin' or file == '../Datasheets/Terrot':
+            continue
 
         # parse sections from datasheet
         datasheet = datasheetparser.parse_file(file)

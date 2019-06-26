@@ -8,7 +8,7 @@ import json
 import biographyparser
 
 
-def parse_references(references):
+def parse_references(references, name):
     parsed_references = []
     in_reference = False
     reference = None
@@ -22,7 +22,7 @@ def parse_references(references):
         if match:
             # this is a reference line
             reference = match.group('reference')
-            reference = biographyparser.parse(reference)
+            reference = biographyparser.parse(reference, name)
             number = match.group('number')
 
             ref = {
@@ -47,7 +47,7 @@ def parse_references(references):
     return return_str
 
 
-def parse_cross_references(references):
+def parse_cross_references(references, name):
     parsed = []
 
     for line in references.splitlines():
@@ -67,7 +67,7 @@ def parse_cross_references(references):
             if not text:
                 text = link
             else:
-                text = biographyparser.parse(text)
+                text = biographyparser.parse(text, name)
             reference = {
                 'link': link,
                 'text': text,
