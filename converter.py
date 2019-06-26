@@ -43,7 +43,7 @@ def convert(datasheet):
 
     # birthplace and mapinfo
     data['birthplace'] = datasheet['BIRTHPLACE']
-    data['birthlatlong'] = re.sub(r'\d+,.+?,(-?[\d.]+),(-?[\d.]+)', r'\1,\2', datasheet['MAPINFO'])
+    data['birthlatlong'] = re.sub(r'\d+,.+?,(?:(-?[\d.]+),(-?[\d.]+))?', r'\1,\2', datasheet['MAPINFO'])
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
