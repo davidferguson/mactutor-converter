@@ -23,8 +23,8 @@ def symbols_to_unicode(text):
     # as these are specialist symbols not found anywhere else. For these, fall
     # back to pictures, but proper pictures done by Lektor attachments
 
-    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral','sigman1inf']
-    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫','[math]\\sum_{n=1}^\\infty[/math]']
+    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral','sigman1inf','intat','sigmak1n','int0inf']
+    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫','[math]\\sum_{n=1}^\\infty[/math]','[math]\\int_t^a[/math]','[math]\\sum^n_{k=1}[/math]','[math]\\int^\\infin_0[/math]']
 
     # format all the symbol tags the same way
     regex = re.compile(r'<s (\S+)( center| middle| top)?>', re.MULTILINE | re.DOTALL)
