@@ -297,6 +297,18 @@ def treplace(match, translations):
 def mathreplace(match):
     entire = match.group(0)
     math = match.group('math')
+    math = symbolreplace.symbols_to_unicode(math, katex=True)
+    math = symbolreplace.tags_to_unicode(math, katex=True)
+
+    # convert <b>...</b>
+    regex = re.compile(r'<b>(.*?)</b>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\textbf{\1}', math)
+    # convert <i>...</i>
+    regex = re.compile(r'<i>(.*?)</i>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\textit{\1}', math)
+
+    print(math)
+
     return '[math]%s[/math]' % math
 
 # helper function for dealing with lists
