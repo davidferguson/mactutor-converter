@@ -101,8 +101,9 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
 
 
     # convert <a href="..">...</a>
-    regex = re.compile(r'<a href ?= ?[\'"]?(.+?)[\'"]?>(.*?)<\/a>')
-    bio = re.sub(regex, r'[url=\1]\2[/url]', bio)
+    regex = re.compile(r'<a\s+href ?= ?[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
+    #bio = re.sub(regex, r'[url=\1]\2[/url]', bio)
+    bio = re.sub(regex, urlreplace, bio)
 
     # convert <b>...</b>
     regex = re.compile(r'<b>(.*?)</b>', re.MULTILINE | re.DOTALL)
@@ -262,6 +263,7 @@ def ereplace(match, extras):
 
     text = extra['text'].strip()
     url = extra['link'].strip()
+    url = urls.convert(url)
     res = r'[url=%s]%s[/url]' % (url, text)
     return res
 
@@ -301,3 +303,11 @@ def listreplace(match):
     contents = match.group('list')
     contents = contents.strip()
     return '[ol]\n%s\n[/ol]' % contents
+
+# helper function for dealing with urls
+# need to translate old URLs to new lektor format
+def urlreplace(match):
+    text = match.group('text')
+    href = match.group('href')
+    href = urls.convert(href)
+    return '[url=%s]%s[/url]' % (href, text)
