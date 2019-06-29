@@ -84,6 +84,9 @@ SPECIAL_RULES = {
     'Lamy': [
         ['</ind>\n\n</Q>','</Q>\n']
     ],
+    'Landau_Lev': [
+        ['<i,','<i>']
+    ],
     'Laplace': [
         ["Laplace's <i>M&eacute;chanique C&eacute;leste<</i>/a>","Laplace's <i>M&eacute;chanique C&eacute;leste</i>"]
     ],
@@ -104,6 +107,12 @@ SPECIAL_RULES = {
     ],
     'Mahler': [
         ['</ g>','</g>']
+    ],
+    'Molyneux_Samuel': [
+        ['>http://www.europa.com/~telscope/molyneux.txt</a>','']
+    ],
+    'Molyneux_William': [
+        ['>http://www.europa.com/~telscope/molyneux.txt</a>','']
     ],
     'Mansion': [
         ['<T 2375>.  Sur','<T 2375>.  <i>Sur']
@@ -183,6 +192,10 @@ SPECIAL_RULES = {
         ['</i>3° ordine</i>','3° ordine</i>'],
         ['</i>4° ordine</i>','4° ordine</i>']
     ],
+    'Scot': [
+        ['<font size=-1>','<f->'],
+        ['</font>','</f>']
+    ],
     'Sherif': [
         ['navigation.</i>','navigation.'],
         ['<i>With the assistance','With the assistance']
@@ -201,6 +214,9 @@ SPECIAL_RULES = {
     ],
     'Sun_Zi': [
         ['the Mathematical Art</i>.','the <i>Mathematical Art</i>.']
+    ],
+    'Szele': [
+        [' >http://tudosnaptar.kfki.hu/s/z/szele/szelepant.html</a>','']
     ],
     'Tweedie': [
         ['an obituary</a>','an obituary']
