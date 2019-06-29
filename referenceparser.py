@@ -22,25 +22,41 @@ def parse_references(references, name):
         if match:
             # this is a reference line
             reference = match.group('reference')
-            reference = biographyparser.parse(reference, name)
+            #reference = biographyparser.parse(reference, name)
             number = match.group('number')
 
             ref = {
                 'number': number,
-                'reference': reference
+                'reference': reference.strip()
             }
             parsed_references.append(ref)
             in_reference = True
             continue
 
+        # match against url
+        if (line.startswith('http://') or line.startswith('https://')) and in_reference:
+            # check there's not an issue with the line
+            assert '<' not in line and '>' not in line
+            # make the entire reference a link
+            href = line
+            text = parsed_references[-1]['reference']
+            link = '<a href="%s">%s</a>' % (href, text)
+            # only do this if there isn't already a link in the reference
+            if '<a' not in text:
+                parsed_references[-1]['reference'] = link
+            in_reference = False
+
         # match against empty line
-        if line == '':
+        if line == '' or '<p>' in line:
             in_reference = False
             continue
 
         # any other line
-        #if in_reference:
-        #    references[len(references) - 1]['reference'] += (' ' + line)å
+        if in_reference:
+            parsed_references[-1]['reference'] += (' ' + line.strip())
+
+    for reference in parsed_references:
+        reference['reference'] = biographyparser.parse(reference['reference'], name)
 
     return_str = {'data': parsed_references}
     return_str = json.dumps(return_str)
