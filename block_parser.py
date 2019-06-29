@@ -39,7 +39,7 @@ def get_tag(tag):
     return match.group('tag').lower()
 
 
-def fix_nesting(current_block, new_tag, current_tag, blocks, newpos):
+def fix_nesting(current_block, new_tag, current_tag, blocks, newpos, ignore_tags):
     old_tag = current_tag[-1]
     if old_tag == 'ol':
         # make sure it's not a nested list
@@ -84,7 +84,7 @@ def process_blocks(s, name):
         if newpos:
             tag = get_tag(s[pos:newpos])
             if len(current_tag) != 0:
-                pos = fix_nesting(current_block, tag, current_tag, blocks, newpos)
+                pos = fix_nesting(current_block, tag, current_tag, blocks, newpos, ignore_tags)
             else:
                 finish_block(current_block, current_tag, blocks)
                 current_block = ''
