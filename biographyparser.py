@@ -7,6 +7,8 @@ import regex as re
 
 import symbolreplace
 import cleaning
+import block_parser
+import urls
 
 def parse(bio, name, extras=[], translations=[], paragraphs=False):
     # check we've got a string here
@@ -14,6 +16,10 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
 
     # clean the data
     bio = cleaning.clean(bio, name)
+
+    if paragraphs:
+        bio = bio.replace('<n>', '')
+        res = block_parser.process_blocks(bio, name)
 
     # escape backslashes (because we are adding them)
     #regex = re.compile('\\', re.MULTILINE | re.DOTALL)
@@ -27,28 +33,9 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
 
 
     # ========= BLOCKS =========
-
-
-    # convert <p> - MUST BE DONE FIRST
-    # this regex deserves a comment of its own
-    #
-    # 1. the main part is in the middle: ^(.*?)$
-    #    this matches against multiple lines - not just a single line.
-    #
-    # 2. the bit before it is a positive lookbehind
-    #    this makes the expression only match IF one of:
-    #       - its the start of the document: \A
-    #       - there is a closing block tag preceeded by a \n
-    #
-    # 3. the bit after it is a positive lookahead
-    #    it essentially does the same thing as the lookbehind, but matching IF:
-    #       - its the end of the document: \Z
-    #       - there is a newline peceeded by an opening block tag
-    if paragraphs:
-        expr = r'(?<=(?<=</Q>|</ol>|</h\d>|</k>|</ind>|</cp>|</cpb>|\n)\n|\A)^(.*?)$(?=(?=\Z|\n(?=\n|<Q>|<ol.*?>|<h\d>|<k>|<ind>|<cp>|<cpb>)))'
-        regex = re.compile(expr, re.MULTILINE | re.DOTALL)
-        bio = re.sub(regex, r'[p]\1[/p]', bio)
-        bio = bio.replace('<n>', '')
+    # paragraphs are converted into <p>...</p> above
+    regex = re.compile(r'<p>(.*?)</p>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'[p]\1[/p]', bio)
     # convert <cp>...</cp>
     regex = re.compile(r'<cp>(.*?)</cp>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[p=gray]\1[/p]', bio)
@@ -85,7 +72,7 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
 
     # convert <ol>...</ol>
     regex = re.compile(r'<ol.*?>(?P<list>.*?)</ol>', re.MULTILINE | re.DOTALL)
-    #bio = re.sub(regex, r'[list]\1[/list]', bio)
+    #bio = re.sub(regex, r'[ol]\1[/ol]', bio)
     bio = re.sub(regex, listreplace, bio)
     # convert <li>...</li>
     regex = re.compile(r'<li.*?>(.*?)(?:</li>)?$', re.MULTILINE | re.DOTALL)
@@ -307,13 +294,10 @@ def mathreplace(match):
     regex = re.compile(r'<i>(.*?)</i>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'\textit{\1}', math)
 
-    print(math)
-
     return '[math]%s[/math]' % math
 
 # helper function for dealing with lists
-# this needs improving so it converts symbols to KaTeX/LaTeX's format
 def listreplace(match):
     contents = match.group('list')
     contents = contents.strip()
-    return '[list]\n%s\n[/list]' % contents
+    return '[ol]\n%s\n[/ol]' % contents
