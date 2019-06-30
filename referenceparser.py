@@ -5,7 +5,7 @@
 import re
 import json
 
-import biographyparser
+import htmlparser
 
 
 def parse_references(references, name):
@@ -22,7 +22,6 @@ def parse_references(references, name):
         if match:
             # this is a reference line
             reference = match.group('reference')
-            #reference = biographyparser.parse(reference, name)
             number = match.group('number')
 
             ref = {
@@ -56,7 +55,7 @@ def parse_references(references, name):
             parsed_references[-1]['reference'] += (' ' + line.strip())
 
     for reference in parsed_references:
-        reference['reference'] = biographyparser.parse(reference['reference'], name)
+        reference['reference'] = htmlparser.parse(reference['reference'], name)
 
     return_str = {'data': parsed_references}
     return_str = json.dumps(return_str)
@@ -83,7 +82,7 @@ def parse_cross_references(references, name):
             if not text:
                 text = link
             else:
-                text = biographyparser.parse(text, name)
+                text = htmlparser.parse(text, name)
             reference = {
                 'link': link,
                 'text': text,
@@ -92,7 +91,6 @@ def parse_cross_references(references, name):
             parsed.append(reference)
             continue
 
-    #return json.dumps(parsed)
     return_str = {'data': parsed}
     return_str = json.dumps(return_str)
     return return_str
