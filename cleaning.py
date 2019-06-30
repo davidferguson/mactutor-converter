@@ -41,6 +41,9 @@ SPECIAL_RULES = {
     'Dubreil': [
         ['Noether</m>Noether</m>','Noether</m>']
     ],
+    'Durer': [
+        ['<a href = "Alberti.html">Alberti</a>','<m>Alberti</m>']
+    ],
     'Enriques': [
         ['<<m Del_Re>Del Re</m>','<m Del_Re>Del Re</m>']
     ],
@@ -63,6 +66,9 @@ SPECIAL_RULES = {
     ],
     'Harlay': [
         ["(The Women's Press, London, 1986).</b>","(The Women's Press, London, 1986)."]
+    ],
+    'Herbrand': [
+        ['<a href="Herbrand_Chevalley.html">','<a href="../Extras/Chevalley_Herbrand.html">']
     ],
     'Herstein': [
         ["You can see Herstein's Preface</a>","You can see Herstein's Preface"]
@@ -149,7 +155,9 @@ SPECIAL_RULES = {
     'Plancherel': [
         ["<i>Sur les valeurs asymptotiques des polynomes d'Hermite H<sub>n</sub>(x)=(-1)<sup>n</sup> e<sup>x<sup>2</sup>/2</sup>d<sup>n</sup>/dx<sup>n</sup>(e<sup>-x<sup>2</sup>/2</sup>).</i>","<i>Sur les valeurs asymptotiques des polynomes d'Hermite H<sub>n</sub>(x)=(-1)<sup>n</sup> e<sup>x2/2</sup>d<sup>n</sup>/dx<sup>n</sup>(e<sup>-x2/2</sup>).</i>"],
         ['supérieur.</i>','supérieur.'],
-        ['281-284.</i>','281-284.']
+        ['281-284.</i>','281-284.'],
+        ['available <a href="#extra">below</a>','available at <E 1>'],
+        ['list <a href="#extra">below</a>','list at <E 3>']
     ],
     'Qin_Jiushao': [
         ['the Mathematical Art</i>','the <i>Mathematical Art</i>']

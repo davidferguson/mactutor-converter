@@ -95,9 +95,9 @@ def save(data, fs_path):
 
     contents_file = os.path.join(fs_path, 'contents.lr')
     #print(fs_path, contents_file)
-    #with open(contents_file, 'wb') as f:
-    #        for chunk in lektor.metaformat.serialize(items, encoding='utf-8'):
-    #            f.write(chunk)
+    with open(contents_file, 'wb') as f:
+            for chunk in lektor.metaformat.serialize(items, encoding='utf-8'):
+                f.write(chunk)
 
 
 
