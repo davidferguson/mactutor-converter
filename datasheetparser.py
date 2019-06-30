@@ -26,7 +26,14 @@ TAGS = [
     'TRANSLATION',
     'OTHERWEB',
     'BIOGRAPHY',
-    'AUTHORS'
+    'AUTHORS',
+    'INDEXREF',
+    'INDEXREFFILE'
+    'HISTTOPIC',
+    'UPDATE',
+    'TITLE',
+    'HEADLINE',
+    'EXTRA'
 ]
 
 def parse_file(filename):
@@ -48,6 +55,6 @@ def parse_data(data):
     for tag in TAGS:
         regex = re.compile(r'<%s>(.*?)<\/%s>' % (tag, tag), re.MULTILINE | re.DOTALL)
         match = re.search(regex, data)
-        assert match
-        parsed_data[tag] = match.group(1).strip()
+        if match:
+            parsed_data[tag] = match.group(1).strip()
     return parsed_data
