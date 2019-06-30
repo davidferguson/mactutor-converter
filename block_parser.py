@@ -90,6 +90,7 @@ def process_blocks(s, name):
                 current_block = ''
                 current_tag.append(tag)
                 pos = newpos
+            continue
 
         newpos = is_close_block_tag(s, pos)
         if newpos:
@@ -108,6 +109,7 @@ def process_blocks(s, name):
                 current_block = ''
                 current_tag.pop()
                 pos = newpos
+                continue
 
         if pos+1 < len(s) and s[pos] == '\n' and s[pos+1] == '\n':
             if len(current_tag) > 0 and current_tag[-1] == 'ol':
