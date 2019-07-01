@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# main converter file, converts datasheet to Lektor format
+# main converter file, converts datasheets and extras
 
 import glob
 import os
@@ -10,6 +10,7 @@ import re
 import lektor.metaformat
 
 import biographyparser
+import extrasparser
 import datasheetparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
@@ -21,7 +22,7 @@ def save(data, fs_path):
 
     # make the directory if it doesn't already exist
     if not os.path.exists(fs_path):
-        os.mkdir(fs_path)
+        os.makedirs(fs_path)
 
     contents_file = os.path.join(fs_path, 'contents.lr')
     with open(contents_file, 'wb') as f:
@@ -31,7 +32,7 @@ def save(data, fs_path):
 
 def convert_biographies():
     INPUT_DIR = '../Datasheets' # where the datasheets are
-    OUTPUT_DIR = 'biographies' # where the lektor content files are saved
+    OUTPUT_DIR = 'Biographies' # where the lektor content files are saved
 
     # get all the files that need to be processed
     path = os.path.join(INPUT_DIR, '*')
@@ -39,12 +40,12 @@ def convert_biographies():
 
     # process all the files
     for file in files:
-        # skip these becuase they have tables
-        if file == '../Datasheets/Bhaskara_I' or file == '../Datasheets/Franklin_Benjamin' or file == '../Datasheets/Terrot':
-            continue
-
         # parse sections from datasheet
         datasheet = datasheetparser.parse_file(file)
+
+        # skip all datasheets that have tables
+        if '<table' in datasheet['BIOGRAPHY']:
+            continue
 
         # convert the datasheet to dictionary
         data = biographyparser.convert(datasheet)
@@ -54,5 +55,33 @@ def convert_biographies():
         save(data, filename)
         print('processed', datasheet['FILENAME'])
 
+
+def convert_extras():
+    INPUT_DIR = '../ExtrasData' # where the datasheets are
+    OUTPUT_DIR = 'Extras' # where the lektor content files are saved
+
+    # get all the files that need to be processed
+    path = os.path.join(INPUT_DIR, '*')
+    files = glob.glob(path)
+
+    # process all the files
+    for file in files:
+        # parse sections from datasheet
+        datasheet = datasheetparser.parse_file(file)
+
+        # skip all datasheets that have tables
+        if '<table' in datasheet['EXTRA']:
+            continue
+
+        # convert the datasheet to dictionary
+        data = extrasparser.convert(datasheet)
+
+        # save the dictionary in lektor
+        filename = os.path.join(LEKTOR_CONTENT_PATH, OUTPUT_DIR, datasheet['FILENAME'])
+        save(data, filename)
+        print('processed', datasheet['FILENAME'])
+
+
 if __name__ == '__main__':
-    convert_biographies()
+    #convert_biographies()
+    convert_extras()
