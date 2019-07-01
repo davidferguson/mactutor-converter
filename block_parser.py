@@ -8,13 +8,15 @@ def is_close_block_tag(s, pos):
     return is_open_block_tag(s, pos, close=True)
 
 def is_open_block_tag(s, pos, close=False):
+    if s[pos] != '<':
+        return False
     tags = ['q','Q','ol','h1','h2','h3','h4','h5','h6','k','ind','cp','cpb']
     for tag in tags:
         if close:
             tag = '</%s>' % tag
         else:
             tag = '<%s>' % tag
-        if pos+len(tag) >= len(s):
+        if pos+len(tag) > len(s):
             continue
         match = s[pos:pos+len(tag)] == tag
         if match:
@@ -43,7 +45,7 @@ def fix_nesting(current_block, new_tag, current_tag, blocks, newpos, ignore_tags
     old_tag = current_tag[-1]
     if old_tag == 'ol':
         # make sure it's not a nested list
-        assert new_tag != 'old'
+        assert new_tag != 'ol'
         # tricky. for now just ignore inner tag
         ignore_tags.append(new_tag)
         return newpos
@@ -76,10 +78,20 @@ def process_blocks(s, name):
     blocks = []
     current_tag = []
     ignore_tags = []
+    in_pre = False
     current_block = ''
     pos = 0
 
     while pos < len(s):
+        if pos+5 <= len(s) and s[pos:pos+5] == '<pre>':
+            in_pre = True
+            pos += 5
+            continue
+        if pos+6 <= len(s) and s[pos:pos+6] == '</pre>':
+            in_pre = False
+            pos += 6
+            continue
+
         newpos = is_open_block_tag(s, pos)
         if newpos:
             tag = get_tag(s[pos:newpos])
@@ -99,9 +111,11 @@ def process_blocks(s, name):
                 # but can we handle it?
                 if len(ignore_tags) != 0 and tag == ignore_tags[-1]:
                     # yes we can, just ignore this closing tag
-                    pass
+                    ignore_tags.pop()
+                    pos = newpos
                 else:
                     print('TAG MISMATCH')
+                    print(tag)
                     print('expecting %s but got %s' % (current_tag[-1], tag))
                     assert False
             else:
@@ -109,25 +123,28 @@ def process_blocks(s, name):
                 current_block = ''
                 current_tag.pop()
                 pos = newpos
-                continue
+            continue
 
         if pos+1 < len(s) and s[pos] == '\n' and s[pos+1] == '\n':
             if len(current_tag) > 0 and current_tag[-1] == 'ol':
                 # dont do this for lists
+                pass
+            elif in_pre:
+                # don't do this if we're in a <pre>
                 pass
             else:
                 # stop and start the current block
                 finish_block(current_block, current_tag, blocks)
                 current_block = ''
 
-        if pos+1 >= len(s) and current_tag == None:
-            # finish this block if it's a paragraph
-            finish_block(current_block, current_tag, blocks)
-
         # add the current character to the current block
         if pos < len(s):
             current_block += s[pos]
             pos += 1
 
-    html = '\n\n'.join(blocks)
-    return html
+    if current_block.strip() != '':
+        finish_block(current_block, current_tag, blocks)
+
+    #html = '\n\n'.join(blocks)
+    #return html
+    return blocks
