@@ -28,7 +28,7 @@ TAGS = [
     'BIOGRAPHY',
     'AUTHORS',
     'INDEXREF',
-    'INDEXREFFILE'
+    'INDEXREFFILE',
     'HISTTOPIC',
     'UPDATE',
     'TITLE',

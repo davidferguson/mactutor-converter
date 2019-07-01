@@ -11,6 +11,7 @@ import lektor.metaformat
 
 import biographyparser
 import extrasparser
+import historytopicsparser
 import datasheetparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
@@ -82,6 +83,33 @@ def convert_extras():
         print('processed', datasheet['FILENAME'])
 
 
+def convert_historytopics():
+    INPUT_DIR = '../HistTopicsData' # where the datasheets are
+    OUTPUT_DIR = 'HistTopics' # where the lektor content files are saved
+
+    # get all the files that need to be processed
+    path = os.path.join(INPUT_DIR, '*')
+    files = glob.glob(path)
+
+    # process all the files
+    for file in files:
+        # parse sections from datasheet
+        datasheet = datasheetparser.parse_file(file)
+
+        # skip all datasheets that have tables
+        if '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']:
+            continue
+
+        # convert the datasheet to dictionary
+        data = historytopicsparser.convert(datasheet)
+
+        # save the dictionary in lektor
+        filename = os.path.join(LEKTOR_CONTENT_PATH, OUTPUT_DIR, datasheet['FILENAME'])
+        save(data, filename)
+        print('processed', datasheet['FILENAME'])
+
+
 if __name__ == '__main__':
-    #convert_biographies()
+    convert_biographies()
     convert_extras()
+    convert_historytopics()

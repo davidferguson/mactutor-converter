@@ -576,12 +576,95 @@ SPECIAL_RULES = {
     'Wilson_depression': [
         ['<font color=magenta>','<font color=purple>']
     ],
-    'Woodward': [
-        ['<pr>',''],
-        ['</pr>',''],
-    ],
     'Zariski_Samuel': [
         ['<k><h3>Commutative Algebra</h3><n>','<h3>Commutative Algebra</h3>']
+    ],
+    # history topics
+    'Abstract_linear_spaces': [
+        ['engraving</a>','engraving'],
+        ['and the common','<i>and the common'],
+        ['We suppose that','<i>We suppose that']
+    ],
+    'African_men_1': [
+        ['<ac >International Astronomical Union</ac>','<ac IAU>International Astronomical Union</ac>'],
+        ['<ac >Society Industrial and Applied Mathematics</ac>','Society Industrial and Applied Mathematics'],
+        ['<ac >South African Mathematics Society</ac>','South African Mathematics Society'],
+        ['<X>','']
+    ],
+    'African_men_2': [
+        ['<a href=African_men_1.html#Van-Der-walt>A. P. J. van der Walt</m>','<a href=African_men_1.html#Van-Der-walt>A. P. J. van der Walt</a>'],
+        ['<a href=African_men_1.html#Moori>Jamshid Moori</m>.','<a href=African_men_1.html#Moori>Jamshid Moori</a>.']
+    ],
+    'Alcuin_book': [
+        ['<b><b>Solution</b>.\n</b>','<b>Solution</b>.\n']
+    ],
+    'Art': [
+        ['<font size=-1 color=red>','<f-><r>'],
+        ['</font>','</r></f>']
+    ],
+    'Chinese_numerals': [
+        ['<d  counting_board.gif right>','<d counting_board.gif>'],
+        ['<d  abacus.gif right>','<d abacus.gif>']
+    ],
+    'crimea': [
+        ['<ind><f->','<f->'],
+        ['</f></k>','</f>']
+    ],
+    'Doubling_the_cube': [
+        ['<gt>','>'],
+        ['</a>(2)','(2)'],
+        ['</a>(3)','(3)'],
+        ['<m Wantzel><m Wantzel>Wantzel</m></m>','<m Wantzel>Wantzel</m>']
+    ],
+    'fair_book': [
+        ['\n<f->Click it to see a larger version</f></ind></k>','<ind><f->Click it to see a larger version</f></ind></k>'],
+        ['<ind><f->Click it to see a larger version</f></k>','<ind><f->Click it to see a larger version</f></ind></k>'],
+        ['<i> feet. Required tonnage by common rule.\n','<i> feet. Required tonnage by common rule.</i>\n'],
+        ['\nIf the length of the keel of tonnage be','\n<i>If the length of the keel of tonnage be'],
+        ['6>','6 >']
+    ],
+    'fractals': [
+        ['Fatou biography.  <http://www-history.mcs.st-andrews.ac.uk/Biographies/Fatou.html>','<m>Fatou</m> biography.']
+    ],
+    'Greek_numbers': [
+        ['<d greek_numbers_19.gif >','<d greek_numbers_19.gif>']
+    ],
+    'Greek_sources_1': [
+        ['<img src= ../Diagrams/Palimpsest_small.jpeg>','<d ../Diagrams/Palimpsest_small.jpeg>']
+    ],
+    'Gregory_observatory': [
+        [''' onclick="javascript:win1('../Extras/Gregory_commission.html',600,1000);return false;"''',''],
+        [''' onclick="javascript:win1('../Extras/Gregory_Flamsteed.html',600,1000);return false;"''',''],
+        [''' onclick="javascript:win1('../Extras/Gregory_Observatory.html',600,1000);return false;"''','']
+    ],
+    'insert': [
+        ['<ind><f->Click it to see a larger version</f></k>','<f->Click it to see a larger version</f></k>']
+    ],
+    'Kinematic_planetary_motion': [
+        ['ul>','ol>']
+    ],
+    'Ledermann_interview': [
+        ['<font size=+1 color=red> We interviewed Walter Ledermann in St Andrews in September 2000.</font>','<f+><r>We interviewed Walter Ledermann in St Andrews in September 2000.</r></f>']
+    ],
+    'Light_2': [
+        ['<i>Molecular','Molecular']
+    ],
+    'Longitude1': [
+        ['History of the Académie Royale des Sciences</a>','History of the Académie Royale des Sciences'],
+        ['</a>You can','You can']
+    ],
+    'Mathematical_games': [
+        ['<E 6></a>.','<E 6>.'],
+        ['15 puzzle</a>','15 puzzle'],
+        ['Smullyan</a>','<m>Smullyan</m>']
+    ],
+    'Maxwell_House': [
+        ['<img align=right src="../Miscellaneous/JCMBhouse/Diagram.gif" >','<d ../Miscellaneous/JCMBhouse/Diagram.gif>']
+    ],
+    'Prime_numbers': [
+        ['<a name="28">','<a name="28"></a>'],
+        ['<a name="62">','<a name="62"></a>'],
+        ['<li></a>','<li>']
     ]
 }
 
@@ -604,9 +687,18 @@ def clean(bio, name):
 
     # remove these as they have no BBCode equivalent
     bio = bio.replace('<br clear=right>', '')
+    bio = bio.replace('<br clear = right>','')
+    bio = bio.replace('<br clear="right">','')
+    bio = bio.replace('<br clear="right" right>','')
     bio = bio.replace('<p align=justify>', '')
     bio = bio.replace('<p align=right>', '')
+    bio = bio.replace('<p align="right">','')
     bio = bio.replace('<hr>', '\n')
+
+    # not sure what these are. don't seem to be converted anywhere, and they're
+    # not a standard HTML tag...
+    bio = bio.replace('</pr>','')
+    bio = bio.replace('<pr>', '')
 
     # fix line breaks for list items
     bio = bio.replace('\n\n<li', '\n<li')
