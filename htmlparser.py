@@ -19,8 +19,19 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
 
     if paragraphs:
         bio = bio.replace('<n>', '')
-        res = block_parser.process_blocks(bio, name)
+        blocks = block_parser.process_blocks(bio, name)
+        parsed_blocks = []
+        for block in blocks:
+            parsed = _parse(block, name, extras, translations, paragraphs)
+            parsed = parsed.strip()
+            parsed_blocks.append(parsed)
+        html = '\n\n'.join(blocks)
+        return html
+    else:
+        return _parse(bio, name, extras, translations, paragraphs)
 
+
+def _parse(bio, name, extras, translations, paragraphs):
     # escape backslashes (because we are adding them)
     #regex = re.compile('\\', re.MULTILINE | re.DOTALL)
     #bio = re.sub(regex, '\\\\', bio)
@@ -155,6 +166,9 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
     # convert <bro>...</bro>
     regex = re.compile(r'<bro>(.*?)<bro>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[color=brown]\1[/brown]', bio)
+    # convert <font color=purple>...</font>
+    regex = re.compile(r'<font color=purple>(.*?)</font>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'[color=purple]\1[/purple]', bio)
 
     # convert <f+>...</f+>
     regex = re.compile(r'<f\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
@@ -195,6 +209,10 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
     # convert \formulae\\
     # this is now done straight after blocks, as otherwise it is affected when
     # we convert superscript/subscript/symbols/etc.
+
+    # convert <a name=".."></a>
+    regex = re.compile(r'<a\s+name ?= ?[\'"]?(.+?)[\'"]?\s*><\/a>')
+    bio = re.sub(regex, r'[anchor]\1[/anchor]', bio)
 
 
     # ========= OTHER =========
