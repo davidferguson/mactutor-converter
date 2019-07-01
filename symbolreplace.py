@@ -23,9 +23,9 @@ def symbols_to_unicode(text, katex=False):
     # as these are specialist symbols not found anywhere else. For these, fall
     # back to pictures, but proper pictures done by Lektor attachments
 
-    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral','sigman1inf','intat','sigmak1n','int0inf','int0x']
-    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','![rudolff-third-root-symbol](/symbols/rudolff3rd.gif)','![rudolff-third-root-symbol](/symbols/rudolff4rd.gif)','[math]\\int_{-\\infty}^\\infty[/math]','∫','[math]\\sum_{n=1}^\\infty[/math]','[math]\\int_t^a[/math]','[math]\\sum^n_{k=1}[/math]','[math]\\int^\\infin_0[/math]','[math]\\int^x_0[/math]']
-    katex = ['_\\circ','\\mathcal{D}','\\div','\\equiv','\\perp','℞','^\\square','≖','\\sf{character not supported}','\\sf{character not supported}','\\sf{character not supported}','\\int_{-\\infty}^\\infty','\\sum_{n=1}^\\infty','\\int_t^a','\\sum^n_{k=1}','\\int^\\infin_0','\\int^x_0']
+    symbols = ['comp','curlybigD','divide','equiv','perp','Recipe','squareshape','Harriotequal','Rudolff3rt','Rudolff4rt','intR','integral','sigman1inf','intat','sigmak1n','int0inf','int0x','ffrot','degrees','rho','vec0', 'int1inf','sigmai1inf','empty','tensor','intm11','infinity']
+    translation = ['˳','𝒟','÷','≡','⟂','℞','⸋','≖','[img]/Symbolgifs/rudolff3rd.gif[/img]','[img]/Symbolgifs/rudolff4rd.gif[/img]','[math]\\int_{-\\infty}^\\infty[/math]','∫','[math]\\sum_{n=1}^\\infty[/math]','[math]\\int_t^a[/math]','[math]\\sum^n_{k=1}[/math]','[math]\\int^\\infin_0[/math]','[math]\\int^x_0[/math]', '[img]/Symbolgifs/ffrot.gif[/img]', '°','ρ','[img]/Symbolgifs/vec0.gif[/img]', '[math]\\int^\\infin_1[/math]','[math]\\sum_{i=1}^{\\infty}[/math]','∅','⊗','[math]\\int^1_{-1}[/math]','∞']
+    katex = ['_\\circ','\\mathcal{D}','\\div','\\equiv','\\perp','℞','^\\square','≖','\\sf{character not supported}','\\sf{character not supported}','\\sf{character not supported}','\\int_{-\\infty}^\\infty','\\sum_{n=1}^\\infty','\\int_t^a','\\sum^n_{k=1}','\\int^\\infin_0','\\int^x_0','\\sf{character not supported}', '\\degree', '\\rho', '\\sf{character not supported}', '\\int^\\infin_1','\\sum_{i=1}^{\\infty}','\\varnothing','\\otimes','\\int^1_{-1}','\\infity']
 
     # format all the symbol tags the same way
     regex = re.compile(r'<s (\S+)( center| middle| top)?>', re.MULTILINE | re.DOTALL)
