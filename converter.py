@@ -16,6 +16,7 @@ import datasheetparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
+
 def save(data, fs_path):
     # transorm data from key-values to list of tuples
     items = list(data.items())
@@ -31,12 +32,9 @@ def save(data, fs_path):
                 f.write(chunk)
 
 
-def convert_biographies():
-    INPUT_DIR = '../Datasheets' # where the datasheets are
-    OUTPUT_DIR = 'Biographies' # where the lektor content files are saved
-
+def convert(input_dir, output_dir, skip_fn, converter):
     # get all the files that need to be processed
-    path = os.path.join(INPUT_DIR, '*')
+    path = os.path.join(input_dir, '*')
     files = glob.glob(path)
 
     # process all the files
@@ -45,71 +43,25 @@ def convert_biographies():
         datasheet = datasheetparser.parse_file(file)
 
         # skip all datasheets that have tables
-        if '<table' in datasheet['BIOGRAPHY']:
+        skip = skip_fn(datasheet)
+        if skip:
             continue
 
         # convert the datasheet to dictionary
-        data = biographyparser.convert(datasheet)
+        data = converter.convert(datasheet)
 
         # save the dictionary in lektor
-        filename = os.path.join(LEKTOR_CONTENT_PATH, OUTPUT_DIR, datasheet['FILENAME'])
-        save(data, filename)
-        print('processed', datasheet['FILENAME'])
-
-
-def convert_extras():
-    INPUT_DIR = '../ExtrasData' # where the datasheets are
-    OUTPUT_DIR = 'Extras' # where the lektor content files are saved
-
-    # get all the files that need to be processed
-    path = os.path.join(INPUT_DIR, '*')
-    files = glob.glob(path)
-
-    # process all the files
-    for file in files:
-        # parse sections from datasheet
-        datasheet = datasheetparser.parse_file(file)
-
-        # skip all datasheets that have tables
-        if '<table' in datasheet['EXTRA']:
-            continue
-
-        # convert the datasheet to dictionary
-        data = extrasparser.convert(datasheet)
-
-        # save the dictionary in lektor
-        filename = os.path.join(LEKTOR_CONTENT_PATH, OUTPUT_DIR, datasheet['FILENAME'])
-        save(data, filename)
-        print('processed', datasheet['FILENAME'])
-
-
-def convert_historytopics():
-    INPUT_DIR = '../HistTopicsData' # where the datasheets are
-    OUTPUT_DIR = 'HistTopics' # where the lektor content files are saved
-
-    # get all the files that need to be processed
-    path = os.path.join(INPUT_DIR, '*')
-    files = glob.glob(path)
-
-    # process all the files
-    for file in files:
-        # parse sections from datasheet
-        datasheet = datasheetparser.parse_file(file)
-
-        # skip all datasheets that have tables
-        if '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']:
-            continue
-
-        # convert the datasheet to dictionary
-        data = historytopicsparser.convert(datasheet)
-
-        # save the dictionary in lektor
-        filename = os.path.join(LEKTOR_CONTENT_PATH, OUTPUT_DIR, datasheet['FILENAME'])
+        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'])
         save(data, filename)
         print('processed', datasheet['FILENAME'])
 
 
 if __name__ == '__main__':
-    convert_biographies()
-    convert_extras()
-    convert_historytopics()
+    skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
+    convert('../Datasheets', 'Biographies', skip, biographyparser)
+
+    skip = lambda datasheet: '<table' in datasheet['EXTRA']
+    convert('../ExtrasData', 'Extras', skip, extrasparser)
+
+    skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
+    convert('../HistTopicsData', 'HistTopics', skip, historytopicsparser)
