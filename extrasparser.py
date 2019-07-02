@@ -33,6 +33,6 @@ def convert(datasheet):
     bio = htmlparser.parse(datasheet['EXTRA'],
                                 datasheet['FILENAME'],
                                 paragraphs=True)
-    data['biography'] = bio.replace('\\', '')
+    data['extra'] = bio.replace('\\', '')
 
     return data
