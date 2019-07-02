@@ -4,6 +4,7 @@
 
 #import re
 import regex as re
+import json
 
 import symbolreplace
 import cleaning
@@ -25,7 +26,7 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
             parsed = _parse(block, name, extras, translations, paragraphs)
             parsed = parsed.strip()
             parsed_blocks.append(parsed)
-        html = '\n\n'.join(blocks)
+        html = '\n\n'.join(parsed_blocks)
         return html
     else:
         return _parse(bio, name, extras, translations, paragraphs)
@@ -83,11 +84,7 @@ def _parse(bio, name, extras, translations, paragraphs):
 
     # convert <ol>...</ol>
     regex = re.compile(r'<ol.*?>(?P<list>.*?)</ol>', re.MULTILINE | re.DOTALL)
-    #bio = re.sub(regex, r'[ol]\1[/ol]', bio)
     bio = re.sub(regex, listreplace, bio)
-    # convert <li>...</li>
-    regex = re.compile(r'<li.*?>(.*?)(?:</li>)?$', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[item]\1[/item]', bio)
 
     # convert <k>...</k>
     regex = re.compile(r'<k>(.*?)</k>', re.MULTILINE | re.DOTALL)
@@ -113,7 +110,6 @@ def _parse(bio, name, extras, translations, paragraphs):
 
     # convert <a href="..">...</a>
     regex = re.compile(r'<a\s+href ?= ?[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
-    #bio = re.sub(regex, r'[url=\1]\2[/url]', bio)
     bio = re.sub(regex, urlreplace, bio)
 
     # convert <b>...</b>
@@ -151,7 +147,6 @@ def _parse(bio, name, extras, translations, paragraphs):
     bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
     # convert <E num>
     regex = re.compile(r'<E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
-    #bio = re.sub(regex, r'[e=\1]THIS LINK[/e]', bio)
     bio = re.sub(regex, lambda match: ereplace(match, extras), bio)
 
     # convert <r>...</r>
@@ -199,11 +194,9 @@ def _parse(bio, name, extras, translations, paragraphs):
     # convert [refnum]
     regex = re.compile(r'\[(\d+)\]', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ref]\1[/ref]', bio)
-    bio = bio.replace('<!>', '') # John's reference hack
 
     # convert <T num>
     regex = re.compile(r'<T (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
-    #bio = re.sub(regex, r'[t]\1[/t]', bio)
     bio = re.sub(regex, lambda match: treplace(match, translations), bio)
 
     # convert \formulae\\
@@ -318,9 +311,51 @@ def mathreplace(match):
 
 # helper function for dealing with lists
 def listreplace(match):
-    contents = match.group('list')
-    contents = contents.strip()
-    return '[ol]\n%s\n[/ol]' % contents
+    s = match.group('list').strip()
+    items = []
+    pos = 0
+    in_item = False
+    current_item = ''
+
+    while pos < len(s):
+        if pos+3 <= len(s) and s[pos:pos+3] == '<li':
+            in_item = True
+            pos += 4
+            # skip until the end of the opening tag
+            while s[pos] != '>':
+                pos += 1
+            pos += 1
+            current_item = current_item.strip()
+            if current_item == '':
+                continue
+            items.append(current_item)
+            current_item = ''
+            continue
+
+        if pos+4 <= len(s) and s[pos:pos+4] == '</li':
+            assert in_item
+            in_item = False
+            pos += 5
+            # skip until the end of the opening tag
+            while s[pos] != '>':
+                pos += 1
+            pos += 1
+            continue
+
+        if in_item and pos < len(s):
+            current_item += s[pos]
+
+        pos += 1
+
+    if in_item and current_item.strip() != '':
+        items.append(current_item.strip())
+
+    for i, item in enumerate(items):
+        items[i] = '[item]%s[/item]' % item
+
+    bbcode = '\n\n'.join(items)
+
+    return '[ol]\n%s\n[/ol]' % bbcode
 
 # helper function for dealing with urls
 # need to translate old URLs to new lektor format
