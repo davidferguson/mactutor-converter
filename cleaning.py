@@ -695,6 +695,9 @@ def clean(bio, name):
     bio = bio.replace('<p align="right">','')
     bio = bio.replace('<hr>', '\n')
 
+    # John's reference hack
+    bio = bio.replace('<!>', '')
+
     # not sure what these are. don't seem to be converted anywhere, and they're
     # not a standard HTML tag...
     bio = bio.replace('</pr>','')
