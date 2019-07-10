@@ -11,7 +11,7 @@ import cleaning
 import block_parser
 import urls
 
-def parse(bio, name, extras=[], translations=[], paragraphs=False):
+def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='/'):
     # check we've got a string here
     assert type(bio) == str
 
@@ -23,16 +23,16 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False):
         blocks = block_parser.process_blocks(bio, name)
         parsed_blocks = []
         for block in blocks:
-            parsed = _parse(block, name, extras, translations, paragraphs)
+            parsed = _parse(block, name, extras, translations, paragraphs, url_context)
             parsed = parsed.strip()
             parsed_blocks.append(parsed)
         html = '\n\n'.join(parsed_blocks)
         return html
     else:
-        return _parse(bio, name, extras, translations, paragraphs)
+        return _parse(bio, name, extras, translations, paragraphs, url_context)
 
 
-def _parse(bio, name, extras, translations, paragraphs):
+def _parse(bio, name, extras, translations, paragraphs, url_context):
     # escape backslashes (because we are adding them)
     #regex = re.compile('\\', re.MULTILINE | re.DOTALL)
     #bio = re.sub(regex, '\\\\', bio)
@@ -110,7 +110,7 @@ def _parse(bio, name, extras, translations, paragraphs):
 
     # convert <a href="..">...</a>
     regex = re.compile(r'<a\s+href ?= ?[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
-    bio = re.sub(regex, urlreplace, bio)
+    bio = re.sub(regex, lambda match: urlreplace(match, url_context), bio)
 
     # convert <b>...</b>
     regex = re.compile(r'<b>(.*?)</b>', re.MULTILINE | re.DOTALL)
@@ -147,7 +147,7 @@ def _parse(bio, name, extras, translations, paragraphs):
     bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
     # convert <E num>
     regex = re.compile(r'<E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, lambda match: ereplace(match, extras), bio)
+    bio = re.sub(regex, lambda match: ereplace(match, extras, url_context), bio)
 
     # convert <r>...</r>
     regex = re.compile(r'<r>(.*?)</r>', re.MULTILINE | re.DOTALL)
@@ -188,8 +188,8 @@ def _parse(bio, name, extras, translations, paragraphs):
 
 
     # convert <d>...</d>
-    regex = re.compile(r'<d (\S+?)(?:\s.+?)?>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[img]\1[/img]', bio)
+    regex = re.compile(r'<d (?P<href>\S+?)(?:\s.+?)?>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, lambda match: imgreplace(match, url_context), bio)
 
     # convert [refnum]
     regex = re.compile(r'\[(\d+)\]', re.MULTILINE | re.DOTALL)
@@ -266,7 +266,7 @@ def wreplace(match):
     return r'[w=%s]%s[/w]' % (name, text)
 
 # helper function for converting extras links to normal links
-def ereplace(match, extras):
+def ereplace(match, extras, url_context):
     number = match.group('number')
     extra = list(filter(lambda extra: extra['number'] == number, extras))
     assert len(extra) != 0
@@ -274,7 +274,7 @@ def ereplace(match, extras):
 
     text = extra['text'].strip()
     url = extra['link'].strip()
-    url = urls.convert(url)
+    #url = urls.convert(url, url_context) # urls already converted
     res = r'[url=%s]%s[/url]' % (url, text)
     return res
 
@@ -320,7 +320,7 @@ def listreplace(match):
     while pos < len(s):
         if pos+3 <= len(s) and s[pos:pos+3] == '<li':
             in_item = True
-            pos += 4
+            pos += 3
             # skip until the end of the opening tag
             while s[pos] != '>':
                 pos += 1
@@ -335,7 +335,7 @@ def listreplace(match):
         if pos+4 <= len(s) and s[pos:pos+4] == '</li':
             assert in_item
             in_item = False
-            pos += 5
+            pos += 4
             # skip until the end of the opening tag
             while s[pos] != '>':
                 pos += 1
@@ -355,12 +355,20 @@ def listreplace(match):
 
     bbcode = '\n\n'.join(items)
 
-    return '[ol]\n%s\n[/ol]' % bbcode
+    return '[list]\n%s\n[/list]' % bbcode
 
 # helper function for dealing with urls
 # need to translate old URLs to new lektor format
-def urlreplace(match):
+def urlreplace(match, url_context):
     text = match.group('text')
     href = match.group('href')
-    href = urls.convert(href)
+    href = urls.convert(href, url_context)
     return '[url=%s]%s[/url]' % (href, text)
+
+# helper function for dealing with urls
+# need to translate old URLs to new lektor format
+def imgreplace(match, url_context):
+    href = match.group('href')
+    href = '../Diagrams/' + href
+    href = urls.convert(href, url_context)
+    return '[img]%s[/img]' % href

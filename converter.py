@@ -32,7 +32,7 @@ def save(data, fs_path):
                 f.write(chunk)
 
 
-def convert(input_dir, output_dir, skip_fn, converter):
+def convert(input_dir, output_dir, skip_fn, converter, url_context):
     # get all the files that need to be processed
     path = os.path.join(input_dir, '*')
     files = glob.glob(path)
@@ -48,7 +48,7 @@ def convert(input_dir, output_dir, skip_fn, converter):
             continue
 
         # convert the datasheet to dictionary
-        data = converter.convert(datasheet)
+        data = converter.convert(datasheet, url_context)
 
         # save the dictionary in lektor
         filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'])
@@ -58,10 +58,10 @@ def convert(input_dir, output_dir, skip_fn, converter):
 
 if __name__ == '__main__':
     skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
-    convert('../Datasheets', 'Biographies', skip, biographyparser)
+    convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
     skip = lambda datasheet: '<table' in datasheet['EXTRA']
-    convert('../ExtrasData', 'Extras', skip, extrasparser)
+    convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
     skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
-    convert('../HistTopicsData', 'HistTopics', skip, historytopicsparser)
+    convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')

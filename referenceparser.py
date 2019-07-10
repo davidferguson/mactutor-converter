@@ -6,6 +6,7 @@ import re
 import json
 
 import htmlparser
+import urls
 
 
 def parse_references(references, name):
@@ -38,6 +39,7 @@ def parse_references(references, name):
             assert '<' not in line and '>' not in line
             # make the entire reference a link
             href = line
+            href = urls.convert(href, '/')
             text = parsed_references[-1]['reference']
             link = '<a href="%s">%s</a>' % (href, text)
             # only do this if there isn't already a link in the reference
@@ -76,6 +78,7 @@ def parse_cross_references(references, name):
             number = match.group('number')
             link = match.group('link')
             text = match.group('text')
+            link = urls.convert(link, '/')
             if match.group('extratext'):
                 text += ' ' + match.group('extratext')
                 text = text.strip()

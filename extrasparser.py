@@ -12,7 +12,7 @@ import htmlparser
 import referenceparser
 
 
-def convert(datasheet):
+def convert(datasheet, url_context):
     data = {}
 
     # metadata, the template and model
@@ -32,7 +32,8 @@ def convert(datasheet):
     # parse biography
     bio = htmlparser.parse(datasheet['EXTRA'],
                                 datasheet['FILENAME'],
-                                paragraphs=True)
+                                paragraphs=True,
+                                url_context=url_context)
     data['extra'] = bio.replace('\\', '')
 
     return data
