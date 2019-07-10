@@ -12,7 +12,7 @@ SPECIAL_RULES = {
         ['A picture of his birthplace</a>','A picture of his birthplace']
     ],
     'Brouncker': [
-        ['<img src = "../Diagrams/Picontfrac.gif">','<d /Diagrams/Picontfrac.gif>']
+        ['<img src = "../Diagrams/Picontfrac.gif">','<d Picontfrac.gif>']
     ],
     'Cafiero': [
         ['<Funzioni','Funzioni']
@@ -24,6 +24,15 @@ SPECIAL_RULES = {
     'Colson': [
         ['3709286573961472<pre>','3709286573961472</pre>'],
         ['2308726432039468<pre>','2308726432039468</pre>']
+    ],
+    'Copernicus': [
+        ['<r><li 1></r>','<li 1>'],
+        ['<r><li 2></r>','<li 2>'],
+        ['<r><li 3></r>','<li 3>'],
+        ['<r><li 4></r>','<li 4>'],
+        ['<r><li 5></r>','<li 5>'],
+        ['<r><li 6></r>','<li 6>'],
+        ['<r><li 7></r>','<li 7>']
     ],
     'Copson': [
         ['<center>','<k>'],
@@ -81,7 +90,7 @@ SPECIAL_RULES = {
         ['1996<m>','1996']
     ],
     'Jackson_Frank': [
-        ['<img src= ../Diagrams/Jackson_signature.jpeg height=91 align = right>','<d /Diagrams/Jackson_signature.jpeg>']
+        ['<img src= ../Diagrams/Jackson_signature.jpeg height=91 align = right>','<d Jackson_signature.jpeg>']
     ],
     'Knott': [
         ['An obituary</a>','An obituary']
@@ -261,10 +270,10 @@ SPECIAL_RULES = {
     ],
     # extras
     'Adams_Leverrier': [
-        ['<k><font color="blue"><h3>Searching for Neptune</h3></font>\n\n<img src="../Diagrams/Adams_Leverrier.jpeg">\n</k>','<h3>Searching for Neptune</h3>\n\n<k><d /Diagrams/Adams_Leverrier.jpeg>\n</k>']
+        ['<k><font color="blue"><h3>Searching for Neptune</h3></font>\n\n<img src="../Diagrams/Adams_Leverrier.jpeg">\n</k>','<h3>Searching for Neptune</h3>\n\n<k><d Adams_Leverrier.jpeg>\n</k>']
     ],
     'Aerofoil': [
-        ['<img src="../Diagrams/Aerofoil.gif" align=center>','<d /Diagrams/Aerofoil.gif>']
+        ['<img src="../Diagrams/Aerofoil.gif" align=center>','<d Aerofoil.gif>']
     ],
     'Ahrens_publications': [
         ['<li 36.<i> ','<li 36> <i>'],
@@ -402,9 +411,9 @@ SPECIAL_RULES = {
         ['''[<a href="javascript:ref('  L Gillman, Review: Why Johnny Cant Add: The Failure of the New Math by Morris Kline, <i>The American Mathematical Monthly</i> <b>81</b> (5) (1974), 531-532.',18)">18</a>]''','[18]']
     ],
     'Konigsberg': [
-        ['<img src="../Diagrams/Konigsberg.jpeg">', '<d ../Diagrams/Konigsberg.jpeg>'],
-        ['<img src="../Diagrams/Konigsberg_colour.jpeg">', '<d ../Diagrams/Konigsberg_colour.jpeg>'],
-        ['<img src="../Diagrams/Kaliningrad_now.jpeg">', '<d ../Diagrams/Kaliningrad_now.jpeg>']
+        ['<img src="../Diagrams/Konigsberg.jpeg">', '<d Konigsberg.jpeg>'],
+        ['<img src="../Diagrams/Konigsberg_colour.jpeg">', '<d Konigsberg_colour.jpeg>'],
+        ['<img src="../Diagrams/Kaliningrad_now.jpeg">', '<d Kaliningrad_now.jpeg>']
     ],
     'Kuku_Representation_Theory': [
         ['ul>', 'ol>']
@@ -538,10 +547,10 @@ SPECIAL_RULES = {
         ['<b><r>Oral arithmetic</r></b> (1910).</b>','<b><r>Oral arithmetic</r></b> (1910).']
     ],
     'Somerville_House': [
-        ['<img src ="../Diagrams/Somerville_plaque.jpeg" border=1 >','<d ../Diagrams/Somerville_plaque.jpeg>'],
-        ['<img src ="../Diagrams/Somerville_house1.jpeg" border=1 >','<d ../Diagrams/Somerville_house1.jpeg>'],
-        ['<img src ="../Diagrams/Somerville_house2.jpeg" border=1 >','<d ../Diagrams/Somerville_house2.jpeg>'],
-        ['<img src ="../Diagrams/Burntisland.jpeg" border=1 >','<d ../Diagrams/Burntisland.jpeg>'],
+        ['<img src ="../Diagrams/Somerville_plaque.jpeg" border=1 >','<d Somerville_plaque.jpeg>'],
+        ['<img src ="../Diagrams/Somerville_house1.jpeg" border=1 >','<d Somerville_house1.jpeg>'],
+        ['<img src ="../Diagrams/Somerville_house2.jpeg" border=1 >','<d Somerville_house2.jpeg>'],
+        ['<img src ="../Diagrams/Burntisland.jpeg" border=1 >','<d Burntisland.jpeg>'],
         ['<font size=-1>Photograph by Richard Cormack</font>','<f->Photograph by Richard Cormack</f>']
     ],
     'Stackel_teaching': [
@@ -578,6 +587,9 @@ SPECIAL_RULES = {
     ],
     'Zariski_Samuel': [
         ['<k><h3>Commutative Algebra</h3><n>','<h3>Commutative Algebra</h3>']
+    ],
+    'Zehfuss_publications': [
+        [''' onclick="javascript:win1('../Diagrams/det_note.html',500,400); return false;"''','']
     ],
     # history topics
     'Abstract_linear_spaces': [
@@ -630,7 +642,7 @@ SPECIAL_RULES = {
         ['<d greek_numbers_19.gif >','<d greek_numbers_19.gif>']
     ],
     'Greek_sources_1': [
-        ['<img src= ../Diagrams/Palimpsest_small.jpeg>','<d ../Diagrams/Palimpsest_small.jpeg>']
+        ['<img src= ../Diagrams/Palimpsest_small.jpeg>','<d Palimpsest_small.jpeg>']
     ],
     'Gregory_observatory': [
         [''' onclick="javascript:win1('../Extras/Gregory_commission.html',600,1000);return false;"''',''],
