@@ -750,6 +750,29 @@ SPECIAL_RULES = {
     ],
     'Sadosky_Prize': [
         ['<acWomen_in_Math>','<ac Women_in_Math>']
+    ],
+    # societies
+    'Chinese_Academy': [
+        ['journals.</i>','journals.']
+    ],
+    'EMS': [
+        ['THIS LINK','THIS LINK</a>']
+    ],
+    'Finnish': [
+        ['<m> Lindelof>','<m>Lindelof']
+    ],
+    'Gottingen_Academy': [
+        ['publications.</i>','publications.']
+    ],
+    'Indonesian': [
+        ['<a name=></a>','']
+    ],
+    'Pakistan': [
+        ['<a name=Mushtaq>A leading figure at this meeting, who had long been pushing for founding the Pakistan Mathematical Society, was </a>','<a name=Mushtaq></a>A leading figure at this meeting, who had long been pushing for founding the Pakistan Mathematical Society, was ']
+    ],
+    'Plato': [
+        ['<i>All the evidence','All the evidence'],
+        ['science.</i>','science.']
     ]
 }
 

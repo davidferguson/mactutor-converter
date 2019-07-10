@@ -41,6 +41,7 @@ def parse_references(references, name):
             href = line
             href = urls.convert(href, '/')
             text = parsed_references[-1]['reference']
+            text = text.replace('<br>','')
             link = '<a href="%s">%s</a>' % (href, text)
             # only do this if there isn't already a link in the reference
             if '<a' not in text:
@@ -71,13 +72,16 @@ def parse_cross_references(references, name):
         line = line.strip()
 
         # match against reference line
-        bio_regex = re.compile(r'^(?P<number>\d+)\s*,\s*(?P<link>.+?)\s*,\s*(?P<text>.+?)(?:,\s*(?P<extratext>.+?))?$')
+        #bio_regex = re.compile(r'^(?P<number>\d+)\s*,\s*(?P<link>.+?)\s*,\s*(?P<text>.+?)(?:,\s*(?P<extratext>.+?))?$')
+        bio_regex = re.compile(r'^(?P<number>\d+)\s*,\s*(?P<link>.+?)\s*(?:,\s*(?P<text>.+?))?(?:,\s*(?P<extratext>.+?))?$')
         match = re.match(bio_regex, line)
         if match:
             # this is a reference line
             number = match.group('number')
             link = match.group('link')
             text = match.group('text')
+            if not text:
+                text = 'THIS LINK'
             link = urls.convert(link, '/')
             if match.group('extratext'):
                 text += ' ' + match.group('extratext')

@@ -29,6 +29,6 @@ def convert(datasheet, url_context):
                                 datasheet['FILENAME'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['extra'] = bio.replace('\\', '')
+    data['content'] = bio.replace('\\', '')
 
     return data
