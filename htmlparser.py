@@ -161,9 +161,9 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     # convert <bro>...</bro>
     regex = re.compile(r'<bro>(.*?)<bro>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[color=brown]\1[/brown]', bio)
-    # convert <font color=purple>...</font>
-    regex = re.compile(r'<font color=purple>(.*?)</font>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[color=purple]\1[/purple]', bio)
+    # convert <font color=...>...</font>
+    regex = re.compile(r'<font color ?= ?[\'"]?(\w+)[\'"]?>(.*?)</font>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'[color=\1]\2[/color]', bio)
 
     # convert <f+>...</f+>
     regex = re.compile(r'<f\+>(.*?)</f>', re.MULTILINE | re.DOTALL)

@@ -553,9 +553,6 @@ SPECIAL_RULES = {
         ['<img src ="../Diagrams/Burntisland.jpeg" border=1 >','<d Burntisland.jpeg>'],
         ['<font size=-1>Photograph by Richard Cormack</font>','<f->Photograph by Richard Cormack</f>']
     ],
-    'Stackel_teaching': [
-        ['<font color=magenta>Article by: Vicky Ryan (University of St Andrews)</f>','<font color=purple>Article by: Vicky Ryan (University of St Andrews)</font>']
-    ],
     'Stringham_address': [
         ['<img src=../Curvepics/Parabola/Parabola1.gif height=250 align=right>','<d ../Curvepics/Parabola/Parabola1.gif>'],
         ['<d lineOP.gif >','<d lineOP.gif>']
@@ -581,9 +578,6 @@ SPECIAL_RULES = {
     ],
     'Vidav_bibliography': [
         ['enacb</i>','enacb']
-    ],
-    'Wilson_depression': [
-        ['<font color=magenta>','<font color=purple>']
     ],
     'Zariski_Samuel': [
         ['<k><h3>Commutative Algebra</h3><n>','<h3>Commutative Algebra</h3>']
@@ -677,6 +671,85 @@ SPECIAL_RULES = {
         ['<a name="28">','<a name="28"></a>'],
         ['<a name="62">','<a name="62"></a>'],
         ['<li></a>','<li>']
+    ],
+    # honours
+    'AMShistory': [
+        ['<i><m>Forsyth</m></i>','<m>Forsyth</m>'],
+        ['<i><m Richmond>Dr H W Richmond</m></i>','<m Richmond>Dr H W Richmond</m>'],
+        ['<i><m>Dr Glaisher</m></i>','<m>Dr Glaisher</m>']
+    ],
+    'Chern_Medal': [
+        ['<img src=../Diagrams/Chern-medal.jpeg>','<d Chern-medal.jpeg>']
+    ],
+    'EMShistory': [
+        ['applied.\n\nAmongst','applied.\nAmongst']
+    ],
+    'Hirst_Prize': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'ICM': [
+        ['</b></a>', '</b>'],
+        ['><b>', '></a><b>'],
+        [' </i>>', '</i> >'],
+        ['<Maurice Auslander>','<m>Maurice Auslander</m>']
+    ],
+    'LMS FrolichPrize': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSAddresses': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMShistory': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSHonorary': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSNaylorPrize': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSPolyaPrize': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSPresidents': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSSeniorWhiteheadPrize': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'LMSWhiteheadPrize': [
+        ['Addresses</m>','Addresses</a>'],
+        ['Members</m>','Members</a>'],
+        ['Prize</m>', 'Prize</a>']
+    ],
+    'Noether_Lecture': [
+        ['<img src=../Diagrams/Noether_award_2.jpg height=200 align=right>','<d Noether_award_2.jpg>'],
+        ['<img src=../Diagrams/Noether_award_1.jpg height=200 align=right>','<d Noether_award_1.jpg>']
+    ],
+    'RShistory': [
+        ['<i>About the','About the'],
+        ['there...</i>','there...']
+    ],
+    'Sadosky_Prize': [
+        ['<acWomen_in_Math>','<ac Women_in_Math>']
     ]
 }
 
@@ -717,5 +790,9 @@ def clean(bio, name):
 
     # fix line breaks for list items
     bio = bio.replace('\n\n<li', '\n<li')
+
+    # convert strong to b
+    bio = bio.replace('<strong>','<b>')
+    bio = bio.replace('</strong>','</b>')
 
     return bio

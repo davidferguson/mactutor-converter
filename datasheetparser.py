@@ -33,7 +33,8 @@ TAGS = [
     'UPDATE',
     'TITLE',
     'HEADLINE',
-    'EXTRA'
+    'EXTRA',
+    'CONTENT'
 ]
 
 def parse_file(filename):

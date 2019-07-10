@@ -13,6 +13,7 @@ import biographyparser
 import extrasparser
 import historytopicsparser
 import datasheetparser
+import honoursparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
@@ -57,11 +58,14 @@ def convert(input_dir, output_dir, skip_fn, converter, url_context):
 
 
 if __name__ == '__main__':
-    skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
-    convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
+    #skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
+    #convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
-    skip = lambda datasheet: '<table' in datasheet['EXTRA']
-    convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
+    #skip = lambda datasheet: '<table' in datasheet['EXTRA']
+    #convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
-    skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
-    convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
+    #skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
+    #convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
+
+    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    convert('../datasheets/Honours', 'Honours', skip, honoursparser, 'Honours/')
