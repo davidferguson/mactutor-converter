@@ -15,8 +15,8 @@ def convert(datasheet, url_context):
     data = {}
 
     # metadata, the template and model
-    data['_model'] = 'societies'
-    data['_template'] = 'societies.html'
+    data['_model'] = 'society'
+    data['_template'] = 'society.html'
 
     # easily translatable info
     data['filename'] = datasheet['FILENAME']

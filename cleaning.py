@@ -553,6 +553,9 @@ SPECIAL_RULES = {
         ['<img src ="../Diagrams/Burntisland.jpeg" border=1 >','<d Burntisland.jpeg>'],
         ['<font size=-1>Photograph by Richard Cormack</font>','<f->Photograph by Richard Cormack</f>']
     ],
+    'Stackel_teaching': [
+        ['</f>', '</font>']
+    ],
     'Stringham_address': [
         ['<img src=../Curvepics/Parabola/Parabola1.gif height=250 align=right>','<d ../Curvepics/Parabola/Parabola1.gif>'],
         ['<d lineOP.gif >','<d lineOP.gif>']
