@@ -37,7 +37,9 @@ TAGS = [
     'CONTENT',
     'TITLENAME',
     'EXTRAS',
-    'FOUNDATION'
+    'FOUNDATION',
+    'NAME',
+    'NUMQUOTES'
 ]
 
 def parse_file(filename):

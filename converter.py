@@ -15,6 +15,7 @@ import historytopicsparser
 import datasheetparser
 import honoursparser
 import societiesparser
+import quotationsparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
@@ -73,3 +74,6 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
     convert('../datasheets/Societies', 'Societies', skip, societiesparser, 'Societies/')
+
+    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    convert('../datasheets/Quotations', 'Quotations', skip, quotationsparser, 'Quotations/')

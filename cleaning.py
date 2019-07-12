@@ -776,6 +776,30 @@ SPECIAL_RULES = {
     'Plato': [
         ['<i>All the evidence','All the evidence'],
         ['science.</i>','science.']
+    ],
+    # quotations
+    'Quotations/Babbage': [
+        ['blockquote>','Q>']
+    ],
+    'Quotations/Bers': [
+        ['<img src="../Diagrams/Bers1.gif">','<d Bers1.gif>'],
+        ['<img src="../Diagrams/Bers2.gif" align=center>','<d Bers2.gif>']
+    ],
+    'Quotations/De_Morgan': [
+        ['<font size=-1>','<f->'],
+        ['</font>','</f>']
+    ],
+    'Quotations/Eddington': [
+        ['blockquote>','Q>']
+    ],
+    'Quotations/Lagrange': [
+        ['</i>[said','[said']
+    ],
+    'Quotations/Newton': [
+        ['I>','i>']
+    ],
+    'Quotations/Planck': [
+        ['<Scientific','<i>Scientific']
     ]
 }
 
