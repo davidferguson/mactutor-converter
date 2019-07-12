@@ -31,7 +31,7 @@ def convert(datasheet, url_context):
     # authors
     data['authors'] = datasheet['AUTHORS']
 
-    data['summary'] = datasheet['SUMMARY']
+    data['summary'] = htmlparser.parse(datasheet['SUMMARY'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 
     # dates are tricky. for now leave them as they are
     data['birthdate'] = datasheet['BIRTHDATE']

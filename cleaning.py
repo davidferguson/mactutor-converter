@@ -8,11 +8,17 @@ SPECIAL_RULES = {
     'Ambartsumian': [
         ['Stages of life and scientific concepts</i> (Russian) (Moscow, 2011).','<i>Stages of life and scientific concepts</i> (Russian) (Moscow, 2011).']
     ],
+    'Bertrand': [
+        ['''<b>Bertrand</b> was a Paris professor who, in 1845, conjectured:\n<dd><i>I've told you once and I'll tell you again \n<dd>There's always a prime between n and 2n.</i><br>\n<dt>This was proved by Chebyshev in 1850.''', "<b>Bertrand</b> was a Paris professor who, in 1845, conjectured: <i>I've told you once and I'll tell you again, there's always a prime between n and 2n.</i> This was proved by Chebyshev in 1850."]
+    ],
     'Brahe': [
         ['A picture of his birthplace</a>','A picture of his birthplace']
     ],
     'Brouncker': [
         ['<img src = "../Diagrams/Picontfrac.gif">','<d Picontfrac.gif>']
+    ],
+    'Catalan': [
+        ['<bEug&egrave;ne >Catalan</b>','<b>Eugène Catalan</b>']
     ],
     'Cafiero': [
         ['<Funzioni','Funzioni']
@@ -41,6 +47,9 @@ SPECIAL_RULES = {
     'Cox_Elbert': [
         ['Mathematicians of the African diaspora<','Mathematicians of the African diaspora']
     ],
+    'Cunha': [
+        ['b>Anast&aacute;cio da Cunha</b>', '<b>Anastácio da Cunha</b>']
+    ],
     'De_Morgan': [
         ['A Macfarlane, <i>Lectures on Ten British Mathematicians of the Nineteenth Century</i> (New York, 1916), 19-33. Brr>','A Macfarlane, <i>Lectures on Ten British Mathematicians of the Nineteenth Century</i> (New York, 1916), 19-33. Brr']
     ],
@@ -67,6 +76,9 @@ SPECIAL_RULES = {
     'Frechet': [
         ['</blockquote>', '</Q>'],
         ['Maurice Fréchet, according to the author', '<Q>\nMaurice Fréchet, according to the author']
+    ],
+    'Fuchs': [
+        ['equations</g>','equations']
     ],
     'Galileo': [
         ['(= Galileo)</b> (16th Arrondissement)','(= Galileo) (16th Arrondissement)']
@@ -99,6 +111,9 @@ SPECIAL_RULES = {
         ['very simple form</i>','very simple form'],
         ['I suggested the notation </i>','I suggested the notation '],
         ['<BigGamma>','<gamma>']
+    ],
+    'Koch': [
+        ['<b>Koch</b> is best known for the fractal Koch curve.\n<p>\n<center><img src = "../Diagrams/Koch_curve.gif"></center>', '<b>Koch</b> is best known for the fractal Koch curve.']
     ],
     'Lamy': [
         ['</ind>\n\n</Q>','</Q>\n']
@@ -142,6 +157,9 @@ SPECIAL_RULES = {
     'Mosharrafa': [
         ['<ac >Royal Society of London</ac>','<ac RS>Royal Society of London</ac>']
     ],
+    'Narayana': [
+        ['b>Narayana</b> was an Indian','<b>Narayana</b> was an Indian']
+    ],
     'Netto': [
         [' <!T 5722>', ''],
         [' <!T 5723>',''],
@@ -174,6 +192,9 @@ SPECIAL_RULES = {
     ],
     'Qin_Jiushao': [
         ['the Mathematical Art</i>','the <i>Mathematical Art</i>']
+    ],
+    'Rahn': [
+        ['<img src= "../Symbolgifs/divide.gif" alt = "divide">','<s divide>']
     ],
     'Reinher': [
         ['<etiam>','']

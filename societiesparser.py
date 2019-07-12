@@ -21,7 +21,7 @@ def convert(datasheet, url_context):
     # easily translatable info
     data['filename'] = datasheet['FILENAME']
     data['titlename'] = datasheet['TITLENAME']
-    data['headline'] = datasheet['HEADLINE']
+    data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
     data['update'] = datasheet['UPDATE']
     data['foundation'] = datasheet['FOUNDATION']
 

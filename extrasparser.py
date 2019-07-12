@@ -22,7 +22,7 @@ def convert(datasheet, url_context):
     # filename, title, headline and update date for this
     data['filename'] = datasheet['FILENAME']
     data['title'] = datasheet['TITLE']
-    data['headline'] = datasheet['HEADLINE']
+    data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
     data['update'] = datasheet['UPDATE']
 
     # parse references

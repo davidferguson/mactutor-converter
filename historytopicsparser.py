@@ -22,7 +22,7 @@ def convert(datasheet, url_context):
     # filename, short and full name, authors, update
     data['filename'] = datasheet['FILENAME']
     data['shortname'] = datasheet['SHORTNAME']
-    data['fullname'] = datasheet['FULLNAME']
+    data['fullname'] = htmlparser.parse(datasheet['FULLNAME'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
     data['authors'] = datasheet['AUTHORS']
     data['update'] = datasheet['UPDATE']
 
