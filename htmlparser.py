@@ -5,6 +5,7 @@
 #import re
 import regex as re
 import json
+import html
 
 import symbolreplace
 import cleaning
@@ -18,6 +19,9 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
     # clean the data
     bio = cleaning.clean(bio, name)
 
+    # remove html special characters
+    bio = html.unescape(bio)
+
     if paragraphs:
         bio = bio.replace('<n>', '')
         blocks = block_parser.process_blocks(bio, name)
@@ -26,8 +30,8 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
             parsed = _parse(block, name, extras, translations, paragraphs, url_context)
             parsed = parsed.strip()
             parsed_blocks.append(parsed)
-        html = '\n\n'.join(parsed_blocks)
-        return html
+        output = '\n\n'.join(parsed_blocks)
+        return output
     else:
         return _parse(bio, name, extras, translations, paragraphs, url_context)
 
