@@ -11,9 +11,18 @@ import datasheetparser
 import htmlparser
 import referenceparser
 import symbolreplace
+import flow
 
-savedir = 'biographies'
+maplocations = []
+done_maplocations = []
 
+def get_map_locations():
+    data = {}
+    data['_model'] = 'maplocations'
+    data['_template'] = 'maplocations.html'
+    data['maplocations'] = flow.to_flow_block('maplocation', maplocations)
+    data['filename'] = 'maplocations'
+    return data
 
 def convert(datasheet, url_context):
     data = {}
@@ -40,9 +49,24 @@ def convert(datasheet, url_context):
     data['deathdate'] = datasheet['DEATHDATE']
     data['deathyear'] = datasheet['DEATHYEAR']
 
-    # birthplace and mapinfo
+    # birthplace
     data['birthplace'] = datasheet['BIRTHPLACE']
-    data['birthlatlong'] = re.sub(r'\d+,.+?,(?:(-?[\d.]+),(-?[\d.]+))?', r'\1,\2', datasheet['MAPINFO'])
+
+    # mapinfo - this is special
+    # we add it to an array, so that it can be added to the maplocations file later
+    mapinfo = re.compile(r'\d,(?P<name>.+?),(?:(?P<lat>-?[\d.]+),(?P<long>-?[\d.]+))?')
+    match = mapinfo.search(datasheet['MAPINFO'])
+    data['maplocation'] = ''
+    if match and match.group('lat') and match.group('long'):
+        if match.group('name') not in done_maplocations:
+            location = {
+                'name': match.group('name'),
+                'lat': match.group('lat'),
+                'long': match.group('long')
+            }
+            maplocations.append(location)
+            done_maplocations.append(match.group('name'))
+        data['maplocation'] = match.group('name')
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
