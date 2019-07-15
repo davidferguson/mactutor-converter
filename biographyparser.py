@@ -10,6 +10,7 @@ import re
 import datasheetparser
 import htmlparser
 import referenceparser
+import symbolreplace
 
 savedir = 'biographies'
 
@@ -25,11 +26,11 @@ def convert(datasheet, url_context):
     data['filename'] = datasheet['FILENAME']
 
     # name and shortname
-    data['shortname'] = datasheet['SHORTNAME']
-    data['fullname'] = datasheet['FULLNAME']
+    data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
+    data['fullname'] = symbolreplace.tags_to_unicode(datasheet['FULLNAME'])
 
     # authors
-    data['authors'] = datasheet['AUTHORS']
+    data['authors'] = symbolreplace.tags_to_unicode(datasheet['AUTHORS'])
 
     data['summary'] = htmlparser.parse(datasheet['SUMMARY'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 

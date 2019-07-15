@@ -11,6 +11,7 @@ import lektor.metaformat
 
 import datasheetparser
 import htmlparser
+import symbolreplace
 
 NUMBER_CORRECTIONS = {
     'Aristotle': 32,
@@ -62,7 +63,7 @@ def convert(datasheet, url_context):
 
     # filename, name
     data['filename'] = datasheet['FILENAME']
-    data['name'] = datasheet['NAME']
+    data['name'] = symbolreplace.tags_to_unicode(datasheet['NAME'])
 
     content = datasheet['CONTENT']
     numquotes = datasheet['NUMQUOTES']

@@ -10,6 +10,7 @@ import re
 import datasheetparser
 import htmlparser
 import referenceparser
+import symbolreplace
 
 
 def convert(datasheet, url_context):
@@ -21,7 +22,7 @@ def convert(datasheet, url_context):
 
     # filename, title, headline and update date for this
     data['filename'] = datasheet['FILENAME']
-    data['title'] = datasheet['TITLE']
+    data['title'] = symbolreplace.tags_to_unicode(datasheet['TITLE'])
     data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 
     # parse biography

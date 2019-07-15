@@ -9,6 +9,7 @@ import re
 
 import htmlparser
 import referenceparser
+import symbolreplace
 
 
 def convert(datasheet, url_context):
@@ -20,7 +21,7 @@ def convert(datasheet, url_context):
 
     # easily translatable info
     data['filename'] = datasheet['FILENAME']
-    data['titlename'] = datasheet['TITLENAME']
+    data['titlename'] = symbolreplace.tags_to_unicode(datasheet['TITLENAME'])
     data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
     data['update'] = datasheet['UPDATE']
     data['foundation'] = datasheet['FOUNDATION']
