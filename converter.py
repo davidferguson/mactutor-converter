@@ -16,6 +16,7 @@ import datasheetparser
 import honoursparser
 import societiesparser
 import quotationsparser
+import obituariesparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
@@ -54,26 +55,29 @@ def convert(input_dir, output_dir, skip_fn, converter, url_context):
         data = converter.convert(datasheet, url_context)
 
         # save the dictionary in lektor
-        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'])
+        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'].replace('Obits2@', '').replace('.html', ''))
         save(data, filename)
         print('processed', datasheet['FILENAME'])
 
 
 if __name__ == '__main__':
-    skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
-    convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
+    #skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
+    #convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
-    skip = lambda datasheet: '<table' in datasheet['EXTRA']
-    convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
+    #skip = lambda datasheet: '<table' in datasheet['EXTRA']
+    #convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
-    skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
-    convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
+    #skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
+    #convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
-    convert('../datasheets/Honours', 'Honours', skip, honoursparser, 'Honours/')
+    #skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    #convert('../datasheets/Honours', 'Honours', skip, honoursparser, 'Honours/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
-    convert('../datasheets/Societies', 'Societies', skip, societiesparser, 'Societies/')
+    #skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    #convert('../datasheets/Societies', 'Societies', skip, societiesparser, 'Societies/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
-    convert('../datasheets/Quotations', 'Quotations', skip, quotationsparser, 'Quotations/')
+    #skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    #convert('../datasheets/Quotations', 'Quotations', skip, quotationsparser, 'Quotations/')
+
+    skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    convert('../datasheets/Obits', 'Obituaries', skip, obituariesparser, 'Obits2/')

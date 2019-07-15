@@ -821,6 +821,54 @@ SPECIAL_RULES = {
     ],
     'Quotations/Planck': [
         ['<Scientific','<i>Scientific']
+    ],
+    'Obits2@Baker_obituary.html': [
+        ['<br>', '<ind>'],
+        ['</i>Legendre<i>','<i>Legendre</i>']
+    ],
+    'Obits2@Fowler_David_Guardian.html': [
+        ['<p>','']
+    ],
+    'Obits2@Gibson_obituary.html': [
+        ['265- 267</i>','265- 267']
+    ],
+    'Obits2@Griffiths_Brian_Guardian.html': [
+        ['<p>','']
+    ],
+    'Obits2@Hobbes_Aubrey.html': [
+        ['</body></html>','']
+    ],
+    'Obits2@Ince_obituary.html': [
+        ['<S Sigma>','<sigma>'],
+        ['264.</i>','264.']
+    ],
+    'Obits2@Lehmer_Emma_Berkeley.html': [
+        ['at the age of 100.','at the age of 100.</b>'],
+        ['She passed away','<b>She passed away']
+    ],
+    'Obits2@Mandelbrot_STelegraph.html': [
+        ['<i>(</i>Mis<i>)</i>','(Mis)']
+    ],
+    'Obits2@Moser_Jurgen_Guardian.html': [
+        ['<p>','']
+    ],
+    'Obits2@Munn_RSE.html': [
+        ['<i>Walter Douglas Munn MA, DSc </i>(<i>Glasgow</i>)<i>, PhD <i>(</i>Cantab<i>)</i>. Born</i> 24<i>th April, </i>1929<i>, Elected FRSE </i>1<i> March</i> 1965, <i>died</i> 26th <i>October</i>, 2008.','<i>Walter Douglas Munn MA, DSc (Glasgow), PhD (Cantab). Born 24th April, 1929, Elected FRSE 1 March 1965, died 26th October, 2008.</i>']
+    ],
+    'Obits2@Sommerville_obituary.html': [
+        ['57-60</i>','57-60']
+    ],
+    'Obits2@Turnbull_LMS_obituary.html': [
+        ['Tram. Roy. Soc.</i>','Tram. Roy. Soc.']
+    ],
+    'Obits2@Tutte_Scotsman.html': [
+        ['©William Tutte</b>','<b>William Tutte</b>']
+    ],
+    'Obits2@Whittaker_EMS_Obituary.html': [
+        ['1-10.</i>','1-10.']
+    ],
+    'Obits2@Wren_Aubrey.html': [
+        ['<p align =justify>','']
     ]
 }
 
