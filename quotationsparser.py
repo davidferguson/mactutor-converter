@@ -7,11 +7,10 @@ import os
 import json
 import re
 
-import lektor.metaformat
-
 import datasheetparser
 import htmlparser
 import symbolreplace
+import flow
 
 NUMBER_CORRECTIONS = {
     'Aristotle': 32,
@@ -42,16 +41,6 @@ def parse_quote(quote):
             # found a source!
             return {'quote': '\n'.join(lines), 'source': lastline}
     return {'quote': quote, 'source': ''}
-
-
-def to_flow_block(block_name, array):
-    output = []
-    for item in array:
-        items = list(item.items())
-        output.append('#### %s ####\n' % block_name)
-        lektordata = list(lektor.metaformat.serialize(items))
-        output += lektordata
-    return ''.join(output)
 
 
 def convert(datasheet, url_context):
@@ -104,6 +93,6 @@ def convert(datasheet, url_context):
         q['source'] = htmlparser.parse(q['source'], 'Quotations/%s' % data['filename'], paragraphs=False, url_context=url_context)
         quotes[idx] = q
 
-    data['quotations'] = to_flow_block('quotation', quotes)
+    data['quotations'] = flow.to_flow_block('quotation', quotes)
 
     return data
