@@ -50,12 +50,16 @@ def convert(href, url_context):
     path = parsed.path
     fragment = parsed.fragment
 
-    html_directories = ('/Biographies/','/Extras/','/HistTopics/')
+    html_directories = ('/Biographies/','/Extras/','/HistTopics/', '/Honours/', '/Societies/', '/Quotations/')
     if path.startswith(html_directories):
         if path.endswith('.html'):
             page = path[:-5]
         else:
             page = path
+    elif path.startswith('/Obits2/'):
+        page = '/Obituaries/' + path[8:]
+        if page.endswith('.html'):
+            page = page[:-5]
     else:
         page = path
 
