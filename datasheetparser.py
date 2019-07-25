@@ -40,7 +40,11 @@ TAGS = [
     'FOUNDATION',
     'NAME',
     'NUMQUOTES',
-    'HEADING1'
+    'HEADING1',
+    'RANGES',
+    'EQUATIONS',
+    'JAVA',
+    'CONTENTS'
 ]
 
 def parse_file(filename):

@@ -3,6 +3,7 @@
 # converts symbols to unicode
 
 import regex as re
+import html
 
 
 def symbols_to_unicode(text, katex=False):
@@ -68,5 +69,8 @@ def tags_to_unicode(text, katex=False):
 
     for tag, unicode in zip(all_tags, all_unicode):
         text = text.replace(tag, unicode)
+
+    # sneaky fix - also do html character tags
+    text = html.unescape(text)
 
     return text

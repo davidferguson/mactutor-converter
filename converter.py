@@ -17,6 +17,7 @@ import honoursparser
 import societiesparser
 import quotationsparser
 import obituariesparser
+import curvesparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
@@ -66,7 +67,7 @@ if __name__ == '__main__':
 
     # manually do the maplocations discovered from biographies
     mapdata = biographyparser.get_map_locations()
-    filename = os.path.join(LEKTOR_CONTENT_PATH, '', 'maplocations')
+    filename = os.path.join(LEKTOR_CONTENT_PATH, 'Maplocations')
     save(mapdata, filename)
 
     skip = lambda datasheet: '<table' in datasheet['EXTRA']
@@ -86,3 +87,6 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
     convert('../datasheets/Obits', 'Obituaries', skip, obituariesparser, 'Obits2/')
+
+    skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
+    convert('../datasheets/Curves', 'Curves', skip, curvesparser, 'Curves/')

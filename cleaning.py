@@ -822,6 +822,9 @@ SPECIAL_RULES = {
     'Quotations/Planck': [
         ['<Scientific','<i>Scientific']
     ],
+    'Quotations/Scott': [
+        ['<pte Angas Scott>','']
+    ],
     'Obits2@Baker_obituary.html': [
         ['<br>', '<ind>'],
         ['</i>Legendre<i>','<i>Legendre</i>']
@@ -869,6 +872,13 @@ SPECIAL_RULES = {
     ],
     'Obits2@Wren_Aubrey.html': [
         ['<p align =justify>','']
+    ],
+    # curves
+    'Ellipse': [
+        ['</a> </a>','</a>']
+    ],
+    'Hyperbola': [
+        ['</a></a>','</a>']
     ]
 }
 
