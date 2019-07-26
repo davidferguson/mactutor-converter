@@ -44,7 +44,12 @@ TAGS = [
     'RANGES',
     'EQUATIONS',
     'JAVA',
-    'CONTENTS'
+    'CONTENTS',
+    'WHODIDIT',
+    'NONSTANDARDHEAD',
+    'NONSTANDARDFOOT',
+    'JSCRIPT',
+    'USEHTMLFORMAT'
 ]
 
 def parse_file(filename):

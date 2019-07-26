@@ -18,6 +18,7 @@ import societiesparser
 import quotationsparser
 import obituariesparser
 import curvesparser
+import emsparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
@@ -56,7 +57,7 @@ def convert(input_dir, output_dir, skip_fn, converter, url_context):
         data = converter.convert(datasheet, url_context)
 
         # save the dictionary in lektor
-        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'].replace('Obits2@', '').replace('.html', ''))
+        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'].replace('Obits2@', '').replace('.html', '').replace('.', ''))
         save(data, filename)
         print('processed', datasheet['FILENAME'])
 
@@ -90,3 +91,9 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
     convert('../datasheets/Curves', 'Curves', skip, curvesparser, 'Curves/')
+
+    skip = lambda datasheet: datasheet['FILENAME'] == 'EMS_poster' or ('Zagier/' in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    convert('../datasheets/EMS', 'EMS', skip, emsparser, 'EMS/')
+
+    skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    convert('../datasheets/EMS', 'EMS', skip, emsparser, 'EMS/Zagier/')

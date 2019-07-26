@@ -191,9 +191,14 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     # ========= INLINE =========
 
 
-    # convert <d>...</d>
+    # convert <d ...>
     regex = re.compile(r'<d (?P<href>\S+?)(?:\s.+?)?>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, lambda match: imgreplace(match, url_context), bio)
+
+    # bit of a hack - convert <allow_img ...>
+    regex = re.compile(r'<allow_img (\S+?)>', re.MULTILINE | re.DOTALL)
+    #bio = re.sub(regex, lambda match: imgreplace(match, url_context), bio)
+    bio = re.sub(regex, r'[img]\1[/img]', bio)
 
     # convert [refnum]
     regex = re.compile(r'\[(\d+)\]', re.MULTILINE | re.DOTALL)

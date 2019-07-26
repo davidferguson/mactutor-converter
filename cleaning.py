@@ -879,6 +879,96 @@ SPECIAL_RULES = {
     ],
     'Hyperbola': [
         ['</a></a>','</a>']
+    ],
+    # ems
+    'Colloquium_1926': [
+        ['<ol type=A>',''],
+        ['<li a>', 'A. '],
+        ['<li b>', 'B. '],
+        ['<li c>', 'C. '],
+        ['<li d>', 'D. '],
+        ['<li e>', 'E. '],
+        ['<li f>', 'F. '],
+        ['others.\n</ol>', 'others.\n\n']
+    ],
+    'Colloquium_1930': [
+        ['<ol type=A>',''],
+        ['<li A>', 'A. '],
+        ['<li B>', 'B. '],
+        ['<li C>', 'C. '],
+        ['<li D>', 'D. '],
+        ['<li E>', 'E. '],
+        ['<li F>', 'F. '],
+        ['<li G>', 'G. '],
+        ['courses.\n</ol>','courses.\n\n']
+    ],
+    'Colloquium_1934': [
+        ['<ol type=A>',''],
+        ['<li A>', 'A. '],
+        ['<li B>', 'B. '],
+        ['<li C>', 'C. '],
+        ['<li D>', 'D. '],
+        ['</i>\n</ol>','</i>\n\n']
+    ],
+    'Colloquium_1938': [
+        ['<ol><li 1>The', '1. The'],
+        ['<li 1>The University', '2. The University'],
+        ['<li 1>Professor', '3. Professor'],
+        ['</ol>\nThe', '\n\nThe'],
+        ['<ol type=A>',''],
+        ['<li A>', 'A. '],
+        ['<li B>', 'B. '],
+        ['<li C>', 'C. '],
+        ['<li D>', 'D. '],
+        ['</ol></ol>','\n\n'],
+        ['<ol type=i>', ''],
+        ['<li i>', 'i. '],
+        ['<li ii>', 'ii. ']
+    ],
+    'Colloquium_1951': [
+        ['<ol type=a>',''],
+        ['<li a>', 'A. '],
+        ['<li b>', 'B. '],
+        ['<li c>', 'C. '],
+        ['<li d>', 'D. '],
+        ['<li e>', 'E. '],
+        ['Aerodynamics."\n</ol>', 'Aerodynamics."\n\n'],
+        ['</i>\n</ol>', '</i>\n\n']
+    ],
+    'Colloquium_1955': [
+        ['<ol type=a>',''],
+        ['<li a>', 'A. '],
+        ['<li b>', 'B. '],
+        ['<li c>', 'C. '],
+        ['<li d>', 'D. '],
+        ['<li e>', 'E. '],
+        ['<li f>', 'C. '],
+        ['<li g>', 'D. '],
+        ['<li h>', 'E. '],
+        ['(Geneva).\n</ol>', '(Geneva).\n\n'],
+    ],
+    'EMS-SCM': [
+        ['dd>', 'ind>']
+    ],
+    'EMS_125': [
+        ['center>', 'k>'],
+        ['<p>', ''],
+        ['<img src="pics/EMS_poster_small.jpeg" border=1>', '<allow_img pics/EMS_poster_small.jpeg>'],
+        ['<font size=-1>', '<f->'],
+        ['</font>', '</f>']
+    ],
+    'EMS_Copson_Atiyah': [
+        ['<img src ="../BigPictures/Rankin_Copson.jpeg" border=1 ></a>', '<allow_img ../BigPictures/Rankin_Copson.jpeg>']
+    ],
+    'EMSWhittakerPrize': [
+        ['<ol type=i>', ''],
+        ['<li i>', 'i. '],
+        ['<li ii>', 'ii. '],
+        ['</ol><n>', '\n\n']
+    ],
+    'Zagier/Problems': [
+        ['<img src=zagier_1.gif height=40>','<allow_img zagier_1.gif>'],
+        ['</body></html>', '']
     ]
 }
 
