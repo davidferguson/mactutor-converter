@@ -19,6 +19,7 @@ import quotationsparser
 import obituariesparser
 import curvesparser
 import emsparser
+import glossaryparser
 
 LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
 
@@ -97,3 +98,6 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
     convert('../datasheets/EMS', 'EMS', skip, emsparser, 'EMS/Zagier/')
+
+    skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
+    convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glosary/')

@@ -49,7 +49,8 @@ TAGS = [
     'NONSTANDARDHEAD',
     'NONSTANDARDFOOT',
     'JSCRIPT',
-    'USEHTMLFORMAT'
+    'USEHTMLFORMAT',
+    'WORD'
 ]
 
 def parse_file(filename):

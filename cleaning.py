@@ -969,6 +969,10 @@ SPECIAL_RULES = {
     'Zagier/Problems': [
         ['<img src=zagier_1.gif height=40>','<allow_img zagier_1.gif>'],
         ['</body></html>', '']
+    ],
+    # glossary
+    'gelfonds_conjecture': [
+        ['blockquote>', 'Q>']
     ]
 }
 
