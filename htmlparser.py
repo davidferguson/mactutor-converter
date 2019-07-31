@@ -2,7 +2,6 @@
 
 # parses biography quasi-html format to Markdown
 
-#import re
 import regex as re
 import json
 import html
@@ -38,9 +37,8 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
 
 def _parse(bio, name, extras, translations, paragraphs, url_context):
     # escape backslashes (because we are adding them)
-    #regex = re.compile('\\', re.MULTILINE | re.DOTALL)
-    #bio = re.sub(regex, '\\\\', bio)
     bio = bio.replace('\\', '\\\\')
+
     # escape any literal square brackets
     regex = re.compile(r'\[(?!\d+])', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, '\\[', bio)
@@ -149,6 +147,9 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     # convert <ac academy>...</g>
     regex = re.compile(r'<ac\s+(.+?)>(.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
+    # convert <E num> - trying to fix 'THIS LINK'
+    regex = re.compile(r'(?<=[Yy]ou can see )(?P<text>.*?) at <E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, lambda match: ereplaceclever(match, extras, url_context), bio)
     # convert <E num>
     regex = re.compile(r'<E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, lambda match: ereplace(match, extras, url_context), bio)
@@ -273,6 +274,21 @@ def wreplace(match):
     if name == None:
         return r'[w]%s[/w]' % text
     return r'[w=%s]%s[/w]' % (name, text)
+
+# helper function for converting extras links to normal links
+def ereplaceclever(match, extras, url_context):
+    number = match.group('number')
+    extra = list(filter(lambda extra: extra['number'] == number, extras))
+    assert len(extra) != 0
+    extra = extra[0]
+
+    text = match.group('text')
+
+    #text = extra['text'].strip()
+    url = extra['link'].strip()
+    #url = urls.convert(url, url_context) # urls already converted
+    res = r'[url=%s]%s[/url]' % (url, text)
+    return res
 
 # helper function for converting extras links to normal links
 def ereplace(match, extras, url_context):
