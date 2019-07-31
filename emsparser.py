@@ -25,7 +25,7 @@ def convert(datasheet, url_context):
     data['title'] = symbolreplace.tags_to_unicode(datasheet['TITLE'])
 
     # check that this is a standard page
-    assert datasheet['USEHTMLFORMAT'] == 'Y'
+    #assert datasheet['USEHTMLFORMAT'] == 'Y'
 
     # parse biography, and add in extras and translations
     content = htmlparser.parse(datasheet['CONTENT'],
