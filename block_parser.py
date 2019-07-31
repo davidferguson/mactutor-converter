@@ -1,4 +1,4 @@
-import regex as re
+import re
 
 total = 0
 errors = {}
@@ -10,7 +10,7 @@ def is_close_block_tag(s, pos):
 def is_open_block_tag(s, pos, close=False):
     if s[pos] != '<':
         return False
-    tags = ['q','Q','ol','h1','h2','h3','h4','h5','h6','k','ind','cp','cpb']
+    tags = ['q','Q','ol','h1','h2','h3','h4','h5','h6','k','ind','pre','cp','cpb']
     for tag in tags:
         if close:
             tag = '</%s>' % tag
@@ -35,7 +35,7 @@ def is_open_block_tag(s, pos, close=False):
         return False
 
 def get_tag(tag):
-    pattern = re.compile(r'</?(?P<tag>q|Q|ol|h\d|k|ind|cp|cpb).*?>')
+    pattern = re.compile(r'</?(?P<tag>q|Q|ol|h\d|k|ind|pre|cp|cpb).*?>')
     match = pattern.search(tag)
     assert match
     return match.group('tag').lower()
@@ -83,14 +83,14 @@ def process_blocks(s, name):
     pos = 0
 
     while pos < len(s):
-        if pos+5 <= len(s) and s[pos:pos+5] == '<pre>':
-            in_pre = True
-            pos += 5
-            continue
-        if pos+6 <= len(s) and s[pos:pos+6] == '</pre>':
-            in_pre = False
-            pos += 6
-            continue
+        #if pos+5 <= len(s) and s[pos:pos+5] == '<pre>':
+        #    in_pre = True
+        #    pos += 5
+        #    continue
+        #if pos+6 <= len(s) and s[pos:pos+6] == '</pre>':
+        #    in_pre = False
+        #    pos += 6
+        #    continue
 
         newpos = is_open_block_tag(s, pos)
         if newpos:
@@ -117,6 +117,7 @@ def process_blocks(s, name):
                     print('TAG MISMATCH')
                     print(tag)
                     print('expecting %s but got %s' % (current_tag[-1], tag))
+                    print('in', name)
                     assert False
             else:
                 finish_block(current_block, current_tag, blocks)
@@ -129,7 +130,10 @@ def process_blocks(s, name):
             if len(current_tag) > 0 and current_tag[-1] == 'ol':
                 # dont do this for lists
                 pass
-            elif in_pre:
+            elif len(current_tag) > 0 and current_tag[-1] == 'q':
+                # don't do this if we're in a <Q>
+                pass
+            elif len(current_tag) > 0 and current_tag[-1] == 'pre':
                 # don't do this if we're in a <pre>
                 pass
             else:
