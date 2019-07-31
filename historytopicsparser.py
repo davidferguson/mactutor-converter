@@ -11,6 +11,7 @@ import datasheetparser
 import htmlparser
 import referenceparser
 import symbolreplace
+import flow
 
 
 def convert(datasheet, url_context):
@@ -33,11 +34,11 @@ def convert(datasheet, url_context):
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
-    data['references'] = references
+    data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse additional links (they use the same format as cross references)
     additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'])
-    data['additional'] = additional
+    data['additional'] = flow.to_flow_block('otherweb', json.loads(additional)['data'])
 
     # parse translations (use the same format as references)
     # don't add them to data, as we're combining them with bio
@@ -45,7 +46,7 @@ def convert(datasheet, url_context):
 
     # parse otherweb links (they use the same format as cross references)
     otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'])
-    data['otherweb'] = otherweb
+    data['otherweb'] = flow.to_flow_block('otherweb', json.loads(otherweb)['data'])
 
     # parse history topic
     bio = htmlparser.parse(datasheet['HISTTOPIC'],

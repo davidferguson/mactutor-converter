@@ -70,7 +70,7 @@ def convert(datasheet, url_context):
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
-    data['references'] = references
+    data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse translations (use the same format as references)
     # don't add them to data, as we're combining them with bio
@@ -83,15 +83,15 @@ def convert(datasheet, url_context):
     # parse additional links (they use the same format as cross references)
     # don't add them to data, as we're combining them with bio
     additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'])
-    data['additional'] = additional
+    data['additional'] = flow.to_flow_block('otherweb', json.loads(additional)['data'])
 
     # parse otherweb links (they use the same format as cross references)
     otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'])
-    data['otherweb'] = otherweb
+    data['otherweb'] = flow.to_flow_block('otherweb', json.loads(otherweb)['data'])
 
     # parse honours links (they use the same format as cross references)
     honours = referenceparser.parse_cross_references(datasheet['HONOURS'], datasheet['FILENAME'])
-    data['honours'] = honours
+    data['honours'] = flow.to_flow_block('otherweb', json.loads(honours)['data'])
 
     # parse biography, and add in extras and translations
     bio = htmlparser.parse(datasheet['BIOGRAPHY'],

@@ -10,6 +10,7 @@ import re
 import htmlparser
 import referenceparser
 import symbolreplace
+import flow
 
 
 def convert(datasheet, url_context):
@@ -39,7 +40,7 @@ def convert(datasheet, url_context):
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
-    data['references'] = references
+    data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse additional links (they use the same format as cross references)
     # don't add them to data, as we're combining them with bio
