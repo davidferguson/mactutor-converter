@@ -1,5 +1,3 @@
-import regex as re
-
 SPECIAL_RULES = {
     'Al-Battani': [
         ['Tetrabiblos.\n<a href=http://www.britannica.com/biography/al-Battani>','</Q>'],
@@ -696,6 +694,9 @@ SPECIAL_RULES = {
         ['<a name="62">','<a name="62"></a>'],
         ['<li></a>','<li>']
     ],
+    'Quadratic_etc_equations': [
+        ['R.90</pre>','R.90']
+    ],
     # honours
     'AMShistory': [
         ['<i><m>Forsyth</m></i>','<m>Forsyth</m>'],
@@ -957,6 +958,9 @@ SPECIAL_RULES = {
         ['<font size=-1>', '<f->'],
         ['</font>', '</f>']
     ],
+    'EMS_125_Dinner': [
+        ['ul>', 'ol>']
+    ],
     'EMS_Copson_Atiyah': [
         ['<img src ="../BigPictures/Rankin_Copson.jpeg" border=1 ></a>', '<allow_img ../BigPictures/Rankin_Copson.jpeg>']
     ],
@@ -1002,6 +1006,7 @@ def clean(bio, name):
     bio = bio.replace('<p align=right>', '')
     bio = bio.replace('<p align="right">','')
     bio = bio.replace('<hr>', '\n')
+    bio = bio.replace('<p>', '\n\n')
 
     # John's reference hack
     bio = bio.replace('<!>', '')
