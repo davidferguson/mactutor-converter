@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# main converter file, converts datasheets and extras
+# this needs to be running in the virtualenv that lektor uses, in order to
+# access lektor.metaformat
+# however this also needs the 'regex' module, to support non-fixed-width regex
+# lookbehinds. Therefore, 'regex' needs to be temporarily installed in lektor's
+# virtualenv for this script to work
 
 import glob
 import os
@@ -21,7 +25,7 @@ import curvesparser
 import emsparser
 import glossaryparser
 
-LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor/mactutor/content/'
+LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor-davidferguson/mactutor/content/'
 
 
 def save(data, fs_path):
@@ -40,6 +44,7 @@ def save(data, fs_path):
 
 
 def convert(input_dir, output_dir, skip_fn, converter, url_context):
+    base_url_context = url_context
     # get all the files that need to be processed
     path = os.path.join(input_dir, '*')
     files = glob.glob(path)
@@ -48,11 +53,16 @@ def convert(input_dir, output_dir, skip_fn, converter, url_context):
     for file in files:
         # parse sections from datasheet
         datasheet = datasheetparser.parse_file(file)
+        url_context = base_url_context
 
         # skip all datasheets that have tables
         skip = skip_fn(datasheet)
         if skip:
             continue
+
+        if '/' in datasheet['FILENAME']:
+            print('slash in filename, modifying url context', datasheet['FILENAME'])
+            url_context += datasheet['FILENAME'][:datasheet['FILENAME'].rfind('/')] + '/'
 
         # convert the datasheet to dictionary
         data = converter.convert(datasheet, url_context)
@@ -72,7 +82,7 @@ if __name__ == '__main__':
     filename = os.path.join(LEKTOR_CONTENT_PATH, 'Maplocations')
     save(mapdata, filename)
 
-    skip = lambda datasheet: '<table' in datasheet['EXTRA']
+    skip = lambda datasheet: '<table' in datasheet['EXTRA'] or datasheet['FILENAME'] == 'Bolyai_letter' or datasheet['FILENAME'] == 'Hardy_inaugural'
     convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
     skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
@@ -101,3 +111,7 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glosary/')
+
+    files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2']
+    skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process
+    convert('../datasheets/Files', '', skip, emsparser, '/')
