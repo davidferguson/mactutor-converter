@@ -50,7 +50,8 @@ TAGS = [
     'NONSTANDARDFOOT',
     'JSCRIPT',
     'USEHTMLFORMAT',
-    'WORD'
+    'WORD',
+    'SUPPLEMENT'
 ]
 
 def parse_file(filename):
