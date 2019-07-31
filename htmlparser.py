@@ -140,7 +140,8 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, mreplace, bio)
     # convert <w>...</w> and <w name>...</w>
     regex = re.compile(r'<w(?:\s+(?P<name>.+?))?>(?P<text>.*?)\<\/w\>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, wreplace, bio)
+    #bio = re.sub(regex, wreplace, bio)
+    bio = re.sub(regex, mreplace, bio) # make all w links into mlinks
     # convert <g glossary>...</g>
     regex = re.compile(r'<g\s+(.+?)>(.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[gl=\1]\2[/gl]', bio)
@@ -388,6 +389,15 @@ def urlreplace(match, url_context):
     text = match.group('text')
     href = match.group('href')
     href = urls.convert(href, url_context)
+
+    # convert biography links into m links
+    if href.startswith('/Biographies/') and href.endswith('.html') and href.count('/') == 2:
+        name = href[13:-5]
+        if text == name:
+            return '[m]%s[/m]' % (name)
+        else:
+            return '[m=%s]%s[/url]' % (name, text)
+
     return '[url=%s]%s[/url]' % (href, text)
 
 # helper function for dealing with urls
