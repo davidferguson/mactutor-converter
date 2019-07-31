@@ -9,7 +9,7 @@ import htmlparser
 import urls
 
 
-def parse_references(references, name):
+def parse_references(references, name, url_context):
     parsed_references = []
     in_reference = False
     reference = None
@@ -39,7 +39,7 @@ def parse_references(references, name):
             assert '<' not in line and '>' not in line
             # make the entire reference a link
             href = line
-            href = urls.convert(href, '/')
+            href = urls.convert(href, url_context)
             text = parsed_references[-1]['reference']
             text = text.replace('<br>','')
             link = '<a href="%s">%s</a>' % (href, text)
@@ -65,7 +65,7 @@ def parse_references(references, name):
     return return_str
 
 
-def parse_cross_references(references, name):
+def parse_cross_references(references, name, url_context):
     parsed = []
 
     for line in references.splitlines():
@@ -82,7 +82,7 @@ def parse_cross_references(references, name):
             text = match.group('text')
             if not text:
                 text = 'THIS LINK'
-            link = urls.convert(link, '/')
+            link = urls.convert(link, url_context)
             if match.group('extratext'):
                 text += ' ' + match.group('extratext')
                 text = text.strip()

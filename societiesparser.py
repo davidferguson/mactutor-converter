@@ -39,12 +39,12 @@ def convert(datasheet, url_context):
         data['website'] = match.group('href')
 
     # parse references
-    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
+    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'], url_context)
     data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse additional links (they use the same format as cross references)
     # don't add them to data, as we're combining them with bio
-    additional = referenceparser.parse_cross_references(datasheet['EXTRAS'], datasheet['FILENAME'])
+    additional = referenceparser.parse_cross_references(datasheet['EXTRAS'], datasheet['FILENAME'], url_context)
 
     # parse biography, and add in extras and translations
     bio = htmlparser.parse(datasheet['CONTENT'],

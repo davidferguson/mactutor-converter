@@ -69,12 +69,12 @@ def convert(datasheet, url_context):
         data['maplocation'] = match.group('name')
 
     # parse references
-    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
+    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'], url_context)
     data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse translations (use the same format as references)
     # don't add them to data, as we're combining them with bio
-    translations = referenceparser.parse_references(datasheet['TRANSLATION'], datasheet['FILENAME'])
+    translations = referenceparser.parse_references(datasheet['TRANSLATION'], datasheet['FILENAME'], url_context)
 
     # parse cross references
     #xrefs = referenceparser.parse_cross_references(datasheet['XREFS'], datasheet['FILENAME'])
@@ -82,15 +82,15 @@ def convert(datasheet, url_context):
 
     # parse additional links (they use the same format as cross references)
     # don't add them to data, as we're combining them with bio
-    additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'])
+    additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'], url_context)
     data['additional'] = flow.to_flow_block('otherweb', json.loads(additional)['data'])
 
     # parse otherweb links (they use the same format as cross references)
-    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'])
+    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'], url_context)
     data['otherweb'] = flow.to_flow_block('otherweb', json.loads(otherweb)['data'])
 
     # parse honours links (they use the same format as cross references)
-    honours = referenceparser.parse_cross_references(datasheet['HONOURS'], datasheet['FILENAME'])
+    honours = referenceparser.parse_cross_references(datasheet['HONOURS'], datasheet['FILENAME'], url_context)
     data['honours'] = flow.to_flow_block('otherweb', json.loads(honours)['data'])
 
     # parse biography, and add in extras and translations

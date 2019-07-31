@@ -28,7 +28,7 @@ def convert(datasheet, url_context):
     data['update'] = datasheet['UPDATE']
 
     # parse references
-    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
+    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'], url_context)
     data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse biography

@@ -33,19 +33,19 @@ def convert(datasheet, url_context):
     data['indexreffile'] = datasheet['INDEXREFFILE']
 
     # parse references
-    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'])
+    references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'], url_context)
     data['references'] = flow.to_flow_block('reference', json.loads(references)['data'])
 
     # parse additional links (they use the same format as cross references)
-    additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'])
+    additional = referenceparser.parse_cross_references(datasheet['ADDITIONAL'], datasheet['FILENAME'], url_context)
     data['additional'] = flow.to_flow_block('otherweb', json.loads(additional)['data'])
 
     # parse translations (use the same format as references)
     # don't add them to data, as we're combining them with bio
-    translations = referenceparser.parse_references(datasheet['TRANSLATION'], datasheet['FILENAME'])
+    translations = referenceparser.parse_references(datasheet['TRANSLATION'], datasheet['FILENAME'], url_context)
 
     # parse otherweb links (they use the same format as cross references)
-    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'])
+    otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'], url_context)
     data['otherweb'] = flow.to_flow_block('otherweb', json.loads(otherweb)['data'])
 
     # parse history topic
