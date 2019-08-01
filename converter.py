@@ -113,5 +113,5 @@ if __name__ == '__main__':
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
     files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2']
-    skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process
+    skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process and not datasheet['FILENAME'].startswith('Astronomy')
     convert('../datasheets/Files', '', skip, emsparser, '/')
