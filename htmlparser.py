@@ -90,7 +90,7 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
 
     # convert <k>...</k>
     regex = re.compile(r'<k>(.*?)</k>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[centre]\1[/centre]', bio)
+    bio = re.sub(regex, r'[center]\1[/center]', bio)
     # convert <ind>...</ind>
     regex = re.compile(r'<ind>(.*?)</ind>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[ind]\1[/ind]', bio)
@@ -146,8 +146,9 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     regex = re.compile(r'<g\s+(.+?)>(.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[gl=\1]\2[/gl]', bio)
     # convert <ac academy>...</g>
-    regex = re.compile(r'<ac\s+(.+?)>(.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
+    regex = re.compile(r'<ac\s+(?P<society>.+?)>(?P<text>.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
+    #bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
+    bio = re.sub(regex, lambda match: acreplace(match, url_context), bio)
     # convert <E num> - trying to fix 'THIS LINK'
     regex = re.compile(r'(?<=[Yy]ou can see )(?P<text>.*?) at <E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, lambda match: ereplaceclever(match, extras, url_context), bio)
@@ -166,7 +167,7 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, r'[color=green]\1[/color]', bio)
     # convert <bro>...</bro>
     regex = re.compile(r'<bro>(.*?)<bro>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[color=brown]\1[/brown]', bio)
+    bio = re.sub(regex, r'[color=brown]\1[/color]', bio)
     # convert <font color=...>...</font>
     regex = re.compile(r'<font color ?= ?[\'"]?(\w+)[\'"]?>(.*?)</font>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[color=\1]\2[/color]', bio)
@@ -391,12 +392,19 @@ def urlreplace(match, url_context):
     href = urls.convert(href, url_context)
 
     # convert biography links into m links
-    if href.startswith('/Biographies/') and href.endswith('.html') and href.count('/') == 2:
-        name = href[13:-5]
-        if text == name:
-            return '[m]%s[/m]' % (name)
-        else:
-            return '[m=%s]%s[/url]' % (name, text)
+    if href.startswith('/Biographies/') and '#' not in href:
+        if (href.endswith('/') and href.count('/') == 3) or href.count('/') == 2:
+            name = href[13:]
+            if href.endswith('/'):
+                name = name[:-1]
+
+            with open('url-to-mlink.txt', 'a') as f:
+                f.write('%s :: %s :: %s\n' % (match.group('href'), href, name))
+
+            if text == name:
+                return '[m]%s[/m]' % (name)
+            else:
+                return '[m=%s]%s[/url]' % (name, text)
 
     return '[url=%s]%s[/url]' % (href, text)
 
@@ -404,6 +412,15 @@ def urlreplace(match, url_context):
 # need to translate old URLs to new lektor format
 def imgreplace(match, url_context):
     href = match.group('href')
-    href = '../Diagrams/' + href
+    href = '/Diagrams/' + href
     href = urls.convert(href, url_context)
     return '[img]%s[/img]' % href
+
+# helper function for converting society ac links to normal links
+def acreplace(match, url_context):
+    society = match.group('society').strip()
+    text = match.group('text').strip()
+    url = '/Societies/%s.html'
+    url = urls.convert(url, url_context) # urls already converted
+    res = r'[url=%s]%s[/url]' % (url, text)
+    return res
