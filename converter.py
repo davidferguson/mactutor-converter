@@ -104,13 +104,13 @@ if __name__ == '__main__':
     convert('../datasheets/Curves', 'Curves', skip, curvesparser, 'Curves/')
 
     skip = lambda datasheet: datasheet['FILENAME'] == 'EMS_poster' or ('Zagier/' in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
-    convert('../datasheets/EMS', 'EMS', skip, emsparser, 'EMS/')
+    convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/')
 
     skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
-    convert('../datasheets/EMS', 'EMS', skip, emsparser, 'EMS/Zagier/')
+    convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/Zagier/')
 
     skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
-    convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glosary/')
+    convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
     files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2']
     skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process
