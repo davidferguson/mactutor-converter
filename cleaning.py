@@ -977,6 +977,10 @@ SPECIAL_RULES = {
     # glossary
     'gelfonds_conjecture': [
         ['blockquote>', 'Q>']
+    ],
+    # astronomy
+    'Astronomy/universe': [
+        ['<img src=../Diagrams/universe.gif>', '<d universe.gif>']
     ]
 }
 
