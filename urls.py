@@ -12,8 +12,14 @@ def convert(href, url_context):
     href = href.replace('target=_blank', '')
     href = href.replace('" target="_blank', '')
     href = href.replace('target="_blank', '')
+    href = href.replace('height=800', '')
     if href.endswith(' ,'): href = href[:-1]
     href = href.strip()
+
+    if href.startswith('\\http://'):
+        href = href[1:]
+    elif href.startswith('href=http://'):
+        href = href[5:]
 
     pattern = re.compile(r'^https?://www-history.mcs.st-and(?:rews)?.ac.uk(?P<page>.*)$')
     match = pattern.search(href)
@@ -62,7 +68,7 @@ def convert(href, url_context):
     path = parsed.path
     fragment = parsed.fragment
 
-    html_directories = ('/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/')
+    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/')
     attachment_directories = ('/Bookpages/','/Publications/','/Diagrams/','/DNB/','/DSB/')
 
     if path.startswith(html_directories):
@@ -89,13 +95,22 @@ def convert(href, url_context):
         else:
             page = path
 
+    elif path.startswith('/BigPictures/'):
+        pattern = re.compile(r'/BigPictures/(?P<image>(?P<name>.+?)(?:_\d+)?\..*)')
+        match = pattern.search(path)
+        if match:
+            name = match.group('name')
+            image = match.group('image')
+            page = '/Biographies/%s/%s' % (name, image)
+        else:
+            page = path
+
     elif path.startswith('/References/'):
         if path.endswith('.html'):
             name = path[12:-5]
             page = '/Biographies/%s/' % name
         else:
             page = path
-
 
     elif path.startswith('/Obits2/'):
         page = '/Obituaries/' + path[8:]
@@ -107,17 +122,18 @@ def convert(href, url_context):
         if page.endswith('.html'):
             page = page[:-5]
 
+    elif path.startswith('/Mathematicians/'):
+        page = '/Biographies/' + path[16:]
+        if page.endswith('.html'):
+            page = page[:-5]
+
     elif path.startswith('/Curvepics/'):
         curve = path[11:]
-        pattern = re.compile(r'(?<=\D+)(\d)(?=.gif(.lr)?)')
+        pattern = re.compile(r'(?<=\D+)(\d)(?=.gif)')
         match = pattern.search(curve)
         if match:
             curve = re.sub(pattern, r'0\1', curve)
-            page = '/Curves/%s' % curve
-        else:
-            with open('curve-error.txt', 'a') as f:
-                f.write('%s :: %s :: %s :: %s\n' % (original_href, url_context, path, curve))
-            page = path
+        page = '/Curves/%s' % curve
 
     else:
         page = path
