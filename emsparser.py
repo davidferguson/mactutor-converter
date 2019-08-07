@@ -20,7 +20,6 @@ def convert(datasheet, url_context):
     data['_template'] = 'contentpage.html'
 
     # easily translatable info
-    data['filename'] = datasheet['FILENAME'].replace('Zagier/', '').replace('.', '')
     data['authors'] = datasheet['WHODIDIT']
     data['title'] = symbolreplace.tags_to_unicode(datasheet['TITLE'])
 
@@ -28,10 +27,9 @@ def convert(datasheet, url_context):
     #assert datasheet['USEHTMLFORMAT'] == 'Y'
 
     # parse biography, and add in extras and translations
-    content = htmlparser.parse(datasheet['CONTENT'],
+    data['content'] = htmlparser.parse(datasheet['CONTENT'],
                                 datasheet['FILENAME'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['content'] = content.replace('\\', '')
 
     return data

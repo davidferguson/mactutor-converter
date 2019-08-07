@@ -51,17 +51,16 @@ def convert(datasheet, url_context):
     data['_template'] = 'quotation.html'
 
     # filename, name
-    data['filename'] = datasheet['FILENAME']
     data['name'] = symbolreplace.tags_to_unicode(datasheet['NAME'])
 
     content = datasheet['CONTENT']
     numquotes = datasheet['NUMQUOTES']
 
     # special case cleaning rules
-    if data['filename'] == 'Carmichael':
+    if datasheet['FILENAME'] == 'Carmichael':
         content = content.replace('<p>', '')
-    if data['filename'] in NUMBER_CORRECTIONS:
-        numquotes = NUMBER_CORRECTIONS[data['filename']]
+    if datasheet['FILENAME'] in NUMBER_CORRECTIONS:
+        numquotes = NUMBER_CORRECTIONS[datasheet['FILENAME']]
 
     # now parse the individual quotes
     content = content.split('<p>')
@@ -89,8 +88,8 @@ def convert(datasheet, url_context):
     # now parse the quotes and convert to html
     for idx, quote in enumerate(quotes):
         q = parse_quote(quote)
-        q['quote'] = htmlparser.parse(q['quote'], 'Quotations/%s' % data['filename'], paragraphs=True, url_context=url_context)
-        q['source'] = htmlparser.parse(q['source'], 'Quotations/%s' % data['filename'], paragraphs=False, url_context=url_context)
+        q['quote'] = htmlparser.parse(q['quote'], 'Quotations/%s' % datasheet['FILENAME'], paragraphs=True, url_context=url_context)
+        q['source'] = htmlparser.parse(q['source'], 'Quotations/%s' % datasheet['FILENAME'], paragraphs=False, url_context=url_context)
         quotes[idx] = q
 
     data['quotations'] = flow.to_flow_block('quotation', quotes)

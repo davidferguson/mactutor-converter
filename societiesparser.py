@@ -21,7 +21,6 @@ def convert(datasheet, url_context):
     data['_template'] = 'society.html'
 
     # easily translatable info
-    data['filename'] = datasheet['FILENAME']
     data['titlename'] = symbolreplace.tags_to_unicode(datasheet['TITLENAME'])
     data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
     data['update'] = datasheet['UPDATE']
@@ -47,11 +46,10 @@ def convert(datasheet, url_context):
     additional = referenceparser.parse_cross_references(datasheet['EXTRAS'], datasheet['FILENAME'], url_context)
 
     # parse biography, and add in extras and translations
-    bio = htmlparser.parse(datasheet['CONTENT'],
+    data['content'] = htmlparser.parse(datasheet['CONTENT'],
                                 datasheet['FILENAME'],
                                 extras=json.loads(additional)['data'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['content'] = bio.replace('\\', '')
 
     return data

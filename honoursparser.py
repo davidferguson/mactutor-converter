@@ -21,15 +21,13 @@ def convert(datasheet, url_context):
     data['_template'] = 'honour.html'
 
     # filename, title, headline and update date for this
-    data['filename'] = datasheet['FILENAME']
     data['title'] = symbolreplace.tags_to_unicode(datasheet['TITLE'])
     data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 
     # parse biography
-    bio = htmlparser.parse(datasheet['CONTENT'],
+    data['content'] = htmlparser.parse(datasheet['CONTENT'],
                                 datasheet['FILENAME'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['content'] = bio.replace('\\', '')
 
     return data

@@ -21,7 +21,6 @@ def get_map_locations():
     data['_model'] = 'maplocations'
     data['_template'] = 'maplocations.html'
     data['maplocations'] = flow.to_flow_block('maplocation', maplocations)
-    data['filename'] = 'maplocations'
     return data
 
 def convert(datasheet, url_context):
@@ -30,9 +29,6 @@ def convert(datasheet, url_context):
     # metadata, the template and model
     data['_model'] = 'biography'
     data['_template'] = 'biography.html'
-
-    # filename for this
-    data['filename'] = datasheet['FILENAME']
 
     # name and shortname
     data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
@@ -49,8 +45,9 @@ def convert(datasheet, url_context):
     data['deathdate'] = datasheet['DEATHDATE']
     data['deathyear'] = datasheet['DEATHYEAR']
 
-    # birthplace
+    # birthplace, deathplace
     data['birthplace'] = datasheet['BIRTHPLACE']
+    data['deathplace'] = datasheet['DEATHPLACE']
 
     # mapinfo - this is special
     # we add it to an array, so that it can be added to the maplocations file later
@@ -94,12 +91,11 @@ def convert(datasheet, url_context):
     data['honours'] = flow.to_flow_block('otherweb', json.loads(honours)['data'])
 
     # parse biography, and add in extras and translations
-    bio = htmlparser.parse(datasheet['BIOGRAPHY'],
+    data['content'] = htmlparser.parse(datasheet['BIOGRAPHY'],
                                 datasheet['FILENAME'],
                                 translations=json.loads(translations)['data'],
                                 extras=json.loads(additional)['data'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['biography'] = bio.replace('\\', '')
 
     return data

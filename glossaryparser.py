@@ -20,14 +20,12 @@ def convert(datasheet, url_context):
     data['_template'] = 'glossary.html'
 
     # easily translatable info
-    data['filename'] = datasheet['FILENAME']
-    data['title'] = datasheet['WORD']
+    data['term'] = datasheet['WORD']
 
     # parse biography, and add in extras and translations
-    content = htmlparser.parse(datasheet['CONTENTS'],
+    data['content'] = htmlparser.parse(datasheet['CONTENTS'],
                                 datasheet['FILENAME'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['content'] = content.replace('\\', '')
 
     return data

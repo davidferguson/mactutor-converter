@@ -22,7 +22,6 @@ def convert(datasheet, url_context):
     data['_template'] = 'historytopic.html'
 
     # filename, short and full name, authors, update
-    data['filename'] = datasheet['FILENAME']
     data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
     data['fullname'] = htmlparser.parse(datasheet['FULLNAME'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
     data['authors'] = datasheet['AUTHORS']
@@ -49,12 +48,11 @@ def convert(datasheet, url_context):
     data['otherweb'] = flow.to_flow_block('otherweb', json.loads(otherweb)['data'])
 
     # parse history topic
-    bio = htmlparser.parse(datasheet['HISTTOPIC'],
+    data['content'] = htmlparser.parse(datasheet['HISTTOPIC'],
                                 datasheet['FILENAME'],
                                 translations=json.loads(translations)['data'],
                                 extras=json.loads(additional)['data'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['histtopic'] = bio.replace('\\', '')
 
     return data

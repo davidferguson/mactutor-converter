@@ -52,7 +52,6 @@ def convert(datasheet, url_context):
     data['_template'] = 'curve.html'
 
     # easily translatable info
-    data['filename'] = datasheet['FILENAME']
     data['name'] = symbolreplace.tags_to_unicode(datasheet['FULLNAME'])
 
     # need to parse the individual equations out, and convert to flow
@@ -60,10 +59,9 @@ def convert(datasheet, url_context):
     data['equations'] = flow.to_flow_block('curveequation', equations)
 
     # parse content
-    content = htmlparser.parse(datasheet['CONTENTS'],
+    data['content'] = htmlparser.parse(datasheet['CONTENTS'],
                                 datasheet['FILENAME'],
                                 paragraphs=True,
                                 url_context=url_context)
-    data['content'] = content.replace('\\', '')
 
     return data
