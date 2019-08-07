@@ -35,16 +35,21 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
         return _parse(bio, name, extras, translations, paragraphs, url_context)
 
 
-def _parse(bio, name, extras, translations, paragraphs, url_context):
+def slash_escape(text):
     # escape backslashes (because we are adding them)
-    bio = bio.replace('\\', '\\\\')
+    text = text.replace('\\', '\\\\')
 
     # escape any literal square brackets
     regex = re.compile(r'\[(?!\d+])', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, '\\[', bio)
+    text = re.sub(regex, '\\[', text)
     regex = re.compile(r'(?<!\[\d+)\]', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, '\\]', bio)
+    text = re.sub(regex, '\\]', text)
 
+    return text
+
+
+def _parse(bio, name, extras, translations, paragraphs, url_context):
+    bio = slash_escape(bio)
 
     # ========= BLOCKS =========
     # paragraphs are converted into <p>...</p> above
@@ -125,7 +130,7 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, r'[u]\1[/u]', bio)
 
     # convert ^superscript
-    regex = re.compile(r'\^(\S+)', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'\^([^\s{}]+)', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[sup]\1[/sup]', bio)
     regex = re.compile(r'<sup>(.*?)</sup>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'[sup]\1[/sup]', bio)
@@ -329,10 +334,39 @@ def mathreplace(match):
 
     # convert <b>...</b>
     regex = re.compile(r'<b>(.*?)</b>', re.MULTILINE | re.DOTALL)
-    math = re.sub(regex, r'\textbf{\1}', math)
+    #math = re.sub(regex, r'\textbf{\1}', math)
+    math = re.sub(regex, r'\1', math)
+
     # convert <i>...</i>
     regex = re.compile(r'<i>(.*?)</i>', re.MULTILINE | re.DOTALL)
-    math = re.sub(regex, r'\textit{\1}', math)
+    #math = re.sub(regex, r'\textit{\1}', math)
+    math = re.sub(regex, r'\1', math)
+
+    # convert ^superscript
+    regex = re.compile(r'\^(\S+)', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'^{\1}', math)
+    regex = re.compile(r'<sup>(.*?)</sup>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'^{\1}', math)
+
+    # convert ¬subscript
+    regex = re.compile(r'¬(\S+)', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'_{\1}', math)
+    regex = re.compile(r'<sub>(.*?)</sub>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'_{\1}', math)
+
+    # fix functions
+    mappings = ['arcsin','arccos','arctan','arctg','arg','ch','cosec','cosh',
+        'cos','cotg','coth','cot','argmin','csc','ctg','cth','deg','dim','exp',
+        'hom','ker','lg','ln','log','sec','sinh','sin','sh','tanh','tan','tg',
+        'th','det','gcd','inf','lim','liminf','limsup','Pr','sup','argmax',
+        'max','min']
+    for mapping in mappings:
+        old_math = math
+        regex = re.compile('(?<!\\\\)(%s)' % mapping)
+        math = re.sub(regex, '\\\\\\1', math)
+        if math != old_math:
+            with open('math-fix.txt', 'a') as f:
+                f.write('%s :: %s :: %s\n' % (old_math, mapping, math))
 
     return '[math]%s[/math]' % math
 
@@ -412,7 +446,7 @@ def urlreplace(match, url_context):
 # need to translate old URLs to new lektor format
 def imgreplace(match, url_context):
     href = match.group('href')
-    href = '/Diagrams/' + href
+    href = '/Diagrams/%s' % href
     href = urls.convert(href, url_context)
     return '[img]%s[/img]' % href
 
@@ -420,7 +454,7 @@ def imgreplace(match, url_context):
 def acreplace(match, url_context):
     society = match.group('society').strip()
     text = match.group('text').strip()
-    url = '/Societies/%s.html'
+    url = '/Societies/%s.html' % society
     url = urls.convert(url, url_context) # urls already converted
     res = r'[url=%s]%s[/url]' % (url, text)
     return res
