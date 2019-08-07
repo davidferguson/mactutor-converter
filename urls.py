@@ -1,5 +1,7 @@
 import regex as re
 from urllib.parse import urljoin, urlparse
+import glob
+import os
 
 def convert(href, url_context):
     original_href = href
@@ -10,6 +12,7 @@ def convert(href, url_context):
     href = href.strip()
     href = href.replace('" target=_blank', '')
     href = href.replace('target=_blank', '')
+    href = href.replace('target=blank_', '')
     href = href.replace('" target="_blank', '')
     href = href.replace('target="_blank', '')
     href = href.replace('height=800', '')
@@ -68,8 +71,11 @@ def convert(href, url_context):
     path = parsed.path
     fragment = parsed.fragment
 
+    while path.startswith('/history/'):
+        path = path[8:]
+
     html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/')
-    attachment_directories = ('/Bookpages/','/Publications/','/Diagrams/','/DNB/','/DSB/')
+    attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
     if path.startswith(html_directories):
         if path.endswith('.html'):
@@ -82,6 +88,22 @@ def convert(href, url_context):
             page = path[:-10]
         else:
             page = path
+
+    elif path.startswith('/Diagrams/'):
+        # see if this matches a diagram
+        DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/lektor-davidferguson/mactutor/content/Diagrams/'
+        diagram = path[10:]
+        if os.path.isfile(os.path.join(DIAGRAM_DIR, diagram)):
+            page = path
+        else:
+            # not a diagram, try and resolve this
+            matches = glob.glob('%s%s*' % (DIAGRAM_DIR, diagram))
+            if len(matches) != 1:
+                with open('diagram-errors.txt', 'a') as f:
+                    f.write('%s :: %s :: %s\n' % (original_href, url_context, diagram))
+                page = ''
+            else:
+                page = '/Diagrams/%s' % os.path.basename(matches[0])
 
     elif path.startswith('/Obits/'):
         page = '/TimesObituaries/' + path[7:]
@@ -127,6 +149,20 @@ def convert(href, url_context):
         if page.endswith('.html'):
             page = page[:-5]
 
+    elif path.startswith('/Ledermann/'):
+        page = path
+        if path.endswith('index.html'):
+            page = page[:-10]
+        elif page.endswith('.html'):
+            page = page[:-5]
+
+    elif path.startswith('/Projects/Daxenberger/'):
+        page = path
+        if path.endswith('index.html'):
+            page = page[:-10]
+        elif page.endswith('.html'):
+            page = page[:-5]
+
     elif path.startswith('/Curvepics/'):
         curve = path[11:]
         pattern = re.compile(r'(?<=\D+)(\d)(?=.gif)')
@@ -138,7 +174,7 @@ def convert(href, url_context):
     else:
         page = path
         with open('url-conversion-non.txt', 'a') as f:
-            f.write('%s :: %s :: %s\n' % (original_href, url_context, page))
+            f.write('%s :: %s :: %s\n' % (page, url_context, original_href))
 
     if fragment.strip() != '':
         page += '#' + fragment

@@ -1,3 +1,5 @@
+import re
+
 SPECIAL_RULES = {
     'Al-Battani': [
         ['Tetrabiblos.\n<a href=http://www.britannica.com/biography/al-Battani>','</Q>'],
@@ -1028,3 +1030,49 @@ def clean(bio, name):
     bio = bio.replace('</strong>','</b>')
 
     return bio
+
+
+def project_cleaning(text):
+    text = text.replace('blockquote>', 'Q>')
+    text = text.replace('center>', 'k>')
+
+    text = text.replace('<p align=justify>', '')
+    text = re.sub(r'<font face=symbol>(.*?)</font>', r'\1', text)
+
+    # special case for project images
+    text = re.sub(r'<img src= ? (../Diagrams/\S+?)(?:>|(?:\s.+?>))', r'\n\n<allow_img \1>\n\n', text)
+
+    text = re.sub(r'<img src= ? (../Diagrams/\S+?)(?:>|(?:\s.+?>))', r'\n\n<allow_img \1>\n\n', text)
+
+    regex = re.compile(r'<font size=\+1>(.*?)</font>', re.MULTILINE | re.DOTALL)
+    text = re.sub(regex, r'<f+>\1</f>', text)
+    regex = re.compile(r'<font size=-1>(.*?)</font>', re.MULTILINE | re.DOTALL)
+    text = re.sub(regex, r'<f->\1</f>', text)
+
+    text = text.replace('<s curlyd>', '<curlyd>')
+    text = text.replace('<s phi>', '<phi>')
+    text = text.replace('<s theta>', '<theta>')
+    text = text.replace('<s xi>', '<xi>')
+    text = text.replace('<s beta>', '<beta>')
+    text = text.replace('<s zeta>', '<zeta>')
+    text = text.replace('<s eta>', '<eta>')
+    text = text.replace('<s gamma>', '<gamma>')
+    text = text.replace('<s cross>', '<cross>')
+    text = text.replace('<s gte>', '<gte>')
+    text = text.replace('<s delta>', '<d>')
+
+    text = text.replace('<gte>', '≥')
+    text = text.replace('<s gte>', '≥')
+    text = text.replace('<lte>', '≤')
+    text = text.replace('<s lte>', '≤')
+    text = text.replace('<noteq>', '≠')
+    text = text.replace('<s noteq>', '≠')
+    text = text.replace('<s sqrt>', '√')
+    text = text.replace('<sqrt>', '√')
+    text = text.replace('<s plusminus>', '±')
+    text = text.replace('<plusminus>', '±')
+    text = text.replace('<s approx>', '≈')
+
+
+
+    return text

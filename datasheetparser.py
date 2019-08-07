@@ -51,7 +51,11 @@ TAGS = [
     'JSCRIPT',
     'USEHTMLFORMAT',
     'WORD',
-    'SUPPLEMENT'
+    'SUPPLEMENT',
+    'DATE',
+    'ABOUT',
+    'BIG',
+    'NUMBER'
 ]
 
 def parse_file(filename):
