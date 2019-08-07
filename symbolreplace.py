@@ -36,6 +36,7 @@ def symbols_to_unicode(text, katex=False):
         translation = katex
 
     for symbol, translation in zip(symbols, translation):
+        translation = translation.replace('\\', '\\\\')
         text = text.replace('<s %s>' % symbol, translation)
 
     return text
@@ -68,6 +69,7 @@ def tags_to_unicode(text, katex=False):
         all_unicode = greek_katex + math_katex + other_katex + math_codes_katex
 
     for tag, unicode in zip(all_tags, all_unicode):
+        unicode = unicode.replace('\\', '\\\\')
         text = text.replace(tag, unicode)
 
     # sneaky fix - also do html character tags
