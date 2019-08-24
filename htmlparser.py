@@ -357,8 +357,8 @@ def mathreplace(match):
     # fix functions
     mappings = ['arcsin','arccos','arctan','arctg','arg','ch','cosec','cosh',
         'cos','cotg','coth','cot','argmin','csc','ctg','cth','deg','dim','exp',
-        'hom','ker','lg','ln','log','sec','sinh','sin','sh','tanh','tan','tg',
-        'th','det','gcd','inf','lim','liminf','limsup','Pr','sup','argmax',
+        'hom','ker','lg','ln','log','sec','sinh','sin','tanh','tan',#'sh','tg','th'
+        'det','gcd','inf','lim','liminf','limsup','Pr','sup','argmax',
         'max','min']
     for mapping in mappings:
         old_math = math
