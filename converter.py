@@ -72,6 +72,16 @@ def convert(input_dir, output_dir, skip_fn, converter, url_context):
         # convert the datasheet to dictionary
         data = converter.convert(datasheet, url_context)
 
+        # special case for biographies - add in quotations
+        if output_dir == 'Biographies':
+            data['quotations'] = ''
+            qpath = os.path.join('../datasheets/Quotations/', datasheet['FILENAME'])
+            if os.path.isfile(qpath):
+                print('found quotations!')
+                # has quotations! convert and add them in
+                qdatasheet = datasheetparser.parse_file(qpath)
+                data['quotations'] = quotationsparser.convert(qdatasheet, url_context)
+
         # save the dictionary in lektor
         filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, datasheet['FILENAME'].replace('Obits2@', '').replace('.html', '').replace('.', ''))
         save(data, filename)
@@ -105,15 +115,15 @@ def chronology_convert(input_dir, output_dir, url_context):
     chronology = []
     for date, events in dates.items():
         data = {
-            'date': date,
+            'year': date,
             'events': flow.to_flow_block('chronology-event', events)
         }
         chronology.append(data)
     chronology = flow.to_flow_block('chronology', chronology)
 
     data = {
-        '_model': 'chronology',
-        '_template': 'chronology.html',
+        '_model': 'chronologyindex',
+        '_template': 'chronologyindex.html',
         'title': 'Chronology',
         'chronology': chronology
     }
@@ -189,7 +199,9 @@ def project_convert(input_dir, output_dir, url_context, name):
 
 
 if __name__ == '__main__':
-    skip = lambda datasheet: '<table' in datasheet['BIOGRAPHY']
+    global_skip = lambda content: '<area' in content.lower()
+
+    skip = lambda datasheet: global_skip(datasheet['BIOGRAPHY'])
     convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
     # manually do the maplocations discovered from biographies
@@ -197,34 +209,31 @@ if __name__ == '__main__':
     filename = os.path.join(LEKTOR_CONTENT_PATH, 'Maplocations')
     save(mapdata, filename)
 
-    skip = lambda datasheet: '<table' in datasheet['EXTRA'] or datasheet['FILENAME'] == 'Bolyai_letter' or datasheet['FILENAME'] == 'Hardy_inaugural'
+    skip = lambda datasheet: datasheet['FILENAME'] == 'Quetelet' or global_skip(datasheet['EXTRA'])
     convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
-    skip = lambda datasheet: '<table' in datasheet['HISTTOPIC'] or '<area' in datasheet['HISTTOPIC']
+    skip = lambda datasheet: datasheet['FILENAME'] == 'Pi_chronology' or global_skip(datasheet['HISTTOPIC'])
     convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    skip = lambda datasheet: datasheet['FILENAME'] == 'Times__obits' or global_skip(datasheet['CONTENT'])
     convert('../datasheets/Honours', 'Honours', skip, honoursparser, 'Honours/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    skip = lambda datasheet: datasheet['FILENAME'] == 'alph_list' or datasheet['FILENAME'] == 'societies_list' or global_skip(datasheet['CONTENT'])
     convert('../datasheets/Societies', 'Societies', skip, societiesparser, 'Societies/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
-    convert('../datasheets/Quotations', 'Quotations', skip, quotationsparser, 'Quotations/')
-
-    skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME']) or global_skip(datasheet['CONTENT'])
     convert('../datasheets/Obits', 'Obituaries', skip, obituariesparser, 'Obits2/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
+    skip = lambda datasheet: global_skip(datasheet['CONTENTS'])
     convert('../datasheets/Curves', 'Curves', skip, curvesparser, 'Curves/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'EMS_poster' or ('Zagier/' in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    skip = lambda datasheet: datasheet['FILENAME'] == 'EMS_poster' or datasheet['FILENAME'] == 'ems_lecturers' or datasheet['FILENAME'] == 'pics/EMS_1913b' or global_skip(datasheet['CONTENT'])
     convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/')
 
-    skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME']) or '<table' in datasheet['CONTENT'].lower() or '<area' in datasheet['CONTENT'].lower()
+    skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME']) or global_skip(datasheet['CONTENT'])
     convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/Zagier/')
 
-    skip = lambda datasheet: '<table' in datasheet['CONTENTS'].lower() or '<area' in datasheet['CONTENTS'].lower()
+    skip = lambda datasheet: global_skip(datasheet['CONTENTS'])
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
     files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2']
@@ -236,6 +245,6 @@ if __name__ == '__main__':
     # special case for Ledermann
     project_convert('../datasheets/Projects/Ledermann/', 'Ledermann', 'Ledermann/', 'Ledermann')
 
-    projects = ['Ayel','Brunk','Burslem','Daxenberger','Ellison','Johnson','MacQuarrie','Pearce']#,'Watson']
+    projects = ['Ayel','Brunk','Burslem','Daxenberger','Ellison','Johnson','MacQuarrie','Pearce','Watson']
     for project in projects:
         project_convert('../datasheets/Projects/%s/' % project, 'Projects/%s' % project, 'Projects/%s/' % project, project)

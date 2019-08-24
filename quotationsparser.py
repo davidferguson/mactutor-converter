@@ -92,6 +92,7 @@ def convert(datasheet, url_context):
         q['source'] = htmlparser.parse(q['source'], 'Quotations/%s' % datasheet['FILENAME'], paragraphs=False, url_context=url_context)
         quotes[idx] = q
 
-    data['quotations'] = flow.to_flow_block('quotation', quotes)
+    quotations = flow.to_flow_block('quotation', quotes)
+    data['quotations'] = quotations
 
-    return data
+    return quotations
