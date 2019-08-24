@@ -58,6 +58,17 @@ def convert(datasheet, url_context):
     equations = parse_equations(datasheet['EQUATIONS'], datasheet['FILENAME'])
     data['equations'] = flow.to_flow_block('curveequation', equations)
 
+    # parse java applet options
+    options = '{\n'
+    pattern = re.compile(r'\<PARAM NAME="(?P<name>.+?)" VALUE="(?P<value>.+?)">')
+    for match in re.finditer(pattern, datasheet['JAVA']):
+        name = match.group('name')
+        value = match.group('value')
+        line = '%s: "%s",\n' % (name, value)
+        options += line
+    options += '}'
+    data['appletoptions'] = options
+
     # parse content
     data['content'] = htmlparser.parse(datasheet['CONTENTS'],
                                 datasheet['FILENAME'],
