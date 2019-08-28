@@ -34,6 +34,9 @@ def convert(datasheet, url_context):
     data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
     data['fullname'] = symbolreplace.tags_to_unicode(datasheet['FULLNAME'])
 
+    # alphabetical tags/index - for now just use first char of name
+    data['alphabetical'] = json.dumps([datasheet['FILENAME'][0].lower()])
+
     # authors
     data['authors'] = symbolreplace.tags_to_unicode(datasheet['AUTHORS'])
 
