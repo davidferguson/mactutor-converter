@@ -57,10 +57,10 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, r'[p]\1[/p]', bio)
     # convert <cp>...</cp>
     regex = re.compile(r'<cp>(.*?)</cp>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[p=gray]\1[/p]', bio)
+    bio = re.sub(regex, r'[p=cccccc]\1[/p]', bio)
     # convert <cpb>...</cpb>
     regex = re.compile(r'<cpb>(.*?)</cpb>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[p=cyan]\1[/p]', bio)
+    bio = re.sub(regex, r'[p=ccffff]\1[/p]', bio)
     # convert <br>
     regex = re.compile(r'<br>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'\n', bio)
