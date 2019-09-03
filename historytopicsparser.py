@@ -55,4 +55,14 @@ def convert(datasheet, url_context):
                                 paragraphs=True,
                                 url_context=url_context)
 
+    # discover categories for this mathematician
+    path = '/HistTopics/%s' % datasheet['FILENAME']
+    tags = []
+    with open('../datasheets/Indexes/data.json') as f:
+        category_data = json.load(f)
+    for category in category_data:
+        if path in category['entries']:
+            tags.append(category['name'])
+    data['tags'] = json.dumps(tags)
+
     return data

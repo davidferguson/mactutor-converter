@@ -34,9 +34,6 @@ def convert(datasheet, url_context):
     data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
     data['fullname'] = symbolreplace.tags_to_unicode(datasheet['FULLNAME'])
 
-    # alphabetical tags/index - for now just use first char of name
-    data['alphabetical'] = json.dumps([datasheet['FILENAME'][0].lower()])
-
     # authors
     data['authors'] = symbolreplace.tags_to_unicode(datasheet['AUTHORS'])
 
@@ -100,5 +97,25 @@ def convert(datasheet, url_context):
                                 extras=json.loads(additional)['data'],
                                 paragraphs=True,
                                 url_context=url_context)
+
+    # discover categories for this mathematician
+    path = '/Biographies/%s' % datasheet['FILENAME']
+    tags = []
+    with open('../datasheets/Indexes/data.json') as f:
+        category_data = json.load(f)
+    for category in category_data:
+        if path in category['entries']:
+            tags.append(category['name'])
+    data['tags'] = json.dumps(tags)
+
+    # discover alphabetical tags for this mathematician
+    path = '/Biographies/%s' % datasheet['FILENAME']
+    tags = [datasheet['FILENAME'][0].lower()] # default is first char of filename
+    with open('../datasheets/Indexes/alphabet/data.json') as f:
+        category_data = json.load(f)
+    for category in category_data:
+        if path in category['entries'] and category['name'] not in tags:
+            tags.append(category['name'])
+    data['alphabetical'] = json.dumps(tags)
 
     return data
