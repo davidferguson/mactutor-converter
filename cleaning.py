@@ -786,7 +786,8 @@ SPECIAL_RULES = {
         ['THIS LINK','THIS LINK</a>']
     ],
     'Finnish': [
-        ['<m> Lindelof>','<m>Lindelof']
+        ['<m> Lindelof>','<m>Lindelof'],
+        ['</i>1950<i>','1950']
     ],
     'Gottingen_Academy': [
         ['publications.</i>','publications.']
