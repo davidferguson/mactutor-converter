@@ -41,9 +41,12 @@ def convert(datasheet, url_context):
 
     # dates are tricky. for now leave them as they are
     data['birthdate'] = datasheet['BIRTHDATE']
-    data['birthyear'] = datasheet['BIRTHYEAR']
     data['deathdate'] = datasheet['DEATHDATE']
-    data['deathyear'] = datasheet['DEATHYEAR']
+
+    # birth and death year - remove the ,? if necessary
+    date_pattern = re.compile(r'(\d+)(?:,\??)?')
+    data['birthyear'] = re.sub(date_pattern, r'\1', datasheet['BIRTHYEAR'])
+    data['deathyear'] = re.sub(date_pattern, r'\1', datasheet['DEATHYEAR'])
 
     # birthplace, deathplace
     data['birthplace'] = datasheet['BIRTHPLACE']
