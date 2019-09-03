@@ -343,13 +343,13 @@ def mathreplace(match):
     math = re.sub(regex, r'\1', math)
 
     # convert ^superscript
-    regex = re.compile(r'\^(\S+)', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'\^(\S+)(?: ?)', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'^{\1}', math)
     regex = re.compile(r'<sup>(.*?)</sup>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'^{\1}', math)
 
     # convert ¬subscript
-    regex = re.compile(r'¬(\S+)', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'¬(\S+)(?: ?)', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'_{\1}', math)
     regex = re.compile(r'<sub>(.*?)</sub>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'_{\1}', math)
