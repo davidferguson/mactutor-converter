@@ -1,7 +1,6 @@
 import os
 import glob
 import re
-from bs4 import BeautifulSoup
 import sys
 import shutil
 
@@ -38,29 +37,6 @@ NODE_SKIPTEXT = (
 )
 
 
-def parse_pictdisplay(name):
-    pictdisplays_path = os.path.join(DATASHEET_FILES, 'PictDisplay')
-    pictdisplay_path = os.path.join(pictdisplays_path, name)
-
-    if not os.path.isfile(pictdisplay_path):
-        return False
-
-    # parse the page
-    datasheet = datasheetparser.parse_file(pictdisplay_path)
-    html = '<table>' + datasheet['CONTENT']
-    soup = BeautifulSoup(html, 'html5lib')
-
-    # simplistic way, won't work on Maclaurin, etc.
-    images = soup.find_all('img')
-    for image in images:
-        parent = image.parent
-        if parent.name == 'td':
-            child_imgs = parent.find_all('img')
-            if len(child_imgs) == 1:
-                continue
-        print('yikes', name, parent.name)
-
-
 def save_image(dst, src, description, main):
     shutil.copyfile(src, dst)
     content = '''_model: biographyimage
@@ -86,15 +62,16 @@ if __name__ == '__main__':
             # no thumbnail, so nothing to do
             continue
 
+        if len(thumbnail) > 1:
+            thumbnail = thumbnail[:1]
+        thumbnail = thumbnail[0]
+
         # find the big pictures
         bigpictures_paths = os.path.join(bigpictures_path, '%s*' % name)
         bigpictures = glob.glob(bigpictures_paths)
         assert len(bigpictures) > 0
 
-        # one of these is a main picture, find it
-        main_pic = None
         actual_bigpictures = []
-
         for pic in bigpictures:
             pic_name = os.path.basename(pic)
             if pic_name in IGNORE_BIGPICS: continue
@@ -106,24 +83,16 @@ if __name__ == '__main__':
                 continue
 
             pic_extra = pic_name[len(name):]
-            if pic_extra.startswith('.'):
-                assert main_pic == None
-                main_pic = pic
-            else:
-                actual_bigpictures.append(pic)
+            actual_bigpictures.append(pic)
 
         # for now, ignore all captions
         # this can be solved later, hopefully.
 
-        if main_pic == None:
-            if name == 'Etherington':
-                main_pic = actual_bigpictures[1]
+        # first do the main image - thumbnail
+        dst = os.path.join(CONTENT_DIR, 'Biographies/', name, 'thumbnail%s' % os.path.splitext(thumbnail)[1])
+        save_image(dst, thumbnail, '', 'yes')
 
-        # first do the main image
-        dst = os.path.join(CONTENT_DIR, 'Biographies/', name, os.path.basename(main_pic))
-        save_image(dst, main_pic, '', 'yes')
-
-        # and then the others
+        # and then the bigpictures
         for pic in actual_bigpictures:
             dst = os.path.join(CONTENT_DIR, 'Biographies/', name, os.path.basename(pic))
             save_image(dst, pic, '', 'no')
