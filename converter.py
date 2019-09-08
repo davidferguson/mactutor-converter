@@ -14,6 +14,7 @@ import re
 import lektor.metaformat
 
 import biographyparser
+import placesparser
 import extrasparser
 import historytopicsparser
 import honoursparser
@@ -204,10 +205,8 @@ if __name__ == '__main__':
     skip = lambda datasheet: global_skip(datasheet['BIOGRAPHY'])
     convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
-    # manually do the maplocations discovered from biographies
-    mapdata = biographyparser.get_map_locations()
-    filename = os.path.join(LEKTOR_CONTENT_PATH, 'Maplocations')
-    save(mapdata, filename)
+    skip = lambda datasheet: global_skip(datasheet['BIG'])
+    convert('../datasheets/Places', 'Map', skip, placesparser, 'BirthplaceMaps/')
 
     skip = lambda datasheet: datasheet['FILENAME'] == 'Quetelet' or global_skip(datasheet['EXTRA'])
     convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')

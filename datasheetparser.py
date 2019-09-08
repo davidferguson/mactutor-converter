@@ -55,7 +55,11 @@ TAGS = [
     'DATE',
     'ABOUT',
     'BIG',
-    'NUMBER'
+    'NUMBER',
+    'PLACENAME',
+    'WEBREF',
+    'GAZ',
+    'LATLONG0'
 ]
 
 def parse_file(filename):
