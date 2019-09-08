@@ -16,8 +16,11 @@ def convert(datasheet, url_context):
     data = {}
 
     # metadata, the template and model
-    data['_model'] = 'contentpage'
-    data['_template'] = 'contentpage.html'
+    data['_model'] = 'page'
+    data['_template'] = 'page.html'
+
+    # sidebar
+    data['sidebar'] = ''
 
     # easily translatable info
     data['authors'] = datasheet['WHODIDIT']
