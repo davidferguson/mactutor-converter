@@ -30,10 +30,6 @@ def convert(href, url_context):
         # this is an external link that goes to us! convert to absolute
         href = match.group('page')
 
-    # if a external url, return it
-    if href.startswith('http://') or href.startswith('https://') or href.startswith('ftp://') or href.startswith('//'):
-        return href
-
     # if a anchor link, return it
     if href.startswith('#'):
         return href
@@ -63,6 +59,10 @@ def convert(href, url_context):
         curve = match.group('curve')
         href = '../Curvepics/' + curve + '.gif'
 
+    # if a external url, return it
+    if href.startswith('http://') or href.startswith('https://') or href.startswith('ftp://') or href.startswith('//'):
+        return href
+
     # now convert the href to an absolute mactutor link
     href_full = urljoin(base_url, href)
 
@@ -77,7 +77,10 @@ def convert(href, url_context):
     html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/')
     attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
-    if path.startswith(html_directories):
+    if path == '/':
+        page = '/'
+
+    elif path.startswith(html_directories):
         if path.endswith('.html'):
             page = path[:-5]
         else:
