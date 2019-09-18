@@ -347,9 +347,6 @@ def mathreplace(match):
         old_math = math
         regex = re.compile('(?<!\\\\)(%s)' % mapping)
         math = re.sub(regex, '\\\\\\1', math)
-        if math != old_math:
-            with open('math-fix.txt', 'a') as f:
-                f.write('%s :: %s :: %s\n' % (old_math, mapping, math))
 
     return '[math]%s[/math]' % math
 
@@ -414,9 +411,6 @@ def urlreplace(match, url_context):
             name = href[13:]
             if href.endswith('/'):
                 name = name[:-1]
-
-            with open('url-to-mlink.txt', 'a') as f:
-                f.write('%s :: %s :: %s\n' % (match.group('href'), href, name))
 
             if text == name:
                 return '[m]%s[/m]' % (name)

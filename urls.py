@@ -182,7 +182,4 @@ def convert(href, url_context):
     if fragment.strip() != '':
         page += '#' + fragment
 
-    with open('url-conversion.txt', 'a') as f:
-        f.write('%s , %s:: %s\n' % (original_href, url_context, page))
-
     return page
