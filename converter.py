@@ -116,20 +116,13 @@ def chronology_convert(input_dir, output_dir, url_context):
     chronology = []
     for date, events in dates.items():
         data = {
+            '_model': 'chronologyyear',
+            '_hidden': 'yes',
             'year': date,
             'events': flow.to_flow_block('chronology-event', events)
         }
-        chronology.append(data)
-    chronology = flow.to_flow_block('chronology', chronology)
-
-    data = {
-        '_model': 'chronologyindex',
-        '_template': 'chronologyindex.html',
-        'title': 'Chronology',
-        'chronology': chronology
-    }
-    filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir)
-    save(data, filename)
+        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, date)
+        save(data, filename)
 
 
 def project_convert(input_dir, output_dir, url_context, name):
