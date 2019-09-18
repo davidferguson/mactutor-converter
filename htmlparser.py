@@ -152,8 +152,8 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, r'[gl=\1]\2[/gl]', bio)
     # convert <ac academy>...</g>
     regex = re.compile(r'<ac\s+(?P<society>.+?)>(?P<text>.*?)\<\/ac\>', re.MULTILINE | re.DOTALL)
-    #bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
-    bio = re.sub(regex, lambda match: acreplace(match, url_context), bio)
+    bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
+    #bio = re.sub(regex, lambda match: acreplace(match, url_context), bio)
     # convert <E num> - trying to fix 'THIS LINK'
     regex = re.compile(r'(?<=[Yy]ou can see )(?P<text>.*?) at <E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, lambda match: ereplaceclever(match, extras, url_context), bio)
@@ -257,15 +257,6 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
 
 
 
-# helper function for dealing with <d because we want to see what the image is
-images = []
-def dreplace(match):
-    global images
-    image = match.group('image')
-    image = image.strip()
-    images.append(image)
-    return '![%s](%s)' % (image, image)
-
 # helper function for dealing with <m>...</m> and <m name>...</m>
 def mreplace(match):
     name = match.group('name')
@@ -273,14 +264,6 @@ def mreplace(match):
     if name == None:
         return r'[m]%s[/m]' % text
     return r'[m=%s]%s[/m]' % (name, text)
-
-# helper function for dealing with <w>...</w> and <w name>...</w>
-def wreplace(match):
-    name = match.group('name')
-    text = match.group('text')
-    if name == None:
-        return r'[w]%s[/w]' % text
-    return r'[w=%s]%s[/w]' % (name, text)
 
 # helper function for converting extras links to normal links
 def ereplaceclever(match, extras, url_context):
@@ -449,12 +432,3 @@ def imgreplace(match, url_context):
     href = '/Diagrams/%s' % href
     href = urls.convert(href, url_context)
     return '[img]%s[/img]' % href
-
-# helper function for converting society ac links to normal links
-def acreplace(match, url_context):
-    society = match.group('society').strip()
-    text = match.group('text').strip()
-    url = '/Societies/%s.html' % society
-    url = urls.convert(url, url_context) # urls already converted
-    res = r'[url=%s]%s[/url]' % (url, text)
-    return res
