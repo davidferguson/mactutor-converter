@@ -8,7 +8,7 @@ import datasheetparser
 
 DATASHEET_FILES = '/Users/david/Documents/MacTutor/actual-work/datasheets/'
 SERVER_FILES = '/Users/david/Documents/MacTutor/actual-work/from-server/public_html/history/'
-CONTENT_DIR = '/Users/david/Documents/MacTutor/actual-work/lektor-davidferguson/mactutor/content/'
+CONTENT_DIR = '/Users/david/Documents/MacTutor/actual-work/mathshistory-lektor/mathshistory/content/'
 
 IGNORE_BIGPICS = [
     'Bartlett.jpg',

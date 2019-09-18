@@ -31,7 +31,7 @@ import flow
 import cleaning
 import referenceparser
 
-LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/lektor-davidferguson/mactutor/content/'
+LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/mathshistory-lektor/mathshistory/content/'
 
 
 def save(data, fs_path):

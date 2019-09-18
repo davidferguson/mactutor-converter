@@ -91,7 +91,7 @@ def convert(href, url_context):
 
     elif path.startswith('/Diagrams/'):
         # see if this matches a diagram
-        DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/lektor-davidferguson/mactutor/content/Diagrams/'
+        DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/mathshistory-lektor/mathshistory/content/Diagrams/'
         diagram = path[10:]
         if os.path.isfile(os.path.join(DIAGRAM_DIR, diagram)):
             page = path
