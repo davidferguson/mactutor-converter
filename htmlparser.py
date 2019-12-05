@@ -315,14 +315,29 @@ def mathreplace(match):
     math = symbolreplace.symbols_to_unicode(math, katex=True)
     math = symbolreplace.tags_to_unicode(math, katex=True)
 
-    # convert <b>...</b>
+    # remove <b>...</b>
     regex = re.compile(r'<b>(.*?)</b>', re.MULTILINE | re.DOTALL)
-    #math = re.sub(regex, r'\textbf{\1}', math)
     math = re.sub(regex, r'\1', math)
-
-    # convert <i>...</i>
+    # remove <i>...</i>
     regex = re.compile(r'<i>(.*?)</i>', re.MULTILINE | re.DOTALL)
-    #math = re.sub(regex, r'\textit{\1}', math)
+    math = re.sub(regex, r'\1', math)
+    # remove <u>...</u>
+    regex = re.compile(r'<u>(.*?)</u>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
+    # remove <r>...</r>, <bl>...</bl>, <gr>...</gr> and <bro>...</bro>
+    regex = re.compile(r'<(?:r|bl|gr|bro)>(.*?)</(?:r|bl|gr|bro)>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
+    # remove <f+>...</f+>
+    regex = re.compile(r'<f\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
+    # remove <f++>...</f>
+    regex = re.compile(r'<f\+\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
+    # remove <f->...</->
+    regex = re.compile(r'<f->(.*?)</f>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
+    # remove <ovl>...</ovl>
+    regex = re.compile(r'<ovl>(.*?)</ovl>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'\1', math)
 
     # convert fractions
