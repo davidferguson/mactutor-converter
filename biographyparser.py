@@ -28,6 +28,9 @@ def convert(datasheet, url_context):
     # authors
     data['authors'] = symbolreplace.tags_to_unicode(datasheet['AUTHORS'])
 
+    # last update
+    data['update'] = datasheet['UPDATE']
+
     data['summary'] = htmlparser.parse(datasheet['SUMMARY'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 
     # dates are tricky. for now leave them as they are
