@@ -83,4 +83,8 @@ def parse_data(data):
         match = re.search(regex, data)
         if match:
             parsed_data[tag] = match.group(1).strip()
+
+    #slight hack for authors
+    if 'AUTHORS' in parsed_data and parsed_data['AUTHORS'] == 'JOC/EFR':
+        parsed_data['AUTHORS'] = "J J O'Connor and E F Robertson"
     return parsed_data

@@ -31,7 +31,7 @@ import flow
 import cleaning
 import referenceparser
 
-LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/mathshistory-lektor/mathshistory/content/'
+LEKTOR_CONTENT_PATH = '/Users/david/Documents/MacTutor/actual-work/dev/mathshistory-site/content/'
 
 
 def save(data, fs_path):
@@ -152,7 +152,7 @@ def project_convert(input_dir, output_dir, url_context, name):
         'MacQuarrie': 'John MacQuarrie',
         'Pearce': 'Ian G Pearce',
         'Watson': 'Helen Watson',
-        'Ledermann': 'JOC/EFR'
+        'Ledermann': "J J O'Connor and E F Robertson"
     }
 
     pages = []
