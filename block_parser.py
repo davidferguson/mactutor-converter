@@ -48,14 +48,14 @@ def fix_nesting(current_block, new_tag, current_tag, blocks, newpos, ignore_tags
         assert new_tag != 'ol'
         # tricky. for now just ignore inner tag
         ignore_tags.append(new_tag)
-        return newpos
+        return (newpos, current_block)
     else:
         # everything else, just come out the old block, do the new block,
         # and then go back inside the old block
         finish_block(current_block, current_tag, blocks)
         current_block = ''
         current_tag.append(new_tag)
-        return newpos
+        return (newpos, current_block)
 
 
 def finish_block(current_block, current_tag, blocks):
@@ -96,7 +96,7 @@ def process_blocks(s, name):
         if newpos:
             tag = get_tag(s[pos:newpos])
             if len(current_tag) != 0:
-                pos = fix_nesting(current_block, tag, current_tag, blocks, newpos, ignore_tags)
+                pos, current_block = fix_nesting(current_block, tag, current_tag, blocks, newpos, ignore_tags)
             else:
                 finish_block(current_block, current_tag, blocks)
                 current_block = ''
