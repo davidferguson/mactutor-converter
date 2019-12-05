@@ -3,6 +3,21 @@ from urllib.parse import urljoin, urlparse
 import glob
 import os
 
+def biography_rename(name):
+    map = {
+        "Abu'l-Wafa": "Abul-Wafa",
+        "D'Adhemar": "DAdhemar",
+        "D'Alembert": "DAlembert",
+        "D'Ocagne": "DOcagne",
+        "D'Ovidio": "DOvidio",
+        "De_L'Hopital": "De_LHopital",
+        "Krasnosel'skii": "Krasnoselskii",
+        "Thompson_D'Arcy": "Thompson_DArcy"
+    }
+    if name in map:
+        name = map[name]
+    return name
+
 def convert(href, url_context):
     original_href = href
 
@@ -77,6 +92,10 @@ def convert(href, url_context):
     html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/')
     attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
+    # two special cases - need to remove spaces
+    path = path.replace('LMS FrolichPrize', 'LMSFrolichPrize')
+    path = path.replace('Atiyah_NY Times', 'Atiyah_NYTimes')
+
     if path == '/':
         page = '/'
 
@@ -94,7 +113,7 @@ def convert(href, url_context):
 
     elif path.startswith('/Diagrams/'):
         # see if this matches a diagram
-        DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/mathshistory-lektor/mathshistory/content/Diagrams/'
+        DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/dev/mathshistory-site/content/Diagrams/'
         diagram = path[10:]
         if os.path.isfile(os.path.join(DIAGRAM_DIR, diagram)):
             page = path
