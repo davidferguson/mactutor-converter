@@ -325,6 +325,10 @@ def mathreplace(match):
     #math = re.sub(regex, r'\textit{\1}', math)
     math = re.sub(regex, r'\1', math)
 
+    # convert fractions
+    regex = re.compile(r'\^(\S+) ?\/¬(\S+) ?', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'{{\1}\over{\2}}', math)
+
     # convert ^superscript
     regex = re.compile(r'\^(\S+)(?: ?)', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'^{\1}', math)
