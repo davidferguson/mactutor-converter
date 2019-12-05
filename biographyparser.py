@@ -12,6 +12,7 @@ import htmlparser
 import referenceparser
 import symbolreplace
 import flow
+import alphaindexparser
 
 def convert(datasheet, url_context):
     data = {}
@@ -93,13 +94,8 @@ def convert(datasheet, url_context):
     data['tags'] = json.dumps(tags)
 
     # discover alphabetical tags for this mathematician
-    path = '/Biographies/%s' % datasheet['FILENAME']
-    tags = [datasheet['FILENAME'][0].lower()] # default is first char of filename
-    with open('../datasheets/Indexes/alphabet/data.json') as f:
-        category_data = json.load(f)
-    for category in category_data:
-        if path in category['entries'] and category['name'] not in tags:
-            tags.append(category['name'])
-    data['alphabetical'] = json.dumps(tags)
+    displays = alphaindexparser.get_displays(datasheet['FILENAME'])
+    displays = '\n'.join(displays)
+    data['alphabetical'] = displays
 
     return data

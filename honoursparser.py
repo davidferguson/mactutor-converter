@@ -30,4 +30,6 @@ def convert(datasheet, url_context):
                                 paragraphs=True,
                                 url_context=url_context)
 
+    data['tags'] = '[]'
+
     return data

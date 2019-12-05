@@ -722,7 +722,7 @@ SPECIAL_RULES = {
         [' </i>>', '</i> >'],
         ['<Maurice Auslander>','<m>Maurice Auslander</m>']
     ],
-    'LMS FrolichPrize': [
+    'LMSFrolichPrize': [
         ['Addresses</m>','Addresses</a>'],
         ['Members</m>','Members</a>'],
         ['Prize</m>', 'Prize</a>']
@@ -984,6 +984,16 @@ SPECIAL_RULES = {
     # astronomy
     'Astronomy/universe': [
         ['<img src=../Diagrams/universe.gif>', '<d universe.gif>']
+    ],
+    # alphabetical index
+    'AlphaIndex/D': [
+        ['de Valera, &Eacute;amon</w>', 'de Valera, &Eacute;amon']
+    ],
+    'AlphaIndex/M': [
+        ['Moldovan, Elena Popoviciu</w>','Moldovan, Elena Popoviciu']
+    ],
+    'AlphaIndex/T': [
+        ['Thiêm</b>, Lê V<acup>n','Thiêm, Lê V<acup>n']
     ]
 }
 
