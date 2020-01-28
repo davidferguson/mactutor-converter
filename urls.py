@@ -112,6 +112,14 @@ def convert(href, url_context):
             page = path
 
     elif path.startswith('/Diagrams/'):
+        # need to convert a few
+        if path.startswith('/Diagrams/braid/'):
+            path = path.replace('/Diagrams/braid/', '/Diagrams/')
+        if path.startswith('/Diagrams/fairbook/'):
+            path = path.replace('/Diagrams/fairbook/', '/Diagrams/')
+        if path.startswith('/Diagrams/wf/'):
+            path = path.replace('/Diagrams/wf/', '/Diagrams/')
+
         # see if this matches a diagram
         DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/dev/mathshistory-site/content/Diagrams/'
         diagram = path[10:]
