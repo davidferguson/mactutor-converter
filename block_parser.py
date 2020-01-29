@@ -35,7 +35,7 @@ def is_open_block_tag(s, pos, close=False):
         return False
 
 def get_tag(tag):
-    pattern = re.compile(r'</?(?P<tag>q|Q|ol|h\d|k|ind|pre|cp|cpb).*?>')
+    pattern = re.compile(r'</?(?P<tag>q|Q|ol|h\d|k|ind|pre|cpb|cp).*?>')
     match = pattern.search(tag)
     assert match
     return match.group('tag').lower()
