@@ -2,6 +2,7 @@ import regex as re
 from urllib.parse import urljoin, urlparse
 import glob
 import os
+import json
 
 def biography_rename(name):
     map = {
@@ -95,6 +96,18 @@ def convert(href, url_context):
     # two special cases - need to remove spaces
     path = path.replace('LMS FrolichPrize', 'LMSFrolichPrize')
     path = path.replace('Atiyah_NY Times', 'Atiyah_NYTimes')
+
+    # sometimes we have moved things around, so need to correct this here
+    with open('moved_array.json', 'r') as f:
+        moved_array = json.load(f)
+    for item in moved_array:
+        move_from = item['from']
+        move_to = item['to']
+        if path.startswith(move_from) and path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+            path = path.replace(move_from, move_to)
+            with open('moved_array.txt', 'a') as f:
+                f.write('%s :: %s :: %s\n' % (path, move_from, move_to))
+            break
 
     if path == '/':
         page = '/'
