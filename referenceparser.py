@@ -42,10 +42,11 @@ def parse_references(references, name, url_context):
             href = urls.convert(href, url_context)
             text = parsed_references[-1]['reference']
             text = text.replace('<br>','')
-            link = '<a href="%s">%s</a>' % (href, text)
+            '''link = '<a href="%s">%s</a>' % (href, text)
             # only do this if there isn't already a link in the reference
             if '<a' not in text:
-                parsed_references[-1]['reference'] = link
+                parsed_references[-1]['reference'] = link'''
+            parsed_references[-1]['reference'] = '%s <a href="%s">%s</a>' % (text, href, href)
             in_reference = False
 
         # match against empty line

@@ -767,6 +767,12 @@ SPECIAL_RULES = {
         ['Members</m>','Members</a>'],
         ['Prize</m>', 'Prize</a>']
     ],
+    'Molyneux_Samuel': [
+        ['txt\n>http://www.europa.com/~telscope/molyneux.txt</a>', 'txt']
+    ],
+    'Molyneux_William': [
+        ['txt\n>http://www.europa.com/~telscope/molyneux.txt</a>', 'txt']
+    ],
     'Noether_Lecture': [
         ['<img src=../Diagrams/Noether_award_2.jpg height=200 align=right>','<d Noether_award_2.jpg>'],
         ['<img src=../Diagrams/Noether_award_1.jpg height=200 align=right>','<d Noether_award_1.jpg>']
