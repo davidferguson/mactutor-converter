@@ -204,7 +204,7 @@ if __name__ == '__main__':
     skip = lambda datasheet: datasheet['FILENAME'] == 'Quetelet' or global_skip(datasheet['EXTRA'])
     convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'Pi_chronology' or global_skip(datasheet['HISTTOPIC'])
+    skip = lambda datasheet: datasheet['FILENAME'] == 'Pi_chronology' or datasheet['FILENAME'] == 'Braids_arithmetic' or global_skip(datasheet['HISTTOPIC'])
     convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
 
     skip = lambda datasheet: datasheet['FILENAME'] == 'Times__obits' or global_skip(datasheet['CONTENT'])

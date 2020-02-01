@@ -57,10 +57,10 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, r'[p]\1[/p]', bio)
     # convert <cp>...</cp>
     regex = re.compile(r'<cp>(.*?)</cp>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[p=#cccccc]\1[/p]', bio)
+    bio = re.sub(regex, r'[grey]\1[/grey]', bio)
     # convert <cpb>...</cpb>
     regex = re.compile(r'<cpb>(.*?)</cpb>', re.MULTILINE | re.DOTALL)
-    bio = re.sub(regex, r'[p=#ccffff]\1[/p]', bio)
+    bio = re.sub(regex, r'[blue]\1[/blue]', bio)
     # convert <br>
     regex = re.compile(r'<br>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'\n', bio)
@@ -155,7 +155,7 @@ def _parse(bio, name, extras, translations, paragraphs, url_context):
     bio = re.sub(regex, r'[ac=\1]\2[/ac]', bio)
     #bio = re.sub(regex, lambda match: acreplace(match, url_context), bio)
     # convert <E num> - trying to fix 'THIS LINK'
-    regex = re.compile(r'(?<=[Yy]ou can see )(?P<text>.*?) at <E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
+    regex = re.compile(r'(?<=[Yy]ou can see )(?P<text>[^\n\.]*?) at <E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, lambda match: ereplaceclever(match, extras, url_context), bio)
     # convert <E num>
     regex = re.compile(r'<E (?P<number>\d+)>', re.MULTILINE | re.DOTALL)
@@ -438,10 +438,33 @@ def urlreplace(match, url_context):
 
     return '[url=%s]%s[/url]' % (href, text)
 
-# helper function for dealing with urls
-# need to translate old URLs to new lektor format
+# helper function for dealing with images
 def imgreplace(match, url_context):
-    href = match.group('href')
-    href = '/Diagrams/%s' % href
-    href = urls.convert(href, url_context)
-    return '[img]%s[/img]' % href
+    content = match.group('content')
+
+    align = ''
+    other = ''
+
+    items = content.split(',')
+    words = items[0].split(' ')
+
+    name = words[0]
+
+    if len(words) > 1:
+        align = words[1]
+
+    if len(items) > 1:
+        other = items[1]
+
+    print('D image: (%s) (%s) (%s)' % (name, align, other))
+
+    if '.' not in name:
+        name = '%s.gif' % name
+
+    if align == '' and other == '':
+        return '<d %s>' % name
+
+    if other == '':
+        return '<d %s %s>' % (name, align)
+
+    return '<d %s %s,%s>' % (name, align, other)

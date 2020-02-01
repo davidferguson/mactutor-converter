@@ -4,13 +4,20 @@ total = 0
 errors = {}
 count = {}
 
+def is_open_superblock_tag(s, pos):
+    return is_open_block_tag(s, pos, close=False, superblock=True)
+def is_close_superblock_tag(s, pos):
+    return is_open_block_tag(s, pos, close=True, superblock=True)
+
 def is_close_block_tag(s, pos):
     return is_open_block_tag(s, pos, close=True)
 
-def is_open_block_tag(s, pos, close=False):
+def is_open_block_tag(s, pos, close=False, superblock=False):
     if s[pos] != '<':
         return False
-    tags = ['q','Q','ol','h1','h2','h3','h4','h5','h6','k','ind','pre','cp','cpb']
+    tags = ['q','Q','ol','h1','h2','h3','h4','h5','h6','k','ind','pre']
+    if superblock:
+        tags = ['cp', 'cpb']
     for tag in tags:
         if close:
             tag = '</%s>' % tag
@@ -22,6 +29,8 @@ def is_open_block_tag(s, pos, close=False):
         if match:
             return pos+len(tag)
     if close or pos+4 >= len(s):
+        return False
+    if superblock:
         return False
     # special case for ol
     tag = '<ol'
@@ -80,6 +89,7 @@ def process_blocks(s, name):
     ignore_tags = []
     in_pre = False
     current_block = ''
+    current_supertag = ''
     pos = 0
 
     while pos < len(s):
@@ -91,6 +101,38 @@ def process_blocks(s, name):
         #    in_pre = False
         #    pos += 6
         #    continue
+
+        newpos = is_open_superblock_tag(s, pos)
+        if newpos:
+            supertag = get_tag(s[pos:newpos])
+            if len(current_supertag) != 0:
+                print('NEW SUPERTAG WHEN ALREADY IN ONE')
+                assert False
+            if len(current_tag) != 0:
+                print('STILL IN BLOCK WHILE OPENING SUPERTAG')
+                print('STILL IN %s' % current_tag)
+                print('TRYING TO OPEN %s' % supertag)
+                assert False
+            # finish the implicit paragraph
+            finish_block(current_block, current_tag, blocks)
+            blocks.append('<%s>' % supertag)
+            current_block = ''
+            current_supertag = supertag
+            pos = newpos
+            continue
+
+        newpos = is_close_superblock_tag(s, pos)
+        if newpos:
+            supertag = get_tag(s[pos:newpos])
+            if len(current_supertag) == 0 or supertag != current_supertag:
+                print('CLOSING SUPERTAG DOES NOT MATCH OPENING ONE')
+                assert False
+            finish_block(current_block, current_tag, blocks)
+            blocks.append('</%s>' % supertag)
+            current_block = ''
+            current_supertag = ''
+            pos = newpos
+            continue
 
         newpos = is_open_block_tag(s, pos)
         if newpos:
@@ -149,6 +191,8 @@ def process_blocks(s, name):
     if current_block.strip() != '':
         finish_block(current_block, current_tag, blocks)
 
-    #html = '\n\n'.join(blocks)
-    #return html
-    return blocks
+    html = '\n\n'.join(blocks)
+    return [html]
+    #print(blocks)
+    #assert False
+    #return blocks

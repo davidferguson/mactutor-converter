@@ -136,6 +136,9 @@ SPECIAL_RULES = {
     'Li_Shanlan': [
         ['on the Mathematical Art</i>. By their','on the <i>Mathematical Art</i>. By their']
     ],
+    'Liu_Hui': [
+        ['\\n = 1, N = 6, p¬n =1, N p¬n /2 =3\n\nn = 2, N =12, p¬n =0.5176380900, N p¬n /2 =3.105828540\n\nn = 3, N = 24, p¬n =0.2610523842, N p¬n /2 =3.132628610\n\nn = 4, N = 48, p¬n =0.1308062584, N p¬n /2 =3.139350202\n\nn = 5, N = 96, p¬n =0.06543816562, N p¬n /2 =3.141031950\n\nn = 6, N = 192, p¬n =0.03272346325, N p¬n /2 =3.141452472\n\nn = 7, N = 384, p¬n =0.01636227920, N p¬n /2 =3.141557606\n\nn = 8, N = 768, p¬n =0.008181208047, N p¬n /2 =3.141583890\n\nn = 9, N = 1536, p¬n = .004090612582, N p¬n /2 =3.141590463\n\nn = 10, N = 3072, p¬n =0.002045307359, N p¬n /2 =3.141592104\n\nn = 11, N = 6144, p¬n =0.001022653813, N p¬n /2 =3.141592514\\\\', '\\n = 1, N = 6, p¬n =1, N p¬n /2 =3\nn = 2, N =12, p¬n =0.5176380900, N p¬n /2 =3.105828540\nn = 3, N = 24, p¬n =0.2610523842, N p¬n /2 =3.132628610\nn = 4, N = 48, p¬n =0.1308062584, N p¬n /2 =3.139350202\nn = 5, N = 96, p¬n =0.06543816562, N p¬n /2 =3.141031950\nn = 6, N = 192, p¬n =0.03272346325, N p¬n /2 =3.141452472\nn = 7, N = 384, p¬n =0.01636227920, N p¬n /2 =3.141557606\nn = 8, N = 768, p¬n =0.008181208047, N p¬n /2 =3.141583890\nn = 9, N = 1536, p¬n = .004090612582, N p¬n /2 =3.141590463\nn = 10, N = 3072, p¬n =0.002045307359, N p¬n /2 =3.141592104\nn = 11, N = 6144, p¬n =0.001022653813, N p¬n /2 =3.141592514\\\\']
+    ],
     'Machin': [
         ['<font face=symbol>p</font>','p']
     ],
@@ -260,6 +263,14 @@ SPECIAL_RULES = {
     'Szele': [
         [' >http://tudosnaptar.kfki.hu/s/z/szele/szelepant.html</a>','']
     ],
+    'Tarry': [
+        ['\\6', '\\6\\\\'],
+        ['18a - 6b - 24c','\\18a - 6b - 24c\\\\'],
+        ['34b^2  + 48bc + 180c^2  + 82a^2  - 64ab - 228ac','\\34b^2  + 48bc + 180c^2  + 82a^2  - 64ab - 228ac\\\\'],
+        ['-90b^3  + 1020abc - 498a^2 b + 414a^3  - 1392c^3  - 540bc^2  - 408b^2 c + 2628ac^2  + 390ab^2  - 1740a^2 c','\\-90b^3  + 1020abc - 498a^2 b + 414a^3  - 1392c^3  - 540bc^2  - 408b^2 c + 2628ac^2  + 390ab^2  - 1740a^2 c\\\\'],
+        [' -14376abc^2  - 7920ab^2 c + 12168a^2 bc + 3600a^2 b^2  + 27444a^2 c^2  + 370b^4  + 2194a^4  + 11364c^4  - 1640ab^3  - 28296ac^3  - 3560a^3 b - 12336a^3 c + 1440b^3 c + 4944b^2 c^2  + 5568bc^3 ','\\ -14376abc^2  - 7920ab^2 c + 12168a^2 bc + 3600a^2 b^2  + 27444a^2 c^2  + 370b^4  + 2194a^4  + 11364c^4  - 1640ab^3  - 28296ac^3  - 3560a^3 b - 12336a^3 c + 1440b^3 c + 4944b^2 c^2  + 5568bc^3 \\\\'],
+        ['117400a^3 bc - 103080a^2 b^2 c - 218700a^2 bc^2  + 182920abc^3  + 127080ab^2 c^2  + 39520ab^3 c - 56820bc^4  - 375880a^2 c^3  - 84200a^4 c - 24410a^4 b - 7400b^4 c - 21120b^3 c^2  - 55360b^2 c^3  + 30040a^3 b^2  + 247260a^3 c^2  + 7790ab^4  + 294780ac^4  - 19720a^2 b^3  + 11958a^5  - 95184c^5  - 1266b^5 \\\\','\\117400a^3 bc - 103080a^2 b^2 c - 218700a^2 bc^2  + 182920abc^3  + 127080ab^2 c^2  + 39520ab^3 c - 56820bc^4  - 375880a^2 c^3  - 84200a^4 c - 24410a^4 b - 7400b^4 c - 21120b^3 c^2  - 55360b^2 c^3  + 30040a^3 b^2  + 247260a^3 c^2  + 7790ab^4  + 294780ac^4  - 19720a^2 b^3  + 11958a^5  - 95184c^5  - 1266b^5 \\\\']
+    ],
     'Tweedie': [
         ['an obituary</a>','an obituary']
     ],
@@ -284,6 +295,17 @@ SPECIAL_RULES = {
     'Zhang_Qiujian': [
         ['Mathematical Art</i>','<i>Mathematical Art</i>']
     ],
+    'Zhu_Shijie': [
+        ['\\1 + 2 + 3 + 4 + ... + n = n(n + 1)/2,','\\1 + 2 + 3 + 4 + ... + n = n(n + 1)/2,\\\\'],
+        ['1 + 3 + 6 + 10 + ... + n(n + 1)/2 = n(n + 1)(n + 2)/6,','\\1 + 3 + 6 + 10 + ... + n(n + 1)/2 = n(n + 1)(n + 2)/6,\\\\'],
+        ['1 + 4 + 10 + 20 + ... + n(n + 1)(n + 2)/6 = n(n + 1)(n + 2)(n + 3)/24,','\\1 + 4 + 10 + 20 + ... + n(n + 1)(n + 2)/6 = n(n + 1)(n + 2)(n + 3)/24,\\\\'],
+        ['1 + 5 + 15 + 35 + ... + n(n + 1)(n + 2)(n + 3)/24 = n(n + 1)(n + 2)(n + 3)(n + 4)/120,','\\1 + 5 + 15 + 35 + ... + n(n + 1)(n + 2)(n + 3)/24 = n(n + 1)(n + 2)(n + 3)(n + 4)/120,\\\\'],
+        ['1 + 6 + 21 + 56 + ... + n(n + 1)(n + 2)(n + 3)(n + 4)/120 = n(n + 1)(n + 2)(n + 3)(n + 4)(n + 5)/720.\\','\\1 + 6 + 21 + 56 + ... + n(n + 1)(n + 2)(n + 3)(n + 4)/120 = n(n + 1)(n + 2)(n + 3)(n + 4)(n + 5)/720.\\\\'],
+        ['1 + 4 + 9 + 16 + 25 + 36 + ...','\\1 + 4 + 9 + 16 + 25 + 36 + ...\\\\'],
+        ['1 + 5 + 14 + 30 + 55 + 91 + ...','\\1 + 5 + 14 + 30 + 55 + 91 + ...\\\\'],
+        ['1 + 6 + 18 + 40 + 75 + 126 + ...','\\1 + 6 + 18 + 40 + 75 + 126 + ...\\\\'],
+        ['1 + 8 + 30 + 80 + 175 + 336 + ...','\\1 + 8 + 30 + 80 + 175 + 336 + ...\\\\']
+    ],
     'Zygmund': [
         ['</i> Sur la',' <i>Sur la'],
         ['trigonométrique<i>','trigonométrique</i>'],
@@ -306,8 +328,40 @@ SPECIAL_RULES = {
     'Art_Mathematics_Music': [
         ['\n</a>', '</a>']
     ],
+    'Atiyah_books': [
+        ['<ind>\n<cpb>This is not','\n<cpb>This is not'],
+        ['Mathematical Society.</cpb>','Mathematical Society.</cpb>\n<ind>'],
+        ['<ind>\n<cpb>The title means','<cpb>The title means'],
+        ['We are all mathematicians".</cpb>','We are all mathematicians".</cpb>\n<ind>']
+    ],
     'Bartlett_reviews': [
         ['</b>R Coleman, Review', 'R Coleman, Review']
+    ],
+    'Basset_prefaces': [
+        ['<ol>',''],
+        ['</ol>',''],
+        ['<li 1> ',''],
+        ['<li 2> ',''],
+        ['<li 3> ',''],
+        ['<li 4> ',''],
+        ['<li 5> ','']
+    ],
+    'Bolzano_publications': [
+        ["<cp>Below are the main publications of Bolzano's work which appeared after his death.</cp>","</ol>\n<cp>Below are the main publications of Bolzano's work which appeared after his death.</cp>\n<ol>"]
+    ],
+    'Boole_Thomson_correspondence': [
+        ['<ind>\n<cpb>Shortly after','<cpb>Shortly after'],
+        ['ideas:</cpb>','ideas:</cpb>\n<ind>'],
+        ['<ind>\n<cpb>William Meikleham','<cpb>William Meikleham'],
+        ['George Boole:</cpb>','George Boole:</cpb>\n<ind>'],
+        ["<ind>\n<cpb>The Queen's","<cpb>The Queen's"],
+        ['new colleges:</cpb>','new colleges:</cpb>\n<ind>'],
+        ['<ind>\n<cpb>William','<cpb>William'],
+        ['death:</cpb>','death:</cpb>\n<ind>'],
+        ['<ind>\n<cpb>Boole and','<cpb>Boole and'],
+        ['describes:</cpb>','describes:</cpb>\n<ind>'],
+        ['<ind>\n<cpb>George Boole','<cpb>George Boole'],
+        ['too strong:</cpb>','too strong:</cpb>\n<ind>']
     ],
     'Byrne_Euclid': [
         ['<Bigdelta>', '<bigdelta>']
@@ -354,7 +408,26 @@ SPECIAL_RULES = {
         ['<ind>\n<b>3.1. Review by: Peter Eades.</b>','<b>3.1. Review by: Peter Eades.</b>']
     ],
     'Dahlin_Extracts': [
-        ['also in Sweden. \n</ind>','also in Sweden.']
+        ['also in Sweden. \n</ind>','also in Sweden.'],
+        ['<cpb>[Nils Chesnecopherus','</ind>\n<cpb>[Nils Chesnecopherus'],
+        ['influence.]</cpb>\n</ind>','influence.]</cpb>'],
+        ['<cpb>[This is followed','</ind>\n<cpb>[This is followed'],
+        ['following remark.] </cpb>','following remark.] </cpb>\n<ind>'],
+        ['<cpb>summarised on page 83-84</cpb>','</ind>\n<cpb>summarised on page 83-84</cpb>\n<ind>'],
+        ['<cpb>summarised on page 84-85</cpb>','</ind>\n<cpb>summarised on page 84-85</cpb>\n<ind>'],
+        ['<cpb>summarised on page 85-86</cpb>','</ind>\n<cpb>summarised on page 85-86</cpb>\n<ind>'],
+        ['<cpb>Dahlin describes','</ind>\n<cpb>Dahlin describes'],
+        ['He continues on page 92:</cpb> ','He continues on page 92:</cpb>\n<ind>'],
+        ['<cpb>on pages 93-115','</ind>\n<cpb>on pages 93-115'],
+        ['115-116 with the comment:</cpb>','115-116 with the comment:</cpb>\n<ind>'],
+        ['<ind>\n<cpb>Appointed mathematics professor in 1621. No known work.</cpb>\n</ind>','<cpb>Appointed mathematics professor in 1621. No known work.</cpb>'],
+        ['<ind>\n<cpb>pp. 117-120. Appointed mathematics professor in 1626.</cpb>\n</ind>','<cpb>pp. 117-120. Appointed mathematics professor in 1626.</cpb>'],
+        ['<ind>\n<cpb>p. 120. Astronomy professor 1644.</cpb>\n</ind>','<cpb>p. 120. Astronomy professor 1644.</cpb>'],
+        ['<ind>\n<cpb>pp. 121-125. Appointed "Practical mathematics professor" in 1649.</cpb>\n</ind>','<cpb>pp. 121-125. Appointed "Practical mathematics professor" in 1649.</cpb>'],
+        ['<ind>\n<cpb>pp. 125-130. Succeeded Gestrinius as mathematics professor in 1650.</cpb>\n</ind>','<cpb>pp. 125-130. Succeeded Gestrinius as mathematics professor in 1650.</cpb>'],
+        ['<ind>\n<cpb>pp. 130-133. Mathematics professor 1660-1669.</cpb>','<cpb>pp. 130-133. Mathematics professor 1660-1669.</cpb>'],
+        ['</ind>\n<cpb>pp.','<cpb>pp.'],
+        ['<ind>\n18.	Magnus Celsius.\n</ind>','18.	Magnus Celsius.']
     ],
     'De_Morgan_1859_Preface': [
         ['<Bigdelta>', '<bigdelta>'],
@@ -366,6 +439,15 @@ SPECIAL_RULES = {
     ],
     'Everitt_BVP': [
         ['[<!]>','[']
+    ],
+    'Fejer_descriptions': [
+        ['<ol><cpb>','<cpb>'],
+        ['<li 1>','1. '],
+        ['<li 2>','2. '],
+        ['<li 3>','3. '],
+        ['<li 4>','4. '],
+        ['<li 5>','5. '],
+        ['</ol>','']
     ],
     'Fields_letter': [
         ["<font color=\"blue\"><h3>Fields' Letter setting out his proposals</h3></font></center>","<h3><bl>Fields' Letter setting out his proposals</bl></h3>"]
@@ -401,10 +483,18 @@ SPECIAL_RULES = {
         ['<word?>', '']
     ],
     'Harvey_obituaries': [
-        ['</ol>\n</ind>', '</ol>']
+        ['</ol>\n</ind>', '</ol>'],
+        ['<ind>\n<cpb>','<cpb>'],
+        ['obituary below:</cpb>','obituary below:</cpb>\n<ind>'],
+        ['article below:</cpb>','article below:</cpb>\n<ind>'],
+        ['matherati-martin-harvey/</cpb>','matherati-martin-harvey/</cpb>\n<ind>']
     ],
     'Herschel_Museum': [
         ['</a>', '']
+    ],
+    'Hilbert_quotes': [
+        ['<ind>\n<cpb>The','<cpb>The'],
+        ['speech:</cpb>','speech:</cpb>\n<ind>']
     ],
     'Kalman_response': [
         ['>>', '> >']
@@ -445,6 +535,13 @@ SPECIAL_RULES = {
         ['<k>BY','BY'],
         ['<h3>EDMUND LANDAU</h3></k><n>','<h3>EDMUND LANDAU</h3>'],
         ['<k><gr><h3><r>TABLE OF CONTENTS</r></h3></gr></k>','<h3><r>TABLE OF CONTENTS</r></h3>']
+    ],
+    'Lehrer_Songs': [
+        ["<ol><li><b>There's A Delta For Every Epsilon (Calypso).</b>","<h3><b>There's A Delta For Every Epsilon (Calypso).</b></h3>"],
+        ['<li><b>The Derivative Song.</b>','<h3><b>The Derivative Song.</b></h3>'],
+        ["<li><b>The Professor's Song.</b>","<h3><b>The Professor's Song.</b></h3>"],
+        ['<li><b>Lobachevsky</b>','<h3><b>Lobachevsky</b></h3>'],
+        ['</ol>','']
     ],
     'Levitzki_papers': [
         ['</cp>\n</Q>', '</Q>\n</cp>']
@@ -509,6 +606,12 @@ SPECIAL_RULES = {
     'NAS_founders': [
         ['Miers Fisher Longstreth, 1819-1891</b>','<b>Miers Fisher Longstreth, 1819-1891</b>']
     ],
+    'Newton_contemporaries': [
+        ["<ol><li 1><b> Roger Cotes's Preface to the <i>Principia</i>.</b>","<h3><b> Roger Cotes's Preface to the <i>Principia</i>.</b></h3>"],
+        ["<li 2><b>Bernard de Fontenelle's <i>The Elogium of Sir Isaac Newton.</i></b>","<h3><b>Bernard de Fontenelle's <i>The Elogium of Sir Isaac Newton.</i></b></h3>"],
+        ["<li 3><b>Voltaire's <i>On Descartes And Sir Isaac Newton</i>.</b>","<h3><b>Voltaire's <i>On Descartes And Sir Isaac Newton</i>.</b></h3>"],
+        ['</ol>','']
+    ],
     'Obada_publications': [
         ['(>1)','( > 1)'],
         ['>>', '> >']
@@ -531,6 +634,17 @@ SPECIAL_RULES = {
     ],
     'Raffy_publications': [
         [' <ol>','</ol>']
+    ],
+    'Raphson_books': [
+        ['<ind>\n<cpb>','<cpb>'],
+        ['</cpb>','</cpb>\n<ind>']
+    ],
+    'Riesz_descriptions': [
+        ['<ol><cpb><li 1>','<cpb>1. '],
+        ['<cpb><li 2>','<cpb>2. '],
+        ['<cpb><li 3>','<cpb>3. '],
+        ['<cpb><li 4>','<cpb>4. '],
+        ['</ol>','']
     ],
     'Rota_Snapshots': [
         ['<Sigma>','<sigma>']
@@ -589,6 +703,14 @@ SPECIAL_RULES = {
         ['<i>...','<Q>\n...'],
         ['Taylor.</i>\n</ind>','Taylor.\n</Q>']
     ],
+    'The_dyers_hand': [
+        ['<ol>\n<cpb><li 1>','<cpb>1. '],
+        ['<cpb><li 2> ','<cpb>2. '],
+        ['<cpb><li 3>','<cpb>3. '],
+        ['<cpb><li 4> ','<cpb>4. '],
+        ['<cpb><li 5> ','<cpb>5. '],
+        ['</ol>','']
+    ],
     'Todhunter_Euclid_Intro': [
         ['<r><h3><k>INTRODUCTORY REMARKS</k></h3></r>','<h3><r>INTRODUCTORY REMARKS</r></h3>']
     ],
@@ -600,8 +722,20 @@ SPECIAL_RULES = {
         ["</i> Cotes' theorem","Cotes' theorem"],
         ['<Sigma>','<sigma>']
     ],
+    'Vanstone_marriage': [
+        ['<ind>\n<cpb>','<cpb>'],
+        ['</cpb>','</cpb>\n<ind>']
+    ],
+    'Vector_calculus_problems': [
+        ['<ind>\n<cpb>','<cpb>'],
+        ['</cpb>','</cpb>\n<ind>']
+    ],
     'Vidav_bibliography': [
         ['enacb</i>','enacb']
+    ],
+    'Weil_teaching': [
+        ['<ind>\n<cpb>','<cpb>'],
+        ['</cpb>','</cpb>\n<ind>']
     ],
     'Zariski_Samuel': [
         ['<k><h3>Commutative Algebra</h3><n>','<h3>Commutative Algebra</h3>']
@@ -626,7 +760,9 @@ SPECIAL_RULES = {
         ['<a href=African_men_1.html#Moori>Jamshid Moori</m>.','<a href=African_men_1.html#Moori>Jamshid Moori</a>.']
     ],
     'Alcuin_book': [
-        ['<b><b>Solution</b>.\n</b>','<b>Solution</b>.\n']
+        ['<b><b>Solution</b>.\n</b>','<b>Solution</b>.\n'],
+        ['<ol>',''],
+        ['</ol>','']
     ],
     'Art': [
         ['<font size=-1 color=red>','<f-><r>'],
@@ -651,7 +787,8 @@ SPECIAL_RULES = {
         ['<ind><f->Click it to see a larger version</f></k>','<ind><f->Click it to see a larger version</f></ind></k>'],
         ['<i> feet. Required tonnage by common rule.\n','<i> feet. Required tonnage by common rule.</i>\n'],
         ['\nIf the length of the keel of tonnage be','\n<i>If the length of the keel of tonnage be'],
-        ['6>','6 >']
+        ['6>','6 >'],
+        ['<cpb>This picture shows the Serbian General Omer Pasha entering the town of Eupatoria which he captured from the Russians for the Turks in February 1855</cpb>','</ind>\n<cpb>This picture shows the Serbian General Omer Pasha entering the town of Eupatoria which he captured from the Russians for the Turks in February 1855</cpb>\n<ind>']
     ],
     'fractals': [
         ['Fatou biography.  <http://www-history.mcs.st-andrews.ac.uk/Biographies/Fatou.html>','<m>Fatou</m> biography.']
@@ -855,9 +992,15 @@ SPECIAL_RULES = {
         ['<S Sigma>','<sigma>'],
         ['264.</i>','264.']
     ],
+    'Obits2@Knott_obituary.html': [
+        ['50-51.','50-51.</cp>']
+    ],
     'Obits2@Lehmer_Emma_Berkeley.html': [
         ['at the age of 100.','at the age of 100.</b>'],
         ['She passed away','<b>She passed away']
+    ],
+    'Obits2@Mackay_obituary.html': [
+        ['151-159.','151-159.</cp>']
     ],
     'Obits2@Mandelbrot_STelegraph.html': [
         ['<i>(</i>Mis<i>)</i>','(Mis)']
@@ -899,7 +1042,11 @@ SPECIAL_RULES = {
         ['<li d>', 'D. '],
         ['<li e>', 'E. '],
         ['<li f>', 'F. '],
-        ['others.\n</ol>', 'others.\n\n']
+        ['others.\n</ol>', 'others.\n\n'],
+        ['<ol ><li 1><h3>','<h3>1. '],
+        ['<li 2><h3>','<h3>2. '],
+        ['<li 3><h3>','<h3>3. '],
+        ['</ol>','']
     ],
     'Colloquium_1930': [
         ['<ol type=A>',''],
@@ -1013,6 +1160,10 @@ def clean(bio, name):
 
     bio = bio.replace('</i><ol><i><n>','<ol>')
     bio = bio.replace('</i><ol><i><li>','<ol><li>')
+
+    # special for Alcuin_book
+    if name == 'Alcuin_book':
+        bio = re.sub(r'<li (\d+)>([^\n]*)', r'<h3>\1. \2</h3>', bio)
 
     # run all the special rules
     if name in SPECIAL_RULES:
