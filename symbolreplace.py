@@ -36,7 +36,7 @@ def symbols_to_unicode(text, katex=False):
         translation = katex
 
     for symbol, translation in zip(symbols, translation):
-        translation = translation.replace('\\', '\\\\')
+        #translation = translation.replace('\\', '\\\\')
         text = text.replace('<s %s>' % symbol, translation)
 
     return text
@@ -56,7 +56,7 @@ def tags_to_unicode(text, katex=False):
 
     other_tags = ['<scomma>','<tcomma>','<Tcomma>','<acup>','<L/>','<l/>','<o//>','<O/>','<o/>','<Zdot>','<zdot>','<ao>','<Ccup>','<z/>','<s/>','<n/>','<Scup>','<edot>','<scup>','<ccup>','<ecedil>','<ehook>','<S/>','<laplacian>','<Ao>','<dot>','<curlytheta>','<angle>','<ahook>','<scedil>','<Acup>','<atilde>','<c/>','<gcup>','<Zcup>','<zcup>','<ubar>','<u//>','<ss>','<uhook>','<ecup>','<rcup>','<uring>','<d/>']
     other_unicode = ['ș','ț','Ț','ă','Ł','ł','ő','Ø','ø','Ż','ż','å','Č','ź','ś','ń','Š','ė','š','č','ȩ','ę','Ś','∇','Å','·','ϑ','∠','ą','ş','Ǎ','ã','ć','ğ','Ž','ž','ū','ű','ß','ų','ě','ř','ů','ð']
-    other_katex = ['ș','ț','Ț','\\check{a}','Ł','ł','\\text{\H{o}}','\\text{\\O}','\\text{\\o}','\\dot{Z}','\\dot{z}','\\text{\\r{a}}','\\check{C}','\\acute{z}','\\acute{s}','\\acute{n}','\\check{S}','\\dot{e}','\\check{s}','\\check{c}','ȩ','ę','\\acute{S}','\\nabla','\\mathring{A}','\\cdot','\\vartheta','\\angle','ą','ş','\\check{A}','\\tilde{a}','\\acute{c}','\\check{g}','\\check{~}','\\check{z}','\\bar{u}','\\text{\\H{u}}','\\text{\\ss}','ų','\\check{e}','\\check{r}','\\mathring{u}','ð']
+    other_katex = ['ș','ț','Ț','\\check{a}','Ł','ł','\\text{\\H{o}}','\\text{\\O}','\\text{\\o}','\\dot{Z}','\\dot{z}','\\text{\\r{a}}','\\check{C}','\\acute{z}','\\acute{s}','\\acute{n}','\\check{S}','\\dot{e}','\\check{s}','\\check{c}','ȩ','ę','\\acute{S}','\\nabla','\\mathring{A}','\\cdot','\\vartheta','\\angle','ą','ş','\\check{A}','\\tilde{a}','\\acute{c}','\\check{g}','\\check{~}','\\check{z}','\\bar{u}','\\text{\\H{u}}','\\text{\\ss}','ų','\\check{e}','\\check{r}','\\mathring{u}','ð']
 
     math_codes = ['==>','<==','<=>','|->','<-->','-->']
     math_codes_unicode = ['⇒','⇐','⇔','↦','⟷','→']
@@ -67,9 +67,10 @@ def tags_to_unicode(text, katex=False):
 
     if katex:
         all_unicode = greek_katex + math_katex + other_katex + math_codes_katex
+        all_unicode = [' %s ' % s for s in all_unicode]
 
     for tag, unicode in zip(all_tags, all_unicode):
-        unicode = unicode.replace('\\', '\\\\')
+        #unicode = unicode.replace('\\', '\\\\')
         text = text.replace(tag, unicode)
 
     # sneaky fix - also do html character tags

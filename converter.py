@@ -193,39 +193,37 @@ def project_convert(input_dir, output_dir, url_context, name):
 
 
 if __name__ == '__main__':
-    global_skip = lambda content: '<area' in content.lower()
-
-    skip = lambda datasheet: global_skip(datasheet['BIOGRAPHY'])
+    skip = lambda datasheet: False
     convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
-    skip = lambda datasheet: global_skip(datasheet['BIG'])
+    skip = lambda datasheet: False
     convert('../datasheets/Places', 'Map', skip, placesparser, 'BirthplaceMaps/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'Quetelet' or global_skip(datasheet['EXTRA'])
+    skip = lambda datasheet: False
     convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'Pi_chronology' or datasheet['FILENAME'] == 'Braids_arithmetic' or global_skip(datasheet['HISTTOPIC'])
+    skip = lambda datasheet: False
     convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'Times__obits' or global_skip(datasheet['CONTENT'])
+    skip = lambda datasheet: False
     convert('../datasheets/Honours', 'Honours', skip, honoursparser, 'Honours/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'alph_list' or datasheet['FILENAME'] == 'societies_list' or global_skip(datasheet['CONTENT'])
+    skip = lambda datasheet: False
     convert('../datasheets/Societies', 'Societies', skip, societiesparser, 'Societies/')
 
-    skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME']) or global_skip(datasheet['CONTENT'])
+    skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME'])
     convert('../datasheets/Obits', 'Obituaries', skip, obituariesparser, 'Obits2/')
 
-    skip = lambda datasheet: global_skip(datasheet['CONTENTS'])
+    skip = lambda datasheet: False
     convert('../datasheets/Curves', 'Curves', skip, curvesparser, 'Curves/')
 
-    skip = lambda datasheet: datasheet['FILENAME'] == 'EMS_poster' or datasheet['FILENAME'] == 'ems_lecturers' or datasheet['FILENAME'] == 'pics/EMS_1913b' or global_skip(datasheet['CONTENT'])
+    skip = lambda datasheet: False
     convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/')
 
-    skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME']) or global_skip(datasheet['CONTENT'])
+    skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME'])
     convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/Zagier/')
 
-    skip = lambda datasheet: global_skip(datasheet['CONTENTS'])
+    skip = lambda datasheet: False
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
     files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2']
@@ -239,4 +237,4 @@ if __name__ == '__main__':
 
     projects = ['Ayel','Brunk','Burslem','Daxenberger','Ellison','Johnson','MacQuarrie','Pearce','Watson']
     for project in projects:
-        project_convert('../datasheets/Projects/%s/' % project, 'Projects/%s' % project, 'Projects/%s/' % project, project)
+        project_convert('../datasheets/Projects/%s/' % project, 'Projects/%s' % project, 'Projects/%s/Chapters/' % project, project)

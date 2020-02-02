@@ -54,6 +54,12 @@ def convert(href, url_context):
     if href.startswith('mailto:'):
         return href
 
+    # win javascript pattern
+    pattern = re.compile(r'^javascript:win\(\'(?P<href>.*?)\'(?:.*?)\)$')
+    match = pattern.search(href)
+    if match:
+        href = '/Obits/%s.html' % match.group('href')
+
     # win0 javascript pattern
     pattern = re.compile(r'^javascript:win0\(\'(?P<href>.*?)\'(?:.*?)\)$')
     match = pattern.search(href)
@@ -109,7 +115,7 @@ def convert(href, url_context):
                 f.write('%s :: %s :: %s\n' % (path, move_from, move_to))
             break
 
-    if path == '/':
+    if path == '/' or path == '/index.html':
         page = '/'
 
     elif path.startswith(html_directories):
@@ -144,7 +150,8 @@ def convert(href, url_context):
             if len(matches) != 1:
                 with open('diagram-errors.txt', 'a') as f:
                     f.write('%s :: %s :: %s\n' % (original_href, url_context, diagram))
-                page = ''
+                #page = ''
+                page = '/Diagrams/%s' % diagram
             else:
                 page = '/Diagrams/%s' % os.path.basename(matches[0])
 
@@ -214,10 +221,21 @@ def convert(href, url_context):
             curve = re.sub(pattern, r'0\1', curve)
         page = '/Curves/%s' % curve
 
+    elif path == '/Indexes/African_men_alph.html':
+        page = '/@categoryindex/african-men-alph'
+    elif path == '/Indexes/African_women_alph.html':
+        page = '/@categoryindex/african-women'
+    elif path == '/~john/':
+        page = 'http://www-groups.mcs.st-and.ac.uk/~john/'
+    elif path == '/~edmund/':
+        page = 'http://www-groups.mcs.st-and.ac.uk/~edmund/'
+
     else:
         page = path
         with open('url-conversion-non.txt', 'a') as f:
             f.write('%s :: %s :: %s\n' % (page, url_context, original_href))
+        with open('invalid-urls.txt', 'a') as f:
+            f.write('%s\n' % page)
 
     if fragment.strip() != '':
         page += '#' + fragment

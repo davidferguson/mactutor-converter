@@ -42,6 +42,9 @@ def convert(datasheet, url_context):
     # parse translations (use the same format as references)
     # don't add them to data, as we're combining them with bio
     translations = referenceparser.parse_references(datasheet['TRANSLATION'], datasheet['FILENAME'], url_context)
+    translation_data = json.loads(translations)['data']
+    translation_data = [{'number':d['number'],'translation':d['reference']} for d in translation_data]
+    data['translations'] = flow.to_flow_block('translation', translation_data)
 
     # parse otherweb links (they use the same format as cross references)
     otherweb = referenceparser.parse_cross_references(datasheet['OTHERWEB'], datasheet['FILENAME'], url_context)

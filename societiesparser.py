@@ -44,6 +44,7 @@ def convert(datasheet, url_context):
     # parse additional links (they use the same format as cross references)
     # don't add them to data, as we're combining them with bio
     additional = referenceparser.parse_cross_references(datasheet['EXTRAS'], datasheet['FILENAME'], url_context)
+    data['additional'] = flow.to_flow_block('otherweb', json.loads(additional)['data'])
 
     # parse biography, and add in extras and translations
     data['content'] = htmlparser.parse(datasheet['CONTENT'],
