@@ -71,10 +71,10 @@ def convert(datasheet, url_context):
     # discover alphabetical index names for this history topic
     parsed_entries = []
     if 'INDEXNAMES' not in datasheet:
-        if datasheet['FULLNAME'].strip() != '':
-            parsed_entries.append(datasheet['FULLNAME'].strip())
-        elif datasheet['SHORTNAME'].strip != '':
-            parsed_entries.append(datasheet['SHORTNAME'].strip())
+        if data['fullname'].strip() != '':
+            parsed_entries.append(data['fullname'].strip())
+        elif data['shortname'].strip() != '':
+            parsed_entries.append(data['shortname'].strip())
         else:
             print('no names for this topic')
             assert False

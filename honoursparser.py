@@ -32,4 +32,14 @@ def convert(datasheet, url_context):
 
     data['tags'] = '[]'
 
+    # alphabetical display entries
+    parsed_entries = []
+    if data['title'].strip() != '':
+        s = data['title'].strip()
+        parsed_entries.append(s)
+    elif data['headline'].strip() != '':
+        s = data['headline'].strip()
+        parsed_entries.append(s)
+    data['alphabetical'] = '\n'.join(parsed_entries)
+
     return data
