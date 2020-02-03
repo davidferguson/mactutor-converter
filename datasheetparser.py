@@ -59,7 +59,8 @@ TAGS = [
     'PLACENAME',
     'WEBREF',
     'GAZ',
-    'LATLONG0'
+    'LATLONG0',
+    'INDEXNAMES'
 ]
 
 def parse_file(filename):

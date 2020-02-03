@@ -68,4 +68,23 @@ def convert(datasheet, url_context):
             tags.append(category['name'])
     data['tags'] = json.dumps(tags)
 
+    # discover alphabetical index names for this history topic
+    parsed_entries = []
+    if 'INDEXNAMES' not in datasheet:
+        if datasheet['FULLNAME'].strip() != '':
+            parsed_entries.append(datasheet['FULLNAME'].strip())
+        elif datasheet['SHORTNAME'].strip != '':
+            parsed_entries.append(datasheet['SHORTNAME'].strip())
+        else:
+            print('no names for this topic')
+            assert False
+    else:
+        entries = datasheet['INDEXNAMES'].strip().split('\n')
+
+        for entry in entries:
+            entry = entry.strip()
+            entry = symbolreplace.tags_to_unicode(entry)
+            parsed_entries.append(entry)
+    data['alphabetical'] = '\n'.join(parsed_entries)
+
     return data
