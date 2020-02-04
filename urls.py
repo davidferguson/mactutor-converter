@@ -222,9 +222,9 @@ def convert(href, url_context):
         page = '/Curves/%s' % curve
 
     elif path == '/Indexes/African_men_alph.html':
-        page = '/@categoryindex/african-men-alph'
+        page = '/Biographies/@categoryindex/african-men-alph'
     elif path == '/Indexes/African_women_alph.html':
-        page = '/@categoryindex/african-women'
+        page = '/Biographies/@categoryindex/african-women'
     elif path == '/~john/':
         page = 'http://www-groups.mcs.st-and.ac.uk/~john/'
     elif path == '/~edmund/':
