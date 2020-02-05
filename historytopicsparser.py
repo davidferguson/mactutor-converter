@@ -22,10 +22,10 @@ def convert(datasheet, url_context):
     data['_template'] = 'historytopic.html'
 
     # filename, short and full name, authors, update
-    data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
+    data['shortname'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['SHORTNAME']))
     data['fullname'] = htmlparser.parse(datasheet['FULLNAME'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
-    data['authors'] = datasheet['AUTHORS']
-    data['update'] = datasheet['UPDATE']
+    data['authors'] = htmlparser.parse(datasheet['AUTHORS'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
+    data['update'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['UPDATE']))
 
     # something about indexes, not sure how this is used yet
     data['indexref'] = datasheet['INDEXREF']
@@ -83,7 +83,7 @@ def convert(datasheet, url_context):
 
         for entry in entries:
             entry = entry.strip()
-            entry = symbolreplace.tags_to_unicode(entry)
+            entry = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(entry))
             parsed_entries.append(entry)
     data['alphabetical'] = '\n'.join(parsed_entries)
 

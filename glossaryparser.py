@@ -20,7 +20,7 @@ def convert(datasheet, url_context):
     data['_template'] = 'glossary.html'
 
     # easily translatable info
-    data['term'] = datasheet['WORD']
+    data['term'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['WORD']))
 
     # parse biography, and add in extras and translations
     data['content'] = htmlparser.parse(datasheet['CONTENTS'],

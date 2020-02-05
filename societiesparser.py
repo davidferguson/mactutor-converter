@@ -21,10 +21,10 @@ def convert(datasheet, url_context):
     data['_template'] = 'society.html'
 
     # easily translatable info
-    data['name'] = symbolreplace.tags_to_unicode(datasheet['TITLENAME'])
+    data['name'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['TITLENAME']))
     data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
-    data['update'] = datasheet['UPDATE']
-    data['foundation'] = datasheet['FOUNDATION']
+    data['update'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['UPDATE']))
+    data['foundation'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['FOUNDATION']))
 
     # external site parsing
     link = re.compile(r'<a\s+href ?= ?[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')

@@ -2,6 +2,8 @@
 
 # converts symbols to unicode
 
+from bs4 import BeautifulSoup
+# import html5lib
 import regex as re
 import html
 
@@ -77,3 +79,10 @@ def tags_to_unicode(text, katex=False):
     text = html.unescape(text)
 
     return text
+
+
+def strip_tags(source):
+    source = source.strip()
+    soup = BeautifulSoup(source, 'html5lib')
+    text = soup.get_text()
+    return text.strip()

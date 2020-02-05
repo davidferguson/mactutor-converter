@@ -23,8 +23,8 @@ def convert(datasheet, url_context):
     data['sidebar'] = ''
 
     # easily translatable info
-    data['authors'] = datasheet['WHODIDIT']
-    data['title'] = symbolreplace.tags_to_unicode(datasheet['TITLE'])
+    data['authors'] = htmlparser.parse(datasheet['WHODIDIT'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
+    data['title'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['TITLE']))
 
     # check that this is a standard page
     #assert datasheet['USEHTMLFORMAT'] == 'Y'

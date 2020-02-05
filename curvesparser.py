@@ -31,7 +31,8 @@ def parse_equations(text, filename):
             eqtype = typematch.group('type')
         elif equationmatch:
             # it's an equation!
-            assert type
+            assert eqtype
+            eqtype = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(eqtype))
             equation = {
                 'type': eqtype,
                 'equation': htmlparser.parse(equationmatch.group('equation'), filename, paragraphs=False)
@@ -52,7 +53,7 @@ def convert(datasheet, url_context):
     data['_template'] = 'curve.html'
 
     # easily translatable info
-    data['name'] = symbolreplace.tags_to_unicode(datasheet['FULLNAME'])
+    data['name'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['FULLNAME']))
 
     # need to parse the individual equations out, and convert to flow
     equations = parse_equations(datasheet['EQUATIONS'], datasheet['FILENAME'])

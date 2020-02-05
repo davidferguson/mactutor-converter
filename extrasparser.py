@@ -22,9 +22,9 @@ def convert(datasheet, url_context):
     data['_template'] = 'extra.html'
 
     # filename, title, headline and update date for this
-    data['title'] = symbolreplace.tags_to_unicode(datasheet['TITLE'])
+    data['title'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['TITLE']))
     data['headline'] = htmlparser.parse(datasheet['HEADLINE'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
-    data['update'] = datasheet['UPDATE']
+    data['update'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['UPDATE']))
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'], url_context)

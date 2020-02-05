@@ -40,6 +40,7 @@ def get_displays(find_name):
             posttext = match.group('posttext')
             text = pretext + text + posttext
             text = symbolreplace.tags_to_unicode(text)
+            text = symbolreplace.strip_tags(text)
             text = text.strip()
 
             # get name

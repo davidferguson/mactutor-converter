@@ -14,8 +14,8 @@ def convert(datasheet, url_context):
     data['_hidden'] = 'yes'
 
     # easily translatable info
-    data['name'] = symbolreplace.tags_to_unicode(datasheet['PLACENAME'])
-    data['country'] = symbolreplace.tags_to_unicode(datasheet['COUNTRY'])
+    data['name'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['PLACENAME']))
+    data['country'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['COUNTRY']))
     data['webref'] = datasheet['WEBREF']
     data['gaz'] = datasheet['GAZ']
 

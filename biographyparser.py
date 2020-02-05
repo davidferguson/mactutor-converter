@@ -22,14 +22,14 @@ def convert(datasheet, url_context):
     data['_template'] = 'biography.html'
 
     # name and shortname
-    data['shortname'] = symbolreplace.tags_to_unicode(datasheet['SHORTNAME'])
-    data['fullname'] = symbolreplace.tags_to_unicode(datasheet['FULLNAME'])
+    data['shortname'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['SHORTNAME']))
+    data['fullname'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['FULLNAME']))
 
     # authors
-    data['authors'] = symbolreplace.tags_to_unicode(datasheet['AUTHORS'])
+    data['authors'] = htmlparser.parse(datasheet['AUTHORS'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 
     # last update
-    data['update'] = datasheet['UPDATE']
+    data['update'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['UPDATE']))
 
     data['summary'] = htmlparser.parse(datasheet['SUMMARY'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
 
@@ -43,8 +43,8 @@ def convert(datasheet, url_context):
     data['deathyear'] = re.sub(date_pattern, r'\1', datasheet['DEATHYEAR'])
 
     # birthplace, deathplace
-    data['birthplace'] = datasheet['BIRTHPLACE']
-    data['deathplace'] = datasheet['DEATHPLACE']
+    data['birthplace'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['BIRTHPLACE']))
+    data['deathplace'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['DEATHPLACE']))
 
     # mapinfo - just take the name, ignore mapnum and lat/long
     mapinfo = re.compile(r'\d,(?P<name>.+?),(?:(?P<lat>-?[\d.]+),(?P<long>-?[\d.]+))?')
