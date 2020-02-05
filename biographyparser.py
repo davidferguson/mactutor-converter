@@ -97,7 +97,7 @@ def convert(datasheet, url_context):
     for category in category_data:
         if path in category['entries']:
             tags.append(category['name'])
-    data['tags'] = json.dumps(tags)
+    data['tags'] = ', '.join(tags)
 
     # discover alphabetical tags for this mathematician
     displays = alphaindexparser.get_displays(datasheet['FILENAME'])

@@ -53,7 +53,7 @@ def convert(datasheet, url_context):
                                 paragraphs=True,
                                 url_context=url_context)
 
-    data['tags'] = '[]'
+    data['tags'] = ''
 
     # alphabetical display entries
     parsed_entries = []
