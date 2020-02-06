@@ -158,7 +158,7 @@ def project_convert(input_dir, output_dir, url_context, name):
     }
 
     pages = []
-    references = None
+    references = ''
 
     # process all the files
     for file in files:
@@ -175,22 +175,29 @@ def project_convert(input_dir, output_dir, url_context, name):
 
         content = cleaning.project_cleaning(datasheet['CONTENT'])
         data = {
+            '_model': 'projectpage',
+            '_template': 'projectpage.html',
             'title': datasheet['TITLE'],
-            'content': htmlparser.parse(content, file, paragraphs=True, url_context=url_context)
+            'content': htmlparser.parse(content, file, paragraphs=True, url_context=url_context),
+            'chapter': str(len(pages)+1)
         }
         pages.append(data)
 
-    # convert to flow
+    # main project page
     data = {
         '_model': 'project',
         '_template': 'project.html',
         'title': titles[name],
         'author': authors[name],
-        'pages': flow.to_flow_block('projectpage', pages),
         'references': '' if references is None else references
     }
     filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir)
     save(data, filename)
+
+    # the chapters
+    for page in pages:
+        filename = os.path.join(LEKTOR_CONTENT_PATH, output_dir, 'chapter-%s' % page['chapter'])
+        save(page, filename)
     print('processed', name)
 
 
