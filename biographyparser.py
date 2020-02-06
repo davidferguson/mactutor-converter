@@ -14,6 +14,19 @@ import symbolreplace
 import flow
 import alphaindexparser
 
+countries = []
+def get_countries():
+    countries_data = []
+    for country in countries:
+        data = {
+            '_model': 'country',
+            'name': country
+        }
+        if country['name'] == '--Unknown--':
+            data['_hidden'] = 'yes'
+        countries_data.append(data)
+    return countries_data
+
 def convert(datasheet, url_context):
     data = {}
 
@@ -49,9 +62,28 @@ def convert(datasheet, url_context):
     # mapinfo - just take the name, ignore mapnum and lat/long
     mapinfo = re.compile(r'\d,(?P<name>.+?),(?:(?P<lat>-?[\d.]+),(?P<long>-?[\d.]+))?')
     match = mapinfo.search(datasheet['MAPINFO'])
+    data['maplocation'] = '--Unknown--'
     data['maplocation'] = ''
     if match:
         data['maplocation'] = match.group('name')
+
+    # country
+    data['country'] = '--Unknown--'
+    if datasheet['COUNTRY'].strip() != '':
+        data['country'] = datasheet['COUNTRY']
+
+        if data['country'] == 'Czech_Republic':
+            data['country'] = 'Czech Republic'
+        elif data['country'] == 'Sicily':
+            data['country'] = 'Italy'
+        elif data['country'].endswith(')'):
+            data['country'] = data['country'][:-1]
+        elif data['country'] == '':
+            data['country'] == '--Unknown--'
+
+        # also add countries to global array
+        if not data['country'] in countries:
+            countries.append(data['country'])
 
     # parse references
     references = referenceparser.parse_references(datasheet['REFERENCES'], datasheet['FILENAME'], url_context)

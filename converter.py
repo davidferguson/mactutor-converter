@@ -196,6 +196,11 @@ if __name__ == '__main__':
     skip = lambda datasheet: False
     convert('../datasheets/Biographies', 'Biographies', skip, biographyparser, 'Biographies/')
 
+    # countries
+    for country in biographyparser.get_countries():
+        filename = os.path.join(LEKTOR_CONTENT_PATH, 'Countries', country['name'])
+        save(country, filename)
+
     skip = lambda datasheet: False
     convert('../datasheets/Places', 'Map', skip, placesparser, 'BirthplaceMaps/')
 
