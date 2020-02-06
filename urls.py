@@ -96,7 +96,7 @@ def convert(href, url_context):
     while path.startswith('/history/'):
         path = path[8:]
 
-    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/')
+    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/','/Gaz/')
     attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
     # two special cases - need to remove spaces

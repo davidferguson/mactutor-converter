@@ -22,7 +22,7 @@ def get_countries():
             '_model': 'country',
             'name': country
         }
-        if country['name'] == '--Unknown--':
+        if data['name'] == '--Unknown--':
             data['_hidden'] = 'yes'
         countries_data.append(data)
     return countries_data

@@ -24,6 +24,8 @@ import obituariesparser
 import curvesparser
 import emsparser
 import glossaryparser
+import gazplaceparser
+import gazpersonparser
 
 import datasheetparser
 import htmlparser
@@ -243,3 +245,9 @@ if __name__ == '__main__':
     projects = ['Ayel','Brunk','Burslem','Daxenberger','Ellison','Johnson','MacQuarrie','Pearce','Watson']
     for project in projects:
         project_convert('../datasheets/Projects/%s/' % project, 'Projects/%s' % project, 'Projects/%s/Chapters/' % project, project)
+
+    skip = lambda datasheet: False
+    convert('../datasheets/GazData', 'Gaz', skip, gazplaceparser, 'Gaz/')
+
+    skip = lambda datasheet: False
+    convert('../datasheets/GazData2', 'Gaz', skip, gazpersonparser, 'Gaz/')
