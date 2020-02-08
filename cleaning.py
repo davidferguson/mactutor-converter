@@ -512,11 +512,19 @@ SPECIAL_RULES = {
         ['<ac >International Astronomical Union</ac>','<ac IAU>International Astronomical Union</ac>'],
         ['<ac >Society Industrial and Applied Mathematics</ac>','Society Industrial and Applied Mathematics'],
         ['<ac >South African Mathematics Society</ac>','South African Mathematics Society'],
-        ['<X>','']
+        ['<X>',''],
+        ['An <b>alphabetical</b> list of African men PhDs is at <a href=../Indexes/African_men_alph.html>THIS LINK</a>.','']
     ],
     'African_men_2': [
         ['<a href=African_men_1.html#Van-Der-walt>A. P. J. van der Walt</m>','<a href=African_men_1.html#Van-Der-walt>A. P. J. van der Walt</a>'],
-        ['<a href=African_men_1.html#Moori>Jamshid Moori</m>.','<a href=African_men_1.html#Moori>Jamshid Moori</a>.']
+        ['<a href=African_men_1.html#Moori>Jamshid Moori</m>.','<a href=African_men_1.html#Moori>Jamshid Moori</a>.'],
+        ['An <b>alphabetical</b> list of African men PhDs is at <a href=../Indexes/African_men_alph.html>THIS LINK</a>.','']
+    ],
+    'African_women_1': [
+        ['An <b>alphabetical</b> list of African women PhDs is at <a href=../Indexes/African_women_alph.html>THIS LINK</a>.','']
+    ],
+    'African_women_2': [
+        ['An <b>alphabetical</b> list of African women PhDs is at <a href=../Indexes/African_women_alph.html>THIS LINK</a>.','']
     ],
     'Alcuin_book': [
         ['<b><b>Solution</b>.\n</b>','<b>Solution</b>.\n']
