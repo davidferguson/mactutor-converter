@@ -20,8 +20,9 @@ def convert(datasheet, url_context):
     data['_template'] = 'obituary.html'
 
     # easily translatable info
-    data['title'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['TITLE']))
-    data['heading'] = htmlparser.parse(datasheet['HEADING1'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
+    data['name'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['HEADING1']))
+    data['summary'] = htmlparser.parse(datasheet['HEADING2'], datasheet['FILENAME'], paragraphs=False, url_context=url_context)
+    data['wherefrom'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['TITLE']))
 
     # parse biography, and add in extras and translations
     data['content'] = htmlparser.parse(datasheet['CONTENT'],

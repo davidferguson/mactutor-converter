@@ -62,7 +62,8 @@ TAGS = [
     'LATLONG0',
     'INDEXNAMES',
     'COORDS',
-    'LINKS'
+    'LINKS',
+    'HEADING2'
 ]
 
 def parse_file(filename):
