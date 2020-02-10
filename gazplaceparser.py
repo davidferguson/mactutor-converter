@@ -31,6 +31,12 @@ def convert(datasheet, url_context):
         data['latitude'] = match.group('lat')
         data['longitude'] = match.group('long')
 
+    # i was an idiot, and made a mistake in generating the datasheets for GazData
+    # the correct CONTENTS is in GazData3
+    # so we have to read that instead
+    path = os.path.join('../datasheets/GazData3/', datasheet['FILENAME'])
+    datasheet2 = datasheetparser.parse_file(path)
+
 
     # convert the references to the new style of references
     refcount = 1
@@ -47,10 +53,10 @@ def convert(datasheet, url_context):
         replacement = parts[0].strip()
         text = parts[2].strip()
 
-        if replacement not in datasheet['CONTENTS']:
+        if replacement not in datasheet2['CONTENTS']:
             print(reference)
-        assert replacement in datasheet['CONTENTS']
-        datasheet['CONTENTS'] = datasheet['CONTENTS'].replace(replacement, '[%s]' % refcount)
+        assert replacement in datasheet2['CONTENTS']
+        datasheet2['CONTENTS'] = datasheet2['CONTENTS'].replace(replacement, '[%s]' % refcount)
 
         parsed_references.append({
             'number': str(refcount),
@@ -62,11 +68,6 @@ def convert(datasheet, url_context):
     data['references'] = flow.to_flow_block('reference', parsed_references)
 
     # parse biography, and add in extras and translations
-    # i was an idiot, and made a mistake in generating the datasheets for GazData
-    # the correct CONTENTS is in GazData3
-    # so we have to read that instead
-    path = os.path.join('../datasheets/GazData3/', datasheet['FILENAME'])
-    datasheet2 = datasheetparser.parse_file(path)
     data['content'] = htmlparser.parse(datasheet2['CONTENTS'],
                                 datasheet['FILENAME'],
                                 paragraphs=True,
