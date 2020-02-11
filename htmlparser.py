@@ -60,7 +60,7 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
     bio = bio.replace("”", "'")
 
     # remove any print-only tags
-    bio = bio.replce('<pr>', '')
+    bio = bio.replace('<pr>', '')
     bio = bio.replace('</pr>', '')
 
     return bio
