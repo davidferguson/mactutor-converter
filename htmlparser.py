@@ -126,7 +126,17 @@ def mathreplace(match):
         regex = re.compile(r'(?<!(?:(?:\\)|(?:\\i)|(?:\\arc)))(%s)' % mapping)
         math = re.sub(regex, r'\\\1', math)
 
-    return '<latex>%s</latex>' % math
+    # remove multiline formulas
+    lines = math.split('\n')
+    output = ''
+    for line in lines:
+        line = line.strip()
+        if line == '':
+            output += '\n\n'
+            continue
+        output += '\n<latex>%s</latex>' % line
+
+    return output.strip()
 
 
 
