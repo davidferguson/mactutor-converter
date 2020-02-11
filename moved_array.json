@@ -126,5 +126,89 @@
   {
     "from": "/Projects/Pearce/Diagrams/",
     "to": "/Diagrams/Projects-Pearce-Diagrams-"
+  },
+  {
+    "from": "/ems/pics/EMS_poster_small.jpeg",
+    "to": "/EMS/EMS_125/EMS_poster_small.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_poster_bigger.jpeg",
+    "to": "/EMS/EMS_poster/EMS_poster_bigger.jpeg"
+  },
+  {
+    "from": "/ems/pics/books.JPG",
+    "to": "/EMS/index/books.JPG"
+  },
+  {
+    "from": "/ems/pics/EMS_1913.jpeg",
+    "to": "/EMS/photo_1913/EMS_1913.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1926.jpeg",
+    "to": "/EMS/photo_1926/EMS_1926.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1930.jpeg",
+    "to": "/EMS/photo_1930/EMS_1930.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1934.jpeg",
+    "to": "/EMS/ems_1934/EMS_1934.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1938.jpeg",
+    "to": "/EMS/photo_1938/EMS_1938.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1951.jpeg",
+    "to": "/EMS/photo_1951/EMS_1951.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1955.jpeg",
+    "to": "/EMS/photo_1955/EMS_1955.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1959.jpeg",
+    "to": "/EMS/photo_1959/EMS_1959.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1964.jpeg",
+    "to": "/EMS/photo_1964/EMS_1964.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1968.jpeg",
+    "to": "/EMS/photo_1968/EMS_1968.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1972.jpeg",
+    "to": "/EMS/photo_1972/EMS_1972.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1976.jpeg",
+    "to": "/EMS/photo_1976/EMS_1976.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1980.jpeg",
+    "to": "/EMS/photo_1980/EMS_1980.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1984.jpeg",
+    "to": "/EMS/photo_1984/EMS_1984.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1988.jpeg",
+    "to": "/EMS/photo_1988/EMS_1988.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1992.jpeg",
+    "to": "/EMS/photo_1992/EMS_1992.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_1996.jpeg",
+    "to": "/EMS/photo_1996/EMS_1996.jpeg"
+  },
+  {
+    "from": "/ems/pics/EMS_2003.jpeg",
+    "to": "/EMS/photo_2003/EMS_2003.jpeg"
   }
 ]

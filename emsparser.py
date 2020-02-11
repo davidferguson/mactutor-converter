@@ -29,8 +29,29 @@ def convert(datasheet, url_context):
     # check that this is a standard page
     #assert datasheet['USEHTMLFORMAT'] == 'Y'
 
+    # need to convert it to a standard page
+    content = datasheet['CONTENT']
+    content = content.replace('<html>', '')
+    content = content.replace('</html>', '')
+    content = content.replace('<head>', '')
+    content = content.replace('</head>', '')
+    regex = re.compile(r'<title>(.*?)</title>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, r'', content)
+    regex = re.compile(r'<meta (.*?)/>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, r'', content)
+    regex = re.compile(r'<style>(.*?)</style>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, r'', content)
+    regex = re.compile(r'<body(.*?)>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, r'', content)
+    content = content.replace('</body>', '')
+    content = content.strip()
+
+    # also get rid of the 'show larger image' button
+    regex = re.compile(r'<form>(.*?)</form>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, r'', content)
+
     # parse biography, and add in extras and translations
-    data['content'] = htmlparser.parse(datasheet['CONTENT'],
+    data['content'] = htmlparser.parse(content,
                                 datasheet['FILENAME'],
                                 paragraphs=True,
                                 url_context=url_context)
