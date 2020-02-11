@@ -118,6 +118,9 @@ def convert(href, url_context):
     if path == '/' or path == '/index.html':
         page = '/'
 
+    elif path == '/Astronomy/astronomers.html':
+        page = '/Biographies/@categoryindex/astronomy'
+
     elif path.startswith(html_directories):
         if path.endswith('.html'):
             page = path[:-5]
