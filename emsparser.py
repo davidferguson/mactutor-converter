@@ -31,10 +31,13 @@ def convert(datasheet, url_context):
 
     # need to convert it to a standard page
     content = datasheet['CONTENT']
-    content = content.replace('<html>', '')
-    content = content.replace('</html>', '')
-    content = content.replace('<head>', '')
-    content = content.replace('</head>', '')
+
+    regex = re.compile(r'<html>(?P<content>.*?)</html>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, strip, content)
+
+    regex = re.compile(r'<head>(?P<content>.*?)</head>', re.MULTILINE | re.DOTALL)
+    content = re.sub(regex, strip_all, content)
+
     regex = re.compile(r'<title>(.*?)</title>', re.MULTILINE | re.DOTALL)
     content = re.sub(regex, r'', content)
     regex = re.compile(r'<meta (.*?)/>', re.MULTILINE | re.DOTALL)
@@ -57,3 +60,15 @@ def convert(datasheet, url_context):
                                 url_context=url_context)
 
     return data
+
+
+def strip(match):
+    content = match.group('content')
+    content = content.strip()
+    return content
+
+def strip_all(match):
+    content = match.group('content')
+    content = content.strip()
+    content = content.replace('\n','')
+    return content

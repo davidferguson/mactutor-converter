@@ -62,7 +62,7 @@ def get_displays(find_name):
     missing_list = ['Moriarty']
     if len(displays) == 0 and find_name not in missing_list:
         print('No displays found for %s' % find_name)
-        assert False
+        return False
 
     displays.sort()
     return displays

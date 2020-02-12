@@ -89,11 +89,15 @@ def mathreplace(match):
     # remove <f+>...</f+>
     regex = re.compile(r'<f\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'\1', math)
+    regex = re.compile(r'<fp>(.*?)</fp>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
     # remove <f++>...</f>
     regex = re.compile(r'<f\+\+>(.*?)</f>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'\1', math)
     # remove <f->...</->
     regex = re.compile(r'<f->(.*?)</f>', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\1', math)
+    regex = re.compile(r'<fm>(.*?)</fm>', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'\1', math)
     # remove <ovl>...</ovl>
     regex = re.compile(r'<ovl>(.*?)</ovl>', re.MULTILINE | re.DOTALL)
