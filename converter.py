@@ -26,6 +26,7 @@ import emsparser
 import glossaryparser
 import gazplaceparser
 import gazpersonparser
+import icmparser
 
 import datasheetparser
 import htmlparser
@@ -258,3 +259,6 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: False
     convert('../datasheets/GazData2', 'Gaz', skip, gazpersonparser, 'Gaz/')
+
+    skip = lambda datasheet: datasheet['FILENAME'] == 'index'
+    convert('../datasheets/ICMData', 'ICM', skip, icmparser, 'ICM/')
