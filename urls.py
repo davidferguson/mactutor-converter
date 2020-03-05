@@ -96,7 +96,7 @@ def convert(href, url_context):
     while path.startswith('/history/'):
         path = path[8:]
 
-    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/','/Gaz/')
+    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/','/Gaz/','/Ledermann/','/Projects/Daxenberger/')
     attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
     # two special cases - need to remove spaces
@@ -122,7 +122,9 @@ def convert(href, url_context):
         page = '/Biographies/@categoryindex/astronomy'
 
     elif path.startswith(html_directories):
-        if path.endswith('.html'):
+        if path.endswith('index.html'):
+            page = path[:-10]
+        elif path.endswith('.html'):
             page = path[:-5]
         else:
             page = path
@@ -202,19 +204,21 @@ def convert(href, url_context):
         if page.endswith('.html'):
             page = page[:-5]
 
-    elif path.startswith('/Ledermann/'):
+    elif path.startswith('/Education/'):
         page = path
-        if path.endswith('index.html'):
-            page = page[:-10]
-        elif page.endswith('.html'):
+        if page.endswith('.html'):
             page = page[:-5]
-
-    elif path.startswith('/Projects/Daxenberger/'):
-        page = path
-        if path.endswith('index.html'):
-            page = page[:-10]
-        elif page.endswith('.html'):
-            page = page[:-5]
+        # fix some links, that are now subdirs
+        if page == '/Education/Edinburgh_m_exams':
+            page = '/Education/Edinburgh_maths/Edinburgh_m_exams'
+        elif page == '/Education/Edinburgh_p_exams':
+            page = '/Education/Edinburgh_maths/Edinburgh_p_exams'
+        elif page == '/Education/Glasgow_exams':
+            page = '/Education/Glasgow_maths/Glasgow_exams'
+        elif page == '/Education/St_Andrews_m_exams':
+            page = '/Education/St_Andrews_maths/St_Andrews_m_exams'
+        elif page == '/Education/St_Andrews_p_exams':
+            page = '/Education/St_Andrews_maths/St_Andrews_p_exams'
 
     elif path.startswith('/Curvepics/'):
         curve = path[11:]
