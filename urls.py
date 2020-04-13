@@ -96,7 +96,7 @@ def convert(href, url_context):
     while path.startswith('/history/'):
         path = path[8:]
 
-    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Societies/','/Strick/','/Tait/','/Wallace/','/Gaz/','/Ledermann/','/Projects/Daxenberger/')
+    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Strick/','/Tait/','/Wallace/','/Gaz/','/Ledermann/','/Projects/Daxenberger/')
     attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
     # two special cases - need to remove spaces
@@ -128,6 +128,19 @@ def convert(href, url_context):
             page = path[:-5]
         else:
             page = path
+
+    elif path.startswith('/Societies/'):
+        if path.endswith('index.html'):
+            page = path[:-10]
+        elif path.endswith('.html'):
+            page = path[:-5]
+        else:
+            page = path
+
+        if page == '/Societies/alph_list':
+            page = '/Societies/'
+        elif page == '/Societies/societies_list/':
+            page = '/@otherindexes/societies'
 
     elif path.startswith(attachment_directories):
         if path.endswith('index.html'):

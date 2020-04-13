@@ -224,7 +224,7 @@ if __name__ == '__main__':
     skip = lambda datasheet: False
     convert('../datasheets/Honours', 'Honours', skip, honoursparser, 'Honours/')
 
-    skip = lambda datasheet: False
+    skip = lambda datasheet: datasheet['FILENAME'] in ['societies_list','alph_list']
     convert('../datasheets/Societies', 'Societies', skip, societiesparser, 'Societies/')
 
     skip = lambda datasheet: ('Obits2@' not in datasheet['FILENAME'])
