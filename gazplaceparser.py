@@ -73,4 +73,19 @@ def convert(datasheet, url_context):
                                 paragraphs=True,
                                 url_context=url_context)
 
+    if data['place'] == 'Whitburn, Tyne & Wear':
+        # add in the missing lat and long
+        data['latitude'] = '54.9550395'
+        data['longitude'] = '-1.3867149'
+
+    if data['latitude'] == '' and data['longitude'] == '':
+        # this is not a place, it should just be a page
+        newdata = {}
+        newdata['_model'] = 'page'
+        newdata['_template'] = 'gazplace.html'
+        newdata['title'] = data['place']
+        newdata['authors'] = ''
+        newdata['content'] = data['content']
+        return newdata
+
     return data
