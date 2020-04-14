@@ -218,7 +218,7 @@ if __name__ == '__main__':
     skip = lambda datasheet: False
     convert('../datasheets/Extras', 'Extras', skip, extrasparser, 'Extras/')
 
-    skip = lambda datasheet: False
+    skip = lambda datasheet: datasheet['FILENAME'] in ['test','test2']
     convert('../datasheets/HistTopics', 'HistTopics', skip, historytopicsparser, 'HistTopics/')
 
     skip = lambda datasheet: False
