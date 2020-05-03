@@ -30,6 +30,10 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
     regex = re.compile(r'\\(?P<math>.+?)\\\\', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, mathreplace, bio)
 
+    # convert special sets
+    regex = re.compile(r'`(.)`', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'<latex>\mathbb{\1}</latex>', bio)
+
     # check that the link location is correct
     regex = re.compile(r'<a\s+href\s*=\s*[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
     bio = re.sub(regex, lambda match: urlreplace(match, url_context), bio)
@@ -106,6 +110,10 @@ def mathreplace(match):
     # convert fractions
     regex = re.compile(r'\^(\S+) ?\/¬(\S+) ?', re.MULTILINE | re.DOTALL)
     math = re.sub(regex, r'{{\1}\over{\2}}', math)
+
+    # convert vector bold
+    regex = re.compile(r'`(.)`', re.MULTILINE | re.DOTALL)
+    math = re.sub(regex, r'\mathbb{\1}', math)
 
     # convert ^superscript
     regex = re.compile(r'\^(\S+)(?: ?)', re.MULTILINE | re.DOTALL)
