@@ -96,7 +96,7 @@ def convert(href, url_context):
     while path.startswith('/history/'):
         path = path[8:]
 
-    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Strick/','/Tait/','/Wallace/','/Gaz/','/Ledermann/','/Projects/Daxenberger/')
+    html_directories = ('/Astronomy/','/Biographies/','/Curves/','/Extras/','/HistTopics/','/Honours/','/Quotations/','/Strick/','/Tait/','/Wallace/','/Gaz/','/Ledermann/','/Projects/Daxenberger/','/ICM/')
     attachment_directories = ('/Bookpages/','/Publications/','/DNB/','/DSB/','/BSHM/')
 
     # two special cases - need to remove spaces
@@ -126,6 +126,17 @@ def convert(href, url_context):
             page = path[:-10]
         elif path.endswith('.html'):
             page = path[:-5]
+        else:
+            page = path
+
+    elif path.startswith('escherpic('):
+        pattern = re.compile(r'escherpic\(\'(?P<name>.+?)\',(?P<width>\d+?),(?P<height>\d+?)\)')
+        match = pattern.search(path)
+        if match:
+            name = match.group('name')
+            width = match.group('width')
+            height = match.group('height')
+            page = '/Diagrams/Escher_%s.jpeg' % name
         else:
             page = path
 
@@ -241,6 +252,9 @@ def convert(href, url_context):
             curve = re.sub(pattern, r'0\1', curve)
         page = '/Curves/%s' % curve
 
+    elif path.startswith('/Search/'):
+        page = '/Search/'
+
     elif path == '/Indexes/African_men_alph.html':
         page = '/Biographies/@categoryindex/african-men-alph'
     elif path == '/Indexes/African_women_alph.html':
@@ -249,6 +263,25 @@ def convert(href, url_context):
         page = 'http://www-groups.mcs.st-and.ac.uk/~john/'
     elif path == '/~edmund/':
         page = 'http://www-groups.mcs.st-and.ac.uk/~edmund/'
+
+    elif path == '/PictDisplay/Somerville.html':
+        page = '/Biographies/Somerville/pictdisplay/'
+    elif path == 'gdezso@math.ubbcluj.ro':
+        page = 'mailto:gdezso@math.ubbcluj.ro'
+    elif path == '/Index/Changes.html':
+        page = '/Miscellaneous/recent_changes'
+    elif path == '/Miscellaneous/About_us.html':
+        page = '/Miscellaneous/about_us'
+    elif path == '/Java/Sources/Wholecode.html':
+        page = '/Miscellaneous/java_code'
+    elif path == '/Miscellaneous/FAQ.html':
+        page = '/Miscellaneous/faq'
+    elif path == '/Miscellaneous/Copyright.html':
+        page = '/Miscellaneous/copyright'
+    elif path == '/Miscellaneous/Copyright0.html':
+        page = '/Miscellaneous/copyright'
+    elif path == '/Comments/makecomment0.html':
+        page = '/Miscellaneous/contact_us'
 
     else:
         page = path
