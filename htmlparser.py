@@ -54,6 +54,10 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
     regex = re.compile(r'(?P<tag><img\s+.+?>)', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, lambda match: imgreplace(match, url_context), bio)
 
+    # remove manual italics from numbers/brackets
+    regex = re.compile(r'<\/i>([\d\[\]\(\)]+)<i>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'\1', bio)
+
     # convert symbolgifs to unicode
     bio = symbolreplace.symbols_to_unicode(bio)
 
