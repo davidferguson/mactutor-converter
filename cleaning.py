@@ -833,6 +833,22 @@ SPECIAL_RULES = {
     # chronology
     '303': [
         ['\\','']
+    ],
+    # files
+    'Strick/': [
+        ["<h1><r>Heinz Klaus Strick's histories</r></h1><n>\n\n",'']
+    ],
+    'Tait/': [
+        ['<h1>Index of material on P G Tait</h1>\n\n','']
+    ],
+    'Wallace/': [
+        ['<k><h1><font color=red>Collection of manuscripts once belonging to William Wallace</font></h1></k>\n\n','']
+    ],
+    'Wallace/butterfly': [
+        ['''<h2><r>William Wallace's proof of the "butterfly theorem"</r></h2>\n\n''','']
+    ],
+    'Miscellaneous/Popular': [
+        ['<k><r><h1>Most popular biographies</h1></r></k><n>','']
     ]
 }
 
