@@ -63,7 +63,13 @@ TAGS = [
     'INDEXNAMES',
     'COORDS',
     'LINKS',
-    'HEADING2'
+    'HEADING2',
+    'BIRTH',
+    'DEATH',
+    'ELECTED',
+    'PROFESSION',
+    'FELLOWSHIP',
+    'BIOGRAPHY'
 ]
 
 def parse_file(filename):

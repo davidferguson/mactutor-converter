@@ -28,6 +28,7 @@ import gazplaceparser
 import gazpersonparser
 import icmparser
 import educationparser
+import frseparser
 
 import datasheetparser
 import htmlparser
@@ -242,7 +243,7 @@ if __name__ == '__main__':
     skip = lambda datasheet: False
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
-    files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Societies/RSE/FRSE']
+    files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Miscellaneous/Popular_2009', 'Societies/RSE/FRSE']
     skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process and not datasheet['FILENAME'].startswith('Astronomy')
     convert('../datasheets/Files', '', skip, emsparser, '/')
 
@@ -266,3 +267,6 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: datasheet['FILENAME'] == 'index'
     convert('../datasheets/EducationData', 'Education', skip, educationparser, 'Education/')
+
+    skip = lambda datasheet: False
+    convert('../datasheets/FRSE', 'Societies/RSE/FRSE', skip, frseparser, 'Honours/FRSE/')

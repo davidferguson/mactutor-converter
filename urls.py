@@ -115,6 +115,13 @@ def convert(href, url_context):
                 f.write('%s :: %s :: %s\n' % (path, move_from, move_to))
             break
 
+    if path == '/Honours/FRSE.html' or path == '/Societies/FRSE.html':
+        path = '/Societies/RSE/FRSE/'
+    elif path == '/Honours/FRSEchron.html' or path == '/Societies/FRSEchron.html':
+        path = '/Societies/RSE/FRSE/chronological/'
+
+    print(path)
+
     if path == '/' or path == '/index.html':
         page = '/'
 
@@ -151,7 +158,7 @@ def convert(href, url_context):
         if page == '/Societies/alph_list':
             page = '/Societies/'
         elif page == '/Societies/societies_list/':
-            page = '/@otherindexes/societies'
+            page = '/Miscellaneous/other_indexes/'
 
     elif path.startswith(attachment_directories):
         if path.endswith('index.html'):
@@ -255,6 +262,10 @@ def convert(href, url_context):
     elif path.startswith('/Search/'):
         page = '/Search/'
 
+    elif path.startswith('/Davis/'):
+        # leave it alone for now
+        page = path
+
     elif path == '/Indexes/African_men_alph.html':
         page = '/Biographies/@categoryindex/african-men-alph'
     elif path == '/Indexes/African_women_alph.html':
@@ -280,6 +291,10 @@ def convert(href, url_context):
         page = '/Miscellaneous/copyright'
     elif path == '/Miscellaneous/Copyright0.html':
         page = '/Miscellaneous/copyright'
+    elif path == '/Miscellaneous/Popular.html':
+        page = '/Miscellaneous/Popular'
+    elif path == '/Miscellaneous/Popular_2009.html':
+        page = '/Miscellaneous/Popular_2009'
     elif path == '/Comments/makecomment0.html':
         page = '/Miscellaneous/contact_us'
 
