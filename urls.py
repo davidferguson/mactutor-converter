@@ -22,6 +22,9 @@ def biography_rename(name):
 def convert(href, url_context):
     original_href = href
 
+    if href.endswith(' "'):
+        href = href[:-2]
+
     # generate the current context url
     base_url = urljoin('https://www-history.mcs.st-andrews.ac.uk/', url_context)
 
@@ -120,8 +123,6 @@ def convert(href, url_context):
     elif path == '/Honours/FRSEchron.html' or path == '/Societies/FRSEchron.html':
         path = '/Societies/RSE/FRSE/chronological/'
 
-    print(path)
-
     if path == '/' or path == '/index.html':
         page = '/'
 
@@ -146,6 +147,55 @@ def convert(href, url_context):
             page = '/Diagrams/Escher_%s.jpeg' % name
         else:
             page = path
+
+    elif path.startswith('/Darcy/'):
+        found = False
+        still_there = ['cordmath','Darling','marshall','neville','Peddie','plateau','tait','transformation','whitehead']
+        for name in still_there:
+            name = '/Darcy/%s.html' % name
+            if path.startswith(name):
+                page = path[:-5]
+                found = True
+                break
+        if not found:
+
+            # the ms pages have moved to extras, so they appear as popups
+            if path.startswith('/Darcy/ms') and path.endswith('.html'):
+                page = '/Extras/%s/' % path[7:-5]
+
+            elif path == '/Darcy/Overview.html':
+                page = '/Projects/DickinsonCernokova/chapter-1/'
+            elif path == '/Darcy/Heilmann_Shufeldt.html':
+                page = '/Projects/DickinsonCernokova/chatper-2/'
+            elif path == '/Darcy/Correspondence_I.html':
+                page = '/Projects/DickinsonCernokova/chatper-3/'
+            elif path == '/Darcy/Correspondence_II.html':
+                page = '/Projects/DickinsonCernokova/chatper-4/'
+            elif path == '/Darcy/Correspondence_II.html':
+                page = '/Projects/DickinsonCernokova/chatper-5/'
+            elif path == '/Darcy/Correspondence_VI.html':
+                page = '/Projects/DickinsonCernokova/chatper-6/'
+            elif path == '/Darcy/Correspondence_V.html':
+                page = '/Projects/DickinsonCernokova/chatper-7/'
+            elif path == '/Darcy/Correspondence_VI.html':
+                page = '/Projects/DickinsonCernokova/chatper-8/'
+
+            elif path == '/Darcy/dwtandmaths.html':
+                page = '/Projects/GowenlockTuminauskaite/chatper-1/'
+            elif path == '/Darcy/coordinates.html':
+                page = '/Projects/GowenlockTuminauskaite/chatper-2/'
+            elif path == '/Darcy/log.html':
+                page = '/Projects/GowenlockTuminauskaite/chatper-3/'
+            elif path == '/Darcy/cells.html':
+                page = '/Projects/GowenlockTuminauskaite/chatper-4/'
+            elif path == '/Darcy/fidler.html':
+                page = '/Projects/GowenlockTuminauskaite/chatper-5/'
+
+            elif path.endswith(('.png', '.jpg', '.jpeg', '.gif')):
+                page = '/Diagrams/darcy-%s' % path[7:]
+            else:
+                print('DARCY URL ERROR: %s' % path)
+                page = path
 
     elif path.startswith('/Societies/'):
         if path.endswith('index.html'):
@@ -295,6 +345,10 @@ def convert(href, url_context):
         page = '/Miscellaneous/Popular'
     elif path == '/Miscellaneous/Popular_2009.html':
         page = '/Miscellaneous/Popular_2009'
+    elif path == '/Miscellaneous/DArcy_Thompson.html':
+        page = '/Darcy/DArcy_Thompson'
+    elif path == '/Miscellaneous/darcy.html':
+        page = '/Darcy/darcy'
     elif path == '/Comments/makecomment0.html':
         page = '/Miscellaneous/contact_us'
 

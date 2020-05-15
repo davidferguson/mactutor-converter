@@ -145,7 +145,9 @@ def project_convert(input_dir, output_dir, url_context, name):
         'MacQuarrie': 'Mathematics and Chess',
         'Pearce': 'Indian Mathematics - Redressing the balance',
         'Watson': 'Some topics in the history of mathematical education',
-        'Ledermann': 'Walter Ledermann - Encounters of a Mathematician'
+        'Ledermann': 'Walter Ledermann - Encounters of a Mathematician',
+        'DickinsonCernokova': "An investigation of some of D'Arcy Thompson's correspondence",
+        'GowenlockTuminauskaite': "D'Arcy Thompson and Mathematics"
     }
     authors = {
         'Ayel': 'Mathieu Ayel',
@@ -157,7 +159,9 @@ def project_convert(input_dir, output_dir, url_context, name):
         'MacQuarrie': 'John MacQuarrie',
         'Pearce': 'Ian G Pearce',
         'Watson': 'Helen Watson',
-        'Ledermann': "J J O'Connor and E F Robertson"
+        'Ledermann': "J J O'Connor and E F Robertson",
+        'DickinsonCernokova': 'Heather Dickinson and Barbora Cernokova',
+        'GowenlockTuminauskaite': 'Alice Gowenlock and Indre Tuminauskaite'
     }
 
     pages = []
@@ -243,8 +247,8 @@ if __name__ == '__main__':
     skip = lambda datasheet: False
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
-    files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Miscellaneous/Popular_2009', 'Societies/RSE/FRSE']
-    skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process and not datasheet['FILENAME'].startswith('Astronomy')
+    files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Miscellaneous/Popular_2009', 'Societies/RSE/FRSE', 'Miscellaneous/darcy']
+    skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process and not datasheet['FILENAME'].startswith('Astronomy') and not datasheet['FILENAME'].startswith('Darcy')
     convert('../datasheets/Files', '', skip, emsparser, '/')
 
     chronology_convert('../datasheets/Chronology', 'Chronology', 'Chronology/')
@@ -252,7 +256,7 @@ if __name__ == '__main__':
     # special case for Ledermann
     project_convert('../datasheets/Projects/Ledermann/', 'Ledermann', 'Ledermann/', 'Ledermann')
 
-    projects = ['Ayel','Brunk','Burslem','Daxenberger','Ellison','Johnson','MacQuarrie','Pearce','Watson']
+    projects = ['Ayel','Brunk','Burslem','Daxenberger','Ellison','Johnson','MacQuarrie','Pearce','Watson','DickinsonCernokova','GowenlockTuminauskaite']
     for project in projects:
         project_convert('../datasheets/Projects/%s/' % project, 'Projects/%s' % project, 'Projects/%s/Chapters/' % project, project)
 
