@@ -848,7 +848,12 @@ SPECIAL_RULES = {
         ['''<h2><r>William Wallace's proof of the "butterfly theorem"</r></h2>\n\n''','']
     ],
     'Miscellaneous/Popular': [
-        ['<k><r><h1>Most popular biographies</h1></r></k><n>','']
+        ['<k><r><h1>Most popular biographies</h1></r></k><n>',''],
+        ['<hr><n>\n<center><n>\n<table border=0 cellpadding=4 cellspacing=0 bgcolor="cyan"><n>\n<tr><td><a href="../index.html">Main Index</a><n>\n<td align=right><a href="../BiogIndex.html">Biographical Index</a>\n</table></center><hr><n>', '']
+    ],
+    'Miscellaneous/Popular_2009': [
+        ['<k><r><h1>Most popular biographies</h1></r></k><n>',''],
+        ['<hr>\n<center><n>\n<table border=0 cellpadding=4 cellspacing=0 bgcolor="cyan"><n>\n<tr><td><a href="../index.html">Main Index</a><n>\n<td align=right><a href="../BiogIndex.html">Biographical Index</a>\n</table></center><hr><n>','']
     ]
 }
 
