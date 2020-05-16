@@ -60,7 +60,8 @@ SPECIAL_RULES = {
     ],
     'Escher': [
         ['<font size=-1 color=red>','<f-><r>'],
-        ['</font>','</r></f>']
+        ['</font>','</r></f>'],
+        ['<b>Click <g escherpics>here</g> for a list of the pictures available from this page.</b>','''A list of all the pictures available from this page is below:\n<table width=100%><tr valign=top><td width=33%><n>\n<a href="/Diagrams/Escher_puddle.jpeg">Puddle</a>\n<a href="/Diagrams/Escher_st_peter.html">St Peter's</a>\n<a href="/Diagrams/Escher_eight_heads.html">Eight Heads</a>\n<a href="/Diagrams/Escher_alhambra.html">Lions' Court</a>\n<a href="/Diagrams/Escher_alhambra2.html">Alhambra pond</a>\n<a href="/Diagrams/Escher_alhambra3.html">1936 sketch</a>\n<a href="/Diagrams/Escher_fish.html">Fish design</a>\n<td width=33%>\n<a href="/Diagrams/Escher_horsemen.html">Horsemen</a>\n<a href="/Diagrams/Escher_horsemen_2.html">Horsemen 2</a>\n<a href="/Diagrams/Escher_circle_limit_1.html">Circle limit I</a>\n<a href="/Diagrams/Escher_circle_limit_3.html">Circle limit III</a>\n<a href="/Diagrams/Escher_circle_limit_4.html">Circle limit IV</a>\n<a href="/Diagrams/Escher_reptiles.html">Reptiles</a>\n<a href="/Diagrams/Escher_waterfall.html">Waterfall</a>\n<td width=33%>\n<a href="/Diagrams/Escher_up_and_down.html">Up and down</a>\n<a href="/Diagrams/Escher_metamorphosis_1.html">Metamorphosis I</a>\n<a href="/Diagrams/Escher_snakes.html">Snakes</a>\n<a href="/Diagrams/Escher_glass_ball.html">Glass ball</a>\n<a href="/Diagrams/Escher_rind.html">Rind</i>\n</table>''']
     ],
     'Frechet': [
         ['</blockquote>', '</Q>'],

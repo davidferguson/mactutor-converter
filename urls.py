@@ -35,6 +35,7 @@ def convert(href, url_context):
     href = href.replace('" target="_blank', '')
     href = href.replace('target="_blank', '')
     href = href.replace('height=800', '')
+    href = href.replace('" class="tippyPic', '')
     if href.endswith(' ,'): href = href[:-1]
     href = href.strip()
 
@@ -159,8 +160,11 @@ def convert(href, url_context):
                 break
         if not found:
 
+            if path == '/Darcy/index.html':
+                page = '/Darcy/'
+
             # the ms pages have moved to extras, so they appear as popups
-            if path.startswith('/Darcy/ms') and path.endswith('.html'):
+            elif path.startswith('/Darcy/ms') and path.endswith('.html'):
                 page = '/Extras/%s/' % path[7:-5]
 
             elif path == '/Darcy/Overview.html':
@@ -225,21 +229,26 @@ def convert(href, url_context):
         if path.startswith('/Diagrams/wf/'):
             path = path.replace('/Diagrams/wf/', '/Diagrams/')
 
-        # see if this matches a diagram
-        DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/dev/mathshistory-site/content/Diagrams/'
-        diagram = path[10:]
-        if os.path.isfile(os.path.join(DIAGRAM_DIR, diagram)):
-            page = path
+        # special case for escher HTML pages
+        if path.startswith('/Diagrams/Escher_') and path.endswith('.html'):
+            page = '/Extras/%s' % path[10:-5]
         else:
-            # not a diagram, try and resolve this
-            matches = glob.glob('%s%s*' % (DIAGRAM_DIR, diagram))
-            if len(matches) != 1:
-                with open('diagram-errors.txt', 'a') as f:
-                    f.write('%s :: %s :: %s\n' % (original_href, url_context, diagram))
-                #page = ''
-                page = '/Diagrams/%s' % diagram
+
+            # see if this matches a diagram
+            DIAGRAM_DIR = '/Users/david/Documents/MacTutor/actual-work/dev/mathshistory-site/content/Diagrams/'
+            diagram = path[10:]
+            if os.path.isfile(os.path.join(DIAGRAM_DIR, diagram)):
+                page = path
             else:
-                page = '/Diagrams/%s' % os.path.basename(matches[0])
+                # not a diagram, try and resolve this
+                matches = glob.glob('%s%s*' % (DIAGRAM_DIR, diagram))
+                if len(matches) != 1:
+                    with open('diagram-errors.txt', 'a') as f:
+                        f.write('%s :: %s :: %s\n' % (original_href, url_context, diagram))
+                    #page = ''
+                    page = '/Diagrams/%s' % diagram
+                else:
+                    page = '/Diagrams/%s' % os.path.basename(matches[0])
 
     elif path.startswith('/Obits/'):
         page = '/TimesObituaries/' + path[7:]

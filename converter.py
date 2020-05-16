@@ -244,7 +244,7 @@ if __name__ == '__main__':
     skip = lambda datasheet: ('Zagier/' not in datasheet['FILENAME'])
     convert('../datasheets/EMS', 'EMS', skip, emsparser, 'ems/Zagier/')
 
-    skip = lambda datasheet: False
+    skip = lambda datasheet: datasheet['FILENAME'] == 'escherpics'
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
     files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Miscellaneous/Popular_2009', 'Societies/RSE/FRSE', 'Miscellaneous/darcy']
