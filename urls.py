@@ -138,6 +138,51 @@ def convert(href, url_context):
         else:
             page = path
 
+    elif path.startswith('/BMC/'):
+        with open('bmcarray.json', 'r') as f:
+            bmcdata = json.load(f)
+
+        # might need to reverse back up a dir
+        pattern = re.compile(r'/BMC/(?P<year>\d{4})/(?P<file>.+?\.html)')
+        match = pattern.match(path)
+        if match:
+            path = '/BMC/%s' % match.group('file')
+
+        # try and match it with a file
+        found = False
+        for year, file in bmcdata:
+            if '/BMC/%s.html' % file == path:
+                found = True
+                page = '/BMC/%s/%s' % (year, file)
+                break
+
+        if not found:
+
+            # try and match it with a year
+            pattern = re.compile(r'/BMC/(?P<year>\d{4})\.html')
+            match = pattern.match(path)
+            if match:
+                page = '/BMC/%s/' % match.group('year')
+
+            # index page?
+            elif path == '/BMC/index.html' or path == '/BMC/':
+                page = '/BMC/'
+
+            elif path == '/BMC/plenary.html':
+                page = '/BMC/speakers-plenary/'
+            elif path == '/BMC/morning.html':
+                page = '/BMC/speakers-morning/'
+            elif path == '/BMC/special.html':
+                page = '/BMC/speakers-special/'
+            elif path == '/BMC/full.html':
+                page = '/BMC/speakers-all/'
+
+            else:
+                # an error, not sure what this page is
+                with open('bmc-notfound.txt', 'a') as f:
+                    f.write('%s\n' % path)
+                page = path
+
     elif path.startswith('escherpic('):
         pattern = re.compile(r'escherpic\(\'(?P<name>.+?)\',(?P<width>\d+?),(?P<height>\d+?)\)')
         match = pattern.search(path)

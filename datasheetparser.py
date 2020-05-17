@@ -69,7 +69,23 @@ TAGS = [
     'ELECTED',
     'PROFESSION',
     'FELLOWSHIP',
-    'BIOGRAPHY'
+    'BIOGRAPHY',
+    'PLACE',
+    'YEAR',
+    'SPECIALTITLE0',
+    'SPECIALTITLE1',
+    'SPECIALTITLE2',
+    'SPECIALTITLE3',
+    'SPECIALTITLE4',
+    'SPECIALTITLE5',
+    'SPECIALTITLE6',
+    'SPECIALTITLE7',
+    'SPECIALTITLE8',
+    'SIZE',
+    'ORGANISERS',
+    'CHAIR',
+    'SECRETARY',
+    'PARTNER'
 ]
 
 def parse_file(filename):

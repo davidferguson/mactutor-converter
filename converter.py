@@ -29,6 +29,7 @@ import gazpersonparser
 import icmparser
 import educationparser
 import frseparser
+import bmcparser
 
 import datasheetparser
 import htmlparser
@@ -274,3 +275,11 @@ if __name__ == '__main__':
 
     skip = lambda datasheet: False
     convert('../datasheets/FRSE', 'Societies/RSE/FRSE', skip, frseparser, 'Honours/FRSE/')
+
+    # bmc colloquium
+    skip = lambda datasheet: False
+    convert('../datasheets/BMC/colloquium/', 'BMC/', skip, bmcparser, 'BMC/')
+
+    # bmc pages
+    skip = lambda datasheet: False
+    convert('../datasheets/BMC/pages/', 'BMC/', skip, emsparser, 'BMC/')
