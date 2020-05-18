@@ -28,6 +28,8 @@ def get_displays_2(find_name):
         for match in re.finditer(new_pattern, data):
             display = match.group('display')
             display = display.replace('</a>','')
+            display = symbolreplace.tags_to_unicode(display)
+            display = symbolreplace.strip_tags(display)
             display = display.strip()
             print('%s -> %s' % (match.group('display'), display))
             displays.append(display)
@@ -73,7 +75,7 @@ def load():
             text = symbolreplace.tags_to_unicode(text)
             text = symbolreplace.strip_tags(text)
             text = text.strip()
-            #text = text.replace(' , ',', ')
+            text = text.replace(' , ',', ')
 
             # get name
             name = match.group('name') or match.group('text')

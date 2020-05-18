@@ -13,6 +13,7 @@ import referenceparser
 import symbolreplace
 import flow
 import alphaindexparser
+import categories
 
 countries = []
 def get_countries():
@@ -124,17 +125,18 @@ def convert(datasheet, url_context):
     # discover categories for this mathematician
     path = '/Biographies/%s' % datasheet['FILENAME']
     tags = []
-    with open('../datasheets/Indexes/data.json') as f:
-        category_data = json.load(f)
+    #with open('../datasheets/Indexes/data.json') as f:
+    #    category_data = json.load(f)
+    category_data = categories.categories()
     for category in category_data:
         if path in category['entries']:
             tags.append(category['name'])
     data['tags'] = ', '.join(tags)
 
     # discover alphabetical tags for this mathematician
-    displays = alphaindexparser.get_displays(datasheet['FILENAME'])
+    displays = alphaindexparser.get_displays_2(datasheet['FILENAME'])
     if not displays:
-        displays = [data['shortname']]
+        assert False
     displays = '\n'.join(displays)
     data['alphabetical'] = displays
 

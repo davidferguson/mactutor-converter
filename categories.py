@@ -6,18 +6,54 @@ mathematicians_pattern = re.compile(r'\/(?:Mathematicians|Biographies)\/(.+?).ht
 histtopics_pattern = re.compile(r'\/HistTopics\/(.+?).html')
 
 CATEGORY_DIR = '../datasheets/Indexes/'
+CATEGORY_DIR = '/Users/david/Documents/MacTutor/actual-work/from-server/2/history/Indexes/'
+FILES = [(f, os.path.join(CATEGORY_DIR, f)) for f in os.listdir(CATEGORY_DIR)]
+FILES.append(('astronomy','/Users/david/Documents/MacTutor/actual-work/from-server/2/history/Astronomy/astronomers.html'))
 
 def categories():
-    categories = []
+    global categories_cache
+    if categories_cache == None:
+        generate_categories()
+    return categories_cache
 
-    for name in os.listdir(CATEGORY_DIR):
-        path = os.path.join(CATEGORY_DIR, name)
+categories_cache = None
+def generate_categories():
+    global categories_cache
+    categories = []
+    names = []
+
+    #for name in os.listdir(CATEGORY_DIR):
+    #    path = os.path.join(CATEGORY_DIR, name)
+    for name, path in FILES:
         if not os.path.isfile(path):
             continue
-        category = {
-            'name': name.replace('.html', '').replace('_','-').lower(),
-            'entries': []
-        }
+
+        parsedname = name.replace('.html', '').replace('_','-').lower()
+        if parsedname == 'greek-index':
+            parsedname = 'greeks'
+
+        new = False
+        if parsedname in names:
+            i = names.index(parsedname)
+            category = categories[i]
+        else:
+            category = {
+                'name': name.replace('.html', '').replace('_','-').lower(),
+                'entries': []
+            }
+            new = True
+
+        if category['name'] in ('african-all-alph','african-men-alph','african-women','-500-ad', 'african-by-countries','african-women-alph','american','changes','changes-old','eminger','fname','full-alph','full-chron','hist-topics-alph','historytopics','ij','ma','others','pq','test','uv','xyz'):
+            continue
+        if category['name'].replace('-','').isdigit():
+            continue
+        if len(category['name']) == 1:
+            continue
+        if category['name'].endswith('-pics'):
+            continue
+        if category['name'] == 'greek-index':
+            category['name'] = 'greeks'
+
         with open(path, 'r', encoding='mac_roman') as f:
             data = f.read()
 
@@ -33,10 +69,12 @@ def categories():
             if name != 'index' and name not in category['entries']:
                 category['entries'].append(name)
 
-        if len(category['entries']) > 0:
+        if len(category['entries']) > 0 and new:
             categories.append(category)
+            names.append(parsedname)
 
-    print(json.dumps(categories, indent=2))
+    #print(json.dumps(categories, indent=2))
+    categories_cache = categories
 
 
 def alphabetical():
@@ -66,5 +104,5 @@ def alphabetical():
     print(json.dumps(categories, indent=2))
 
 
-#categories()
-alphabetical()
+categories()
+#alphabetical()

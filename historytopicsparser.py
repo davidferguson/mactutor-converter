@@ -1,3 +1,6 @@
+
+
+
 # -*- coding: utf-8 -*-
 
 # converter for extras datasheets
@@ -12,6 +15,7 @@ import htmlparser
 import referenceparser
 import symbolreplace
 import flow
+import categories
 
 
 def convert(datasheet, url_context):
@@ -61,8 +65,9 @@ def convert(datasheet, url_context):
     # discover categories for this mathematician
     path = '/HistTopics/%s' % datasheet['FILENAME']
     tags = []
-    with open('../datasheets/Indexes/data.json') as f:
-        category_data = json.load(f)
+    #with open('../datasheets/Indexes/data.json') as f:
+    #    category_data = json.load(f)
+    category_data = categories.categories()
     for category in category_data:
         if path in category['entries']:
             tags.append(category['name'])
