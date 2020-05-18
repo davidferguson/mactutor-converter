@@ -14,9 +14,41 @@ def purge_mlink(s):
         s = s.replace(raw, trans)
     return s
 
-def get_displays(find_name):
-    displays = []
+def get_displays_2(find_name):
+    new_pattern = re.compile(r'\.\./Biographies/%s\.html">(?P<display>.+?)<td' % re.escape(find_name))
 
+    displays = []
+    for letter in letters:
+        # read the data
+        filepath = '/Users/david/Documents/MacTutor/actual-work/from-server/2/history/Indexes/%s.html' % letter
+        with open(filepath, 'r', encoding='mac_roman') as f:
+            data = f.read()
+
+
+        for match in re.finditer(new_pattern, data):
+            display = match.group('display')
+            display = display.replace('</a>','')
+            display = display.strip()
+            print('%s -> %s' % (match.group('display'), display))
+            displays.append(display)
+
+    # check for (and remove) duplicates
+    if len(displays) != len(set(displays)):
+        with open('duplicate-displays.txt', 'a') as f:
+            f.write('%s :: %s\n' % (find_name, displays))
+        displays = list(set(displays))
+
+    missing_list = ['Moriarty']
+    if len(displays) == 0 and find_name not in missing_list:
+        print('No displays found for %s' % find_name)
+        return False
+
+    displays.sort()
+    return displays
+
+pattern = re.compile(r'^(?P<pretext>.*?)<(?:w|m)(?:\s+(?P<name>.+?))?>(?P<text>.*?)\<\/(?:w|m)\>(?P<posttext>.*?)$')
+data = []
+def load():
     for letter in letters:
         # read the data
         filepath = '../datasheets/AlphaIndex/%s' % letter
@@ -30,7 +62,6 @@ def get_displays(find_name):
                 continue
 
             # extract the name out of this line
-            pattern = re.compile(r'^(?P<pretext>.*?)<(?:w|m)(?:\s+(?P<name>.+?))?>(?P<text>.*?)\<\/(?:w|m)\>(?P<posttext>.*?)$')
             match = pattern.search(line)
             assert match
 
@@ -42,6 +73,41 @@ def get_displays(find_name):
             text = symbolreplace.tags_to_unicode(text)
             text = symbolreplace.strip_tags(text)
             text = text.strip()
+            #text = text.replace(' , ',', ')
+
+            # get name
+            name = match.group('name') or match.group('text')
+            name = urls.biography_rename(name)
+            data.append((name, text))
+load()
+def get_displays(find_name):
+    displays = []
+
+    '''for letter in letters:
+        # read the data
+        filepath = '../datasheets/AlphaIndex/%s' % letter
+        with open(filepath, 'r', encoding='mac_roman') as f:
+            lines = f.readlines()
+
+        # parse each line
+        for line in lines:
+            line = line.strip()
+            if line == '':
+                continue
+
+            # extract the name out of this line
+            match = pattern.search(line)
+            assert match
+
+            # get text
+            pretext = match.group('pretext') or ''
+            text = match.group('text')
+            posttext = match.group('posttext')
+            text = pretext + text + posttext
+            text = symbolreplace.tags_to_unicode(text)
+            text = symbolreplace.strip_tags(text)
+            text = text.strip()
+            text = text.replace(' , ',', ')
 
             # get name
             name = match.group('name') or match.group('text')
@@ -51,7 +117,11 @@ def get_displays(find_name):
             assert purge_mlink(text[0]).lower() == letter.lower(), 'not match: %s != %s' % (purge_mlink(text[0]).lower(), letter.lower())
 
             if name == find_name:
-                displays.append(text)
+                displays.append(text)'''
+
+    for name, text in data:
+        if name == find_name:
+            displays.append(text)
 
     # check for (and remove) duplicates
     if len(displays) != len(set(displays)):

@@ -855,6 +855,9 @@ SPECIAL_RULES = {
     'Miscellaneous/Popular_2009': [
         ['<k><r><h1>Most popular biographies</h1></r></k><n>',''],
         ['<hr>\n<center><n>\n<table border=0 cellpadding=4 cellspacing=0 bgcolor="cyan"><n>\n<tr><td><a href="../index.html">Main Index</a><n>\n<td align=right><a href="../BiogIndex.html">Biographical Index</a>\n</table></center><hr><n>','']
+    ],
+    'Darcy/darcy': [
+        ['<a href="http://www-groups.dcs.st-and.ac.uk/~history/Mathematicians/Dürer.html"> ',' <a href="/Mathematicians/Durer.html">']
     ]
 }
 
