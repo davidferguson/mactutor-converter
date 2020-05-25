@@ -4,11 +4,17 @@ import re
 import sys
 import shutil
 
+# this file is safe to run multiple times
+# once the new biographies are added, just run this again
+# .... and we'll also need to do the bigpictures for them, which is pictdisplay_convert.py
+
 import datasheetparser
 
+import lektor.metaformat
+
 DATASHEET_FILES = '/Users/david/Documents/MacTutor/actual-work/datasheets/'
-SERVER_FILES = '/Users/david/Documents/MacTutor/actual-work/from-server/public_html/history/'
-CONTENT_DIR = '/Users/david/Documents/MacTutor/actual-work/mathshistory-lektor/mathshistory/content/'
+SERVER_FILES = '/Users/david/Documents/MacTutor/actual-work/from-server/2/history/'
+CONTENT_DIR = '/Users/david/Documents/MacTutor/actual-work/dev/mathshistory-site/content/'
 
 IGNORE_BIGPICS = [
     'Bartlett.jpg',
@@ -38,12 +44,21 @@ NODE_SKIPTEXT = (
 
 
 def save_image(dst, src, description, main):
+    # copy the file
     shutil.copyfile(src, dst)
+
+    # make the lektor content file
     content = '''_model: biographyimage
 ---
 description: %s
 ---
-main: %s''' % (description, main)
+main: yes
+---
+position: L
+---
+order: 0
+---
+height: 0''' % ''
     with open('%s.lr' % dst, 'w') as f:
         f.write(content)
 
@@ -95,6 +110,6 @@ if __name__ == '__main__':
         # and then the bigpictures
         for pic in actual_bigpictures:
             dst = os.path.join(CONTENT_DIR, 'Biographies/', name, os.path.basename(pic))
-            save_image(dst, pic, '', 'no')
+            #save_image(dst, pic, '', 'no')
 
         print('processed', name)

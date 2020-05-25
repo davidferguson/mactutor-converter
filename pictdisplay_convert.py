@@ -4,7 +4,7 @@ import shutil
 
 # this file is safe to run multiple times
 # once the new biographies are added, just run this again
-# .... and we'll also need to do the thumbnails for them. drat.
+# .... and we'll also need to do the thumbnails for them, which is picture_convert.py
 
 import datasheetparser
 import htmlparser
@@ -40,7 +40,7 @@ if __name__ == '__main__':
             line = line.strip()
             if line == '':
                 continue
-            pattern = re.compile(r'^(?P<position>[SCLR]),(?P<path>.+?),(?P<height>.+?),(?P<description>.*)$')
+            pattern = re.compile(r'^(?P<position>[SCLR]),(?P<path>.+?),(?P<height>.+?)(?:,(?P<description>.*))?$')
             match = pattern.search(line)
             if not match:
                 print('not a match! (%s), (%s)' % (name, line))
@@ -48,7 +48,7 @@ if __name__ == '__main__':
             position = match.group('position')
             path = match.group('path')
             height = match.group('height')
-            description = match.group('description')
+            description = match.group('description') or ''
 
             description = strip_br(description)
 
