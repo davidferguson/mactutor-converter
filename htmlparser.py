@@ -58,6 +58,10 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
     regex = re.compile(r'<\/i>([\d\[\]\(\)]+)<i>', re.MULTILINE | re.DOTALL)
     bio = re.sub(regex, r'\1', bio)
 
+    # remove size from glossary entry
+    regex = re.compile(r'<g\s+(?P<glossary>.+?)(?:,\d+(?:,\d+)?)?>(?P<text>.*?)\<\/g\>', re.MULTILINE | re.DOTALL)
+    bio = re.sub(regex, r'<g \1>\2</g>', bio)
+
     # convert symbolgifs to unicode
     bio = symbolreplace.symbols_to_unicode(bio)
 
