@@ -806,7 +806,22 @@ SPECIAL_RULES = {
         ['ul>', 'ol>']
     ],
     'Zagier/Problems': [
-        ['</body></html>', '']
+        ['</body></html>', ''],
+        ['Solution1.1','Solution11'],
+        ['Solution1.2','Solution12'],
+        ['Solution1.3','Solution13'],
+        ['Solution2.1','Solution21'],
+        ['Solution2.2','Solution22'],
+        ['Solution2.3','Solution23'],
+        ['Solution3.1','Solution31'],
+        ['Solution3.2','Solution32'],
+        ['Solution3.3','Solution33'],
+        ['Solution4.1','Solution41'],
+        ['Solution4.2','Solution42'],
+        ['Solution4.3','Solution43'],
+        ['Solution5.1','Solution51'],
+        ['Solution5.2','Solution52'],
+        ['Solution5.3','Solution53']
     ],
     # glossary
     'gelfonds_conjecture': [
