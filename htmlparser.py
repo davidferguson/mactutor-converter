@@ -36,7 +36,7 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
 
     # check that the link location is correct
     #regex = re.compile(r'<a\s+href\s*=\s*[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
-    regex = re.compile(r'<a href.+?>(?P<text>.*?)</a>')
+    regex = re.compile(r'<a\s+href.+?>(?P<text>.*?)</a>')
     bio = re.sub(regex, lambda match: urlreplace(match, url_context), bio)
 
     # convert m links to w links
