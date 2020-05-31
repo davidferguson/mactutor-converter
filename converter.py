@@ -248,7 +248,7 @@ if __name__ == '__main__':
     skip = lambda datasheet: datasheet['FILENAME'] == 'escherpics'
     convert('../datasheets/Glossary', 'Glossary', skip, glossaryparser, 'Glossary/')
 
-    files_to_process = ['Strick/', 'Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Miscellaneous/Popular_2009', 'Societies/RSE/FRSE', 'Miscellaneous/darcy']
+    files_to_process = ['Tait/', 'Wallace/', 'Wallace/butterfly', 'Curves/Definitions', 'Curves/Definitions2', 'Miscellaneous/Popular', 'Miscellaneous/Popular_2009', 'Societies/RSE/FRSE', 'Miscellaneous/darcy']
     skip = lambda datasheet: datasheet['FILENAME'] not in files_to_process and not datasheet['FILENAME'].startswith('Astronomy') and not datasheet['FILENAME'].startswith('Darcy')
     convert('../datasheets/Files', '', skip, emsparser, '/')
 
