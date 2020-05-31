@@ -130,6 +130,10 @@ def convert(href, url_context):
     elif path == '/Astronomy/astronomers.html':
         page = '/Biographies/@categoryindex/astronomy'
 
+    elif path == '/Diagrams/Popular.html':
+        page = '/Miscellaneous/Popular'
+
+
     elif path.startswith(html_directories):
         if path.endswith('index.html'):
             page = path[:-10]
