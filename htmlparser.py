@@ -35,7 +35,8 @@ def parse(bio, name, extras=[], translations=[], paragraphs=False, url_context='
     bio = re.sub(regex, r'<latex>\mathbb{\1}</latex>', bio)
 
     # check that the link location is correct
-    regex = re.compile(r'<a\s+href\s*=\s*[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
+    #regex = re.compile(r'<a\s+href\s*=\s*[\'"]?(?P<href>.+?)[\'"]?\s*>(?P<text>.*?)<\/a>')
+    regex = re.compile(r'<a href.+?>(?P<text>.*?)</a>')
     bio = re.sub(regex, lambda match: urlreplace(match, url_context), bio)
 
     # convert m links to w links
@@ -159,10 +160,49 @@ def mathreplace(match):
     return output.strip()
 
 
+def urlreplace(match, url_context):
+    link = match.group(0)
+    text = match.group('text')
+
+    s = BeautifulSoup(link, 'html5lib')
+
+    # fix the urls in links
+    for link in s.find_all('a'):
+        if link.has_attr('href') and link['href'].strip() != '':
+            # convert /Biographies/ urls to mlinks
+            href = link['href']
+            href = urls.convert(href, url_context)
+
+            if href.startswith('/Biographies/') and '#' not in href:
+                if (href.endswith('/') and href.count('/') == 3) or href.count('/') == 2:
+                    name = href[13:]
+                    if href.endswith('/'):
+                        name = name[:-1]
+
+                    if text == name:
+                        mlink_html = '<m>%s</m>' % (name)
+                    else:
+                        mlink_html = '<m %s>%s</m>' % (name, text)
+
+                    new_soup = BeautifulSoup(mlink_html, 'html.parser')
+                    link.replace_with(new_soup)
+                    continue
+
+            # non-urls get standard conversion
+            link['href'] = href
+
+    # render it back to a string
+    out = ''.join((str(child) for child in s.body.children)).strip()
+
+    # now put the inner text back
+    regex = re.compile(r'(<a href.+?>)(.*?)(</a>)')
+    out = re.sub(regex, r'\g<1>%s\g<3>' % text, out).strip()
+    return out
+
 
 # helper function for dealing with urls
 # need to translate old URLs to new lektor format
-def urlreplace(match, url_context):
+def urlreplace_old(match, url_context):
     text = match.group('text')
     href = match.group('href')
     href = urls.convert(href, url_context)
@@ -241,7 +281,7 @@ def dreplace(match, url_context, datasheet_name):
         print('NOT A DIAGRAM (%s), (%s)' % (name, fullname))
         with open('diagram-errors-converter.txt', 'a') as f:
             f.write('(%s) :: (%s) :: (%s)\n' % (datasheet_name, name, fullname))
-        return ''
+        #return ''
 
     return generate_diagram(fullname, align, other)
 
