@@ -60,15 +60,17 @@ def convert(datasheet, url_context):
     data['equations'] = flow.to_flow_block('curveequation', equations)
 
     # parse java applet options
-    options = '{\n'
     pattern = re.compile(r'\<PARAM NAME="(?P<name>.+?)" VALUE="(?P<value>.+?)">')
+    options = ''
     for match in re.finditer(pattern, datasheet['JAVA']):
         name = match.group('name')
         value = match.group('value')
         line = '%s: "%s",\n' % (name, value)
         options += line
-    options += '}'
-    data['appletoptions'] = options
+    if options.strip() != '':
+        data['appletoptions'] = '{\n%s}' % options
+    else:
+        data['appletoptions'] = ''
 
     # parse content
     data['content'] = htmlparser.parse(datasheet['CONTENTS'],
