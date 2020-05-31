@@ -135,7 +135,7 @@ def convert(datasheet, url_context):
 
     # discover alphabetical tags for this mathematician
     displays = alphaindexparser.get_displays_2(datasheet['FILENAME'])
-    if not displays:
+    if displays == False:
         assert False
     displays = '\n'.join(displays)
     data['alphabetical'] = displays

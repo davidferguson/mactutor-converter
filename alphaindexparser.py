@@ -31,7 +31,6 @@ def get_displays_2(find_name):
             display = symbolreplace.tags_to_unicode(display)
             display = symbolreplace.strip_tags(display)
             display = display.strip()
-            print('%s -> %s' % (match.group('display'), display))
             displays.append(display)
 
     # check for (and remove) duplicates
