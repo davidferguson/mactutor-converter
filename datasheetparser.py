@@ -85,7 +85,9 @@ TAGS = [
     'ORGANISERS',
     'CHAIR',
     'SECRETARY',
-    'PARTNER'
+    'PARTNER',
+    'OTHER',
+    'OTHER2'
 ]
 
 def parse_file(filename):

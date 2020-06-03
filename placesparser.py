@@ -4,6 +4,8 @@ import re
 
 import htmlparser
 import symbolreplace
+import urls
+import flow
 
 
 def convert(datasheet, url_context):
@@ -16,7 +18,7 @@ def convert(datasheet, url_context):
     # easily translatable info
     data['name'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['PLACENAME']))
     data['country'] = symbolreplace.strip_tags(symbolreplace.tags_to_unicode(datasheet['COUNTRY']))
-    data['webref'] = datasheet['WEBREF']
+    #data['webref'] = datasheet['WEBREF']
     data['gaz'] = datasheet['GAZ']
 
     # some places are missing a country
@@ -47,5 +49,32 @@ def convert(datasheet, url_context):
     if match:
         data['latitude'] = match.group('lat')
         data['longitude'] = match.group('long')
+
+    # links
+    links = []
+    if datasheet['WEBREF'] != '':
+        links.append({
+            'url': datasheet['WEBREF'],
+            'text': data['name']
+        })
+    for line in datasheet['OTHER'].split('\n'):
+        line = line.strip()
+        if line == '':
+            continue
+        wiki, text = line.split(',')
+        links.append({
+            'url': 'https://en.wikipedia.org/wiki/%s' % wiki,
+            'text': text
+        })
+    for line in datasheet['OTHER2'].split('\n'):
+        line = line.strip()
+        if line == '':
+            continue
+        href, text = line.split(',')
+        links.append({
+            'url': urls.convert(href, url_context),
+            'text': text
+        })
+    data['links'] = flow.to_flow_block('maplink', links)
 
     return data

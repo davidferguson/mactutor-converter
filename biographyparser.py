@@ -65,8 +65,20 @@ def convert(datasheet, url_context):
     match = mapinfo.search(datasheet['MAPINFO'])
     data['maplocation'] = '--Unknown--'
     data['maplocation'] = ''
+    data['nearplace'] = ''
     if match:
         data['maplocation'] = match.group('name')
+
+        # is there a "near"?
+        near = re.compile(r'(?P<nearplace>.+?),? \(?near %s.+' % re.escape(data['maplocation']))
+        match = near.search(datasheet['BIRTHPLACE'])
+        if match:
+            data['nearplace'] = match.group('nearplace').strip()
+        else:
+            near = re.compile(r'(?P<nearplace>.+?),\s+%s,.+' % re.escape(data['maplocation']))
+            match = near.search(datasheet['BIRTHPLACE'])
+            if match:
+                data['nearplace'] = match.group('nearplace').strip()
 
     # country
     data['country'] = '--Unknown--'
