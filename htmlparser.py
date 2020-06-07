@@ -180,13 +180,9 @@ def urlreplace(match, url_context):
                         name = name[:-1]
 
                     if text == name:
-                        mlink_html = '<m>%s</m>' % (name)
+                        return '<m>%s</m>' % (name)
                     else:
-                        mlink_html = '<m %s>%s</m>' % (name, text)
-
-                    new_soup = BeautifulSoup(mlink_html, 'html.parser')
-                    link.replace_with(new_soup)
-                    continue
+                        return '<m %s>%s</m>' % (name, text)
 
             # non-urls get standard conversion
             link['href'] = href
