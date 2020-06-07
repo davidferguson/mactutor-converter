@@ -82,7 +82,7 @@ def convert(datasheet, url_context):
         # this is not a place, it should just be a page
         newdata = {}
         newdata['_model'] = 'page'
-        newdata['_template'] = 'gazplace.html'
+        newdata['_template'] = 'page.html'
         newdata['title'] = data['place']
         newdata['authors'] = ''
         newdata['content'] = data['content']
