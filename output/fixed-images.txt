@@ -1,0 +1,57 @@
+<img src ="../BigPictures/Arago_p1.jpg" style='height:400px;' alt='Arago_p1'> :: <img alt="Arago_p1" src="/Biographies/Arago_p1/Arago_p1.jpg" style="height:400px;"/> :: Extras/
+<img src ="../BigPictures/Arago_p2.jpg" style='height:326px;' alt='Arago_p2'> :: <img alt="Arago_p2" src="/Biographies/Arago_p2/Arago_p2.jpg" style="height:326px;"/> :: Extras/
+<img src ="../BigPictures/Arago_p3.jpg" style='height:326px;' alt='Arago_p3'> :: <img alt="Arago_p3" src="/Biographies/Arago_p3/Arago_p3.jpg" style="height:326px;"/> :: Extras/
+<img src ="../BigPictures/Arago_p4.jpg" style='height:326px;' alt='Arago_p3'> :: <img alt="Arago_p3" src="/Biographies/Arago_p4/Arago_p4.jpg" style="height:326px;"/> :: Extras/
+<img src=/BigPictures/Bolyai_6.jpeg> :: <img src="/Biographies/Bolyai/Bolyai_6.jpeg"/> :: Extras/
+<img src ="../BigPictures/Cruickshank_2.jpeg" alt='window1'> :: <img alt="window1" src="/Biographies/Cruickshank/Cruickshank_2.jpeg"/> :: Extras/
+<img src ="../BigPictures/Cruickshank_3.jpeg" alt='window2'> :: <img alt="window2" src="/Biographies/Cruickshank/Cruickshank_3.jpeg"/> :: Extras/
+<img src="/EMS/photo_1913/EMS_1913.jpeg" ISMAP USEMAP= "#1913" border=0> :: <img border="0" ismap="" src="/EMS/photo_1913/EMS_1913.jpeg" usemap="#1913"/> :: Extras/
+<img src="/EMS/photo_1926/EMS_1926.jpeg" ISMAP USEMAP= "#1926" border=0> :: <img border="0" ismap="" src="/EMS/photo_1926/EMS_1926.jpeg" usemap="#1926"/> :: Extras/
+<img src="/EMS/photo_1930/EMS_1930.jpeg" ISMAP USEMAP= "#1930" border=0> :: <img border="0" ismap="" src="/EMS/photo_1930/EMS_1930.jpeg" usemap="#1930"/> :: Extras/
+<img src="/EMS/photo_1934/EMS_1934.jpeg" ISMAP USEMAP= "#1934" border=0> :: <img border="0" ismap="" src="/EMS/photo_1934/EMS_1934.jpeg" usemap="#1934"/> :: Extras/
+<img src="/EMS/photo_1938/EMS_1938.jpeg" ISMAP USEMAP= "#1938" border=0> :: <img border="0" ismap="" src="/EMS/photo_1938/EMS_1938.jpeg" usemap="#1938"/> :: Extras/
+<img src="/EMS/photo_1951/EMS_1951.jpeg" ISMAP USEMAP= "#1951" border=0> :: <img border="0" ismap="" src="/EMS/photo_1951/EMS_1951.jpeg" usemap="#1951"/> :: Extras/
+<img src="/EMS/photo_1955/EMS_1955.jpeg" ISMAP USEMAP= "#1955" border=0> :: <img border="0" ismap="" src="/EMS/photo_1955/EMS_1955.jpeg" usemap="#1955"/> :: Extras/
+<img src="/EMS/photo_1959/EMS_1959.jpeg" ISMAP USEMAP= "#1959" border=0> :: <img border="0" ismap="" src="/EMS/photo_1959/EMS_1959.jpeg" usemap="#1959"/> :: Extras/
+<img src="/EMS/photo_1964/EMS_1964.jpeg" ISMAP USEMAP= "#1964" border=0> :: <img border="0" ismap="" src="/EMS/photo_1964/EMS_1964.jpeg" usemap="#1964"/> :: Extras/
+<img src="/EMS/photo_1968/EMS_1968.jpeg" ISMAP USEMAP= "#1968" border=0> :: <img border="0" ismap="" src="/EMS/photo_1968/EMS_1968.jpeg" usemap="#1968"/> :: Extras/
+<img src="/EMS/photo_1972/EMS_1972.jpeg" ISMAP USEMAP= "#1972" border=0> :: <img border="0" ismap="" src="/EMS/photo_1972/EMS_1972.jpeg" usemap="#1972"/> :: Extras/
+<img src="/EMS/photo_1976/EMS_1976.jpeg" ISMAP USEMAP= "#1976" border=0> :: <img border="0" ismap="" src="/EMS/photo_1976/EMS_1976.jpeg" usemap="#1976"/> :: Extras/
+<img src="/EMS/photo_1980/EMS_1980.jpeg" ISMAP USEMAP= "#1980" border=0> :: <img border="0" ismap="" src="/EMS/photo_1980/EMS_1980.jpeg" usemap="#1980"/> :: Extras/
+<img src="/EMS/photo_1984/EMS_1984.jpeg" ISMAP USEMAP= "#1984" border=0> :: <img border="0" ismap="" src="/EMS/photo_1984/EMS_1984.jpeg" usemap="#1984"/> :: Extras/
+<img src="/EMS/photo_1988/EMS_1988.jpeg" ISMAP USEMAP= "#1988" border=0> :: <img border="0" ismap="" src="/EMS/photo_1988/EMS_1988.jpeg" usemap="#1988"/> :: Extras/
+<img src="/EMS/photo_1992/EMS_1992.jpeg" ISMAP USEMAP= "#1992" border=0> :: <img border="0" ismap="" src="/EMS/photo_1992/EMS_1992.jpeg" usemap="#1992"/> :: Extras/
+<img src="/EMS/photo_1996/EMS_1996.jpeg" ISMAP USEMAP= "#1996" border=0> :: <img border="0" ismap="" src="/EMS/photo_1996/EMS_1996.jpeg" usemap="#1996"/> :: Extras/
+<img src="/EMS/photo_2003/EMS_2003.jpeg" ISMAP USEMAP= "#2003" border=0> :: <img border="0" ismap="" src="/EMS/photo_2003/EMS_2003.jpeg" usemap="#2003"/> :: Extras/
+<img src='../Curvepics/Parabola/Parabola1.gif' style='height:250px; float:right; margin:0 10px' alt='parabola'> :: <img alt="parabola" src="/Curves/Parabola/Parabola01.gif" style="height:250px; float:right; margin:0 10px"/> :: Extras/
+<img src= ../BigPictures/Stuart_3.jpeg alt='stuart3'> :: <img alt="stuart3" src="/Biographies/Stuart/Stuart_3.jpeg"/> :: Extras/
+<img class= 'n'  src=../BirthplaceMaps/Maps/goog.gif alt='goog'> :: <img alt="goog" class="n" src="/BirthplaceMaps/Maps/goog.gif"/> :: Honours/
+<img src=../Obits/" + which +".gif border=0> :: <img +="" +".gif="" border="0" src='/TimesObituaries/"' which=""/> :: Honours/
+<img src="pics/EMS_poster_small.jpeg" border=1> :: <img border="1" src="/EMS/EMS_125/EMS_poster_small.jpeg"/> :: ems/
+<img src ="../BigPictures/Rankin_Copson.jpeg" border=1 > :: <img border="1" src="/Biographies/Rankin_Copson/Rankin_Copson.jpeg"/> :: ems/
+<img src="pics/EMS_poster_bigger.jpeg" border=0> :: <img border="0" src="/EMS/EMS_poster/EMS_poster_bigger.jpeg"/> :: ems/
+<img src="pics/books.JPG" height=260> :: <img height="260" src="/EMS/index/books.JPG"/> :: ems/
+<img src="pics/EMS_1913.jpeg" ISMAP USEMAP= "#1913" border=0> :: <img border="0" ismap="" src="/EMS/photo_1913/EMS_1913.jpeg" usemap="#1913"/> :: ems/
+<img src="pics/EMS_1926.jpeg" ISMAP USEMAP= "#1926" border=0> :: <img border="0" ismap="" src="/EMS/photo_1926/EMS_1926.jpeg" usemap="#1926"/> :: ems/
+<img src="pics/EMS_1930.jpeg" ISMAP USEMAP= "#1930" border=0> :: <img border="0" ismap="" src="/EMS/photo_1930/EMS_1930.jpeg" usemap="#1930"/> :: ems/
+<img src="pics/EMS_1934.jpeg" ISMAP USEMAP= "#1934" border=0> :: <img border="0" ismap="" src="/EMS/photo_1934/EMS_1934.jpeg" usemap="#1934"/> :: ems/
+<img src="pics/EMS_1938.jpeg" ISMAP USEMAP= "#1938" border=0> :: <img border="0" ismap="" src="/EMS/photo_1938/EMS_1938.jpeg" usemap="#1938"/> :: ems/
+<img src="pics/EMS_1951.jpeg" ISMAP USEMAP= "#1951" border=0> :: <img border="0" ismap="" src="/EMS/photo_1951/EMS_1951.jpeg" usemap="#1951"/> :: ems/
+<img src="pics/EMS_1955.jpeg" ISMAP USEMAP= "#1955" border=0> :: <img border="0" ismap="" src="/EMS/photo_1955/EMS_1955.jpeg" usemap="#1955"/> :: ems/
+<img src="pics/EMS_1959.jpeg" ISMAP USEMAP= "#1959" border=0> :: <img border="0" ismap="" src="/EMS/photo_1959/EMS_1959.jpeg" usemap="#1959"/> :: ems/
+<img src="pics/EMS_1964.jpeg" ISMAP USEMAP= "#1964" border=0> :: <img border="0" ismap="" src="/EMS/photo_1964/EMS_1964.jpeg" usemap="#1964"/> :: ems/
+<img src="pics/EMS_1968.jpeg" ISMAP USEMAP= "#1968" border=0> :: <img border="0" ismap="" src="/EMS/photo_1968/EMS_1968.jpeg" usemap="#1968"/> :: ems/
+<img src="pics/EMS_1972.jpeg" ISMAP USEMAP= "#1972" border=0> :: <img border="0" ismap="" src="/EMS/photo_1972/EMS_1972.jpeg" usemap="#1972"/> :: ems/
+<img src="pics/EMS_1976.jpeg" ISMAP USEMAP= "#1976" border=0> :: <img border="0" ismap="" src="/EMS/photo_1976/EMS_1976.jpeg" usemap="#1976"/> :: ems/
+<img src="pics/EMS_1980.jpeg" ISMAP USEMAP= "#1980" border=0> :: <img border="0" ismap="" src="/EMS/photo_1980/EMS_1980.jpeg" usemap="#1980"/> :: ems/
+<img src="pics/EMS_1984.jpeg" ISMAP USEMAP= "#1984" border=0> :: <img border="0" ismap="" src="/EMS/photo_1984/EMS_1984.jpeg" usemap="#1984"/> :: ems/
+<img src="pics/EMS_1988.jpeg" ISMAP USEMAP= "#1988" border=0> :: <img border="0" ismap="" src="/EMS/photo_1988/EMS_1988.jpeg" usemap="#1988"/> :: ems/
+<img src="pics/EMS_1992.jpeg" ISMAP USEMAP= "#1992" border=0> :: <img border="0" ismap="" src="/EMS/photo_1992/EMS_1992.jpeg" usemap="#1992"/> :: ems/
+<img src="pics/EMS_1996.jpeg" ISMAP USEMAP= "#1996" border=0> :: <img border="0" ismap="" src="/EMS/photo_1996/EMS_1996.jpeg" usemap="#1996"/> :: ems/
+<img src="pics/EMS_2003.jpeg" ISMAP USEMAP= "#2003" border=0> :: <img border="0" ismap="" src="/EMS/photo_2003/EMS_2003.jpeg" usemap="#2003"/> :: ems/
+<img src="EMS_1913.jpeg" ISMAP USEMAP= "#1913b" border=0> :: <img border="0" ismap="" src="/EMS/photo_1913/EMS_1913.jpeg" usemap="#1913b"/> :: ems/pics/
+<img src=zagier_1.gif height=40> :: <img height="40" src="/EMS/Zagier/zagier_1.gif"/> :: ems/Zagier/
+<img src=zagier_1.gif height=40> :: <img height="40" src="/EMS/Zagier/Zagier/zagier_1.gif"/> :: ems/Zagier/Zagier/
+<img src="/Biographies/Thompson_DArcy/thumbnail.jpg"> :: <img src="/Biographies/Thompson_DArcy/thumbnail.jpg"/> :: /Darcy/
+<img src=/BigPictures/Kovalevskaya.jpeg> :: <img src="/Biographies/Kovalevskaya/Kovalevskaya.jpeg"/> :: Projects/Burslem/Chapters/
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Bison_Skeleton.svg" alt="Bison" height="200" width="260"> :: <img alt="Bison" height="200" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Bison_Skeleton.svg" width="260"/> :: Projects/GowenlockTuminauskaite/Chapters/

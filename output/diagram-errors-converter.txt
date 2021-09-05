@@ -1,0 +1,8 @@
+(BA_1901_2) :: (macmahon) :: (macmahon.gif)
+(Greek_numbers) :: (greek_numbers_14.gif) :: (greek_numbers_14.gif)
+(Non-Euclidean_geometry) :: (Lobachevsky's_diagram.jpeg) :: (Lobachevsky's_diagram.jpeg)
+(Pi_through_the_ages) :: (Archimedes'_diagram.jpeg) :: (Archimedes'_diagram.jpeg)
+(The_rise_of_calculus) :: (Archimedes'_diagram.jpeg) :: (Archimedes'_diagram.jpeg)
+(The_rise_of_calculus) :: (Barrow's_triangle.jpeg) :: (Barrow's_triangle.jpeg)
+(U_of_St_Andrews_History) :: (Gregory's_clock.jpeg) :: (Gregory's_clock.jpeg)
+(U_of_St_Andrews_History) :: (Gregory's_clockface.jpeg) :: (Gregory's_clockface.jpeg)

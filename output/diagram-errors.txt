@@ -1,0 +1,10 @@
+/Diagrams/macmahon.gif :: Extras/ :: macmahon.gif
+/Diagrams/greek_numbers_14.gif :: HistTopics/ :: greek_numbers_14.gif
+/Diagrams/Lobachevsky's_diagram.jpeg :: HistTopics/ :: Lobachevsky's_diagram.jpeg
+/Diagrams/Archimedes'_diagram.jpeg :: HistTopics/ :: Archimedes'_diagram.jpeg
+/Diagrams/Archimedes'_diagram.jpeg :: HistTopics/ :: Archimedes'_diagram.jpeg
+/Diagrams/Barrow's_triangle.jpeg :: HistTopics/ :: Barrow's_triangle.jpeg
+/Diagrams/Gregory's_clock.jpeg :: HistTopics/ :: Gregory's_clock.jpeg
+/Diagrams/Gregory's_clockface.jpeg :: HistTopics/ :: Gregory's_clockface.jpeg
+../Diagrams/Primes_abstract.html :: Honours/ :: Primes_abstract.html
+../Diagrams/How_likely_abstract.html :: Honours/ :: How_likely_abstract.html
